@@ -1,0 +1,4010 @@
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.25 [32m    LOG[39m [38;5;3m[FirebaseAdmin] [39m[32mFirebase Admin initialized successfully[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[NestFactory] [39m[32mStarting Nest application...[39m[38;5;3m +957ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPrismaModule dependencies initialized[39m[38;5;3m +31ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigHostModule dependencies initialized[39m[38;5;3m +29ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mThrottlerModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDiscoveryModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +28ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mConfigModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEventEmitterModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mScheduleModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mBullModule dependencies initialized[39m[38;5;3m +2ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCacheModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mBullModule dependencies initialized[39m[38;5;3m +6ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTenantModule dependencies initialized[39m[38;5;3m +5ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEncryptionModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mParameterModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTimeOffModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mRecruitmentModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mEmployeeModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReportModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mHolidayCalendarModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mLeaveTypeModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTimeOffTypeModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mWorkScheduleModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOvertimeMealAllowanceModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mLocationModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCompanyModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mRemoteWorkModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOvernightModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mTeamModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mDashboardModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mRoleModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mUserManagementModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mBullModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mMonitoringModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mPayrollModule dependencies initialized[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mReimbursementModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mJobsModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mLeaveModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mOvertimeModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAppModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAuthModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mNotificationModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mFaceRegistrationModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mAttendanceModule dependencies initialized[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[InstanceLoader] [39m[32mCronModule dependencies initialized[39m[38;5;3m +0ms[39m
+[33m[Nest] 28604  - [39m22/06/2026, 13.34.26 [33m   WARN[39m [38;5;3m[LegacyRouteConverter] [39m[33mUnsupported route path: "/api/v1/*". In previous versions, the symbols ?, *, and + were used to denote optional or repeating path parameters. The latest version of "path-to-regexp" now requires the use of named parameters. For example, instead of using a route like /users/* to capture all routes starting with "/users", you should use /users/*path. For more details, refer to the migration guide. Attempting to auto-convert...[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAppController {/api/v1}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1, GET} route[39m[38;5;3m +2ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mSalaryKeyController {/api/v1/salary-keys}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/salary-keys/generate, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/salary-keys/rotate, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/salary-keys/validate, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAuthController {/api/v1/auth}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/login, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/profile, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/verify, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/fcm-token, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/fcm-token, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/auth/fcm-token/all, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mAttendanceController {/api/v1/attendance}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/attendance/clock-in, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/attendance/clock-out, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/attendance/today, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/attendance/history, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/attendance/all, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/attendance/subordinates, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/attendance/corrections, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/attendance/corrections/:id/cancel, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/attendance/corrections, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/attendance/corrections/:id/approve, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mParameterController {/api/v1/parameters}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/parameters, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/parameters/:key, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/parameters, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/parameters/:key, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/parameters/:key, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mLeaveController {/api/v1/leave}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/leave, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/leave/balance, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/leave, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/leave/subordinates, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/leave/:id/approve, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/leave/:id/cancel, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTimeOffController {/api/v1/time-off}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/time-off, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/time-off, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/time-off/:id/approve, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/time-off/:id/cancel, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOvertimeController {/api/v1/overtime}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime/:id/cancel, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime/subordinates, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime/summary, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime/:id/approve, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime/:id/process, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime/detail/:overtimeid, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mPayrollController {/api/v1/payroll}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/payslips, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/payslips/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/generate, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/generate-batch, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/publish, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/periods, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/periods, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/periods/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/thr, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/thr/generate, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/payroll/export, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mRecruitmentController {/api/v1/recruitment}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/recruitment/jobs, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/recruitment/jobs/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/recruitment/jobs/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/recruitment/jobs, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/recruitment/jobs/:slug, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/recruitment/apply, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/recruitment/applications, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/recruitment/applications/:id/status, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mEmployeeController {/api/v1/employees}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/employees, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/employees, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/employees/team-mates, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/employees/subordinates, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/employees/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/employees/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/employees/:id/schedules, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/employees/:id/location, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mNotificationController {/api/v1/notifications}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/notifications, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/notifications/unread-count, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/notifications/:id/read, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/notifications/read-all, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/notifications, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mReportController {/api/v1/reports}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/attendance, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/leave, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/payroll, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/overtime, GET} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/attendance/export, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/leave/export, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/payroll/export, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reports/overtime/export, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHolidayCalendarController {/api/v1/holiday-calendar}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/holiday-calendar, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/holiday-calendar, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/holiday-calendar/:id, PATCH} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/holiday-calendar/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/holiday-calendar/sync, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mLeaveTypeController {/api/v1/leave-types}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/leave-types, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/leave-types, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/leave-types/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/leave-types/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTimeOffTypeController {/api/v1/time-off-types}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/time-off-types, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/time-off-types, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/time-off-types/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/time-off-types/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mWorkScheduleController {/api/v1/work-schedules}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/work-schedules, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/work-schedules, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/work-schedules/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/work-schedules/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOvertimeMealAllowanceController {/api/v1/overtime-meal-allowances}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime-meal-allowances, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime-meal-allowances, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime-meal-allowances/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overtime-meal-allowances/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mLocationController {/api/v1/locations}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/locations, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/locations/assigned, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/locations, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/locations/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/locations/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCompanyController {/api/v1/companies}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/companies, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/companies, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/companies/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/companies/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mRemoteWorkController {/api/v1/remote-work}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/remote-work, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/remote-work/subordinates, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/remote-work, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/remote-work/:id/approve, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/remote-work/:id/cancel, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mOvernightController {/api/v1/overnight}:[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overnight, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overnight/subordinates, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overnight, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/overnight/:id/approve, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mReimbursementController {/api/v1/reimbursements}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reimbursements, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reimbursements/subordinates, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reimbursements, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/reimbursements/:id/approve, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mFaceRegistrationController {/api/v1/face-registration}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/face-registration/status, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/face-registration, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTeamController {/api/v1/teams}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/teams, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/teams, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/teams/:id, PATCH} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/teams/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mTenantController {/api/v1/tenants}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/tenants/register, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/tenants/setup, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/tenants/onboarding-status, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mDashboardController {/api/v1/dashboard}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/dashboard/overview, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mHealthController {/api/v1/health}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/health, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mCronController {/api/v1/cron}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/cron/mark-absent, POST} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/cron/generate-payroll, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/cron/cleanup-notifications, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/cron/keep-alive, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mRoleController {/api/v1/roles}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/roles, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/roles/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/roles, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/roles/:id, PUT} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/roles/:id/permissions, PUT} route[39m[38;5;3m +1ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/roles/:id, DELETE} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RoutesResolver] [39m[32mUserManagementController {/api/v1/users}:[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/users, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/users/:id, GET} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/users, POST} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/users/:id, PUT} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/users/:id/activate, PUT} route[39m[38;5;3m +0ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.26 [32m    LOG[39m [38;5;3m[RouterExplorer] [39m[32mMapped {/api/v1/users/:id, DELETE} route[39m[38;5;3m +1ms[39m
+[33m[Nest] 28604  - [39m22/06/2026, 13.34.26 [33m   WARN[39m [38;5;3m[SentryService] [39m[33mSENTRY_DSN not configured — Sentry disabled[39m
+prisma:info Starting a postgresql pool with 1 connections in PgBouncer mode.
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.27 [32m    LOG[39m [38;5;3m[PrismaService] [39m[32mPrisma connected successfully in 263ms[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.27 [32m    LOG[39m [38;5;3m[FaceRecognitionService] [39m[32mLoading face recognition models...[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.27 [32m    LOG[39m [38;5;3m[FaceRecognitionService] [39m[32mFace recognition models loaded successfully[39m
+[32m[Nest] 28604  - [39m22/06/2026, 13.34.27 [32m    LOG[39m [38;5;3m[NestApplication] [39m[32mNest application successfully started[39m[38;5;3m +22ms[39m
+{"level":30,"time":"2026-06-22T06:34:27.219Z","pid":28604,"hostname":"ATINB-24050069","msg":"Application is running on: http://localhost:3000/api/v1"}
+{"level":30,"time":"2026-06-22T06:34:27.219Z","pid":28604,"hostname":"ATINB-24050069","msg":"Swagger docs available at: http://localhost:3000/api/v1/docs"}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+AggregateError [ECONNREFUSED]: 
+    at internalConnectMultiple (node:net:1134:18)
+    at afterConnectMultiple (node:net:1715:7) {
+  code: 'ECONNREFUSED',
+  [errors]: [
+    Error: connect ECONNREFUSED ::1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '::1',
+      port: 6379
+    },
+    Error: connect ECONNREFUSED 127.0.0.1:6379
+        at createConnectionError (node:net:1678:14)
+        at afterConnectMultiple (node:net:1708:16) {
+      errno: -4078,
+      code: 'ECONNREFUSED',
+      syscall: 'connect',
+      address: '127.0.0.1',
+      port: 6379
+    }
+  ]
+}
+[32m[Nest] 28604  - [39m22/06/2026, 13.40.00 [32m    LOG[39m [38;5;3m[KeepAliveService] [39m[32mKeep-alive cron job executed[39m
+[31m[Nest] 28604  - [39m22/06/2026, 13.44.24 [31m  ERROR[39m [38;5;3m[HttpExceptionFilter] [39m[31mObject:[39m
+{
+  "msg": "HTTP Error: POST /api/v1/tenants/register",
+  "error": "Expected property name or '}' in JSON at position 1 (line 1 column 2)",
+  "stack": "BadRequestException: Expected property name or '}' in JSON at position 1 (line 1 column 2)\n    at RoutesResolver.mapExternalException (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\@nestjs\\core\\router\\routes-resolver.js:100:24)\n    at callback (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\@nestjs\\core\\router\\routes-resolver.js:86:24)\n    at C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\@nestjs\\core\\router\\router-proxy.js:21:23\n    at Layer.handleError (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\lib\\layer.js:116:17)\n    at trimPrefix (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\index.js:340:13)\n    at C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\index.js:297:9\n    at processParams (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\index.js:582:12)\n    at next (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\index.js:291:5)\n    at Layer.handleError (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\lib\\layer.js:111:12)\n    at trimPrefix (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\index.js:340:13)\n    at C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\index.js:297:9\n    at processParams (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\index.js:582:12)\n    at next (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\index.js:291:5)\n    at Layer.handleError (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\lib\\layer.js:111:12)\n    at trimPrefix (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\index.js:340:13)\n    at C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\router\\index.js:297:9",
+  "path": "/api/v1/tenants/register",
+  "method": "POST"
+}
+
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."ms_users"."id", "public"."ms_users"."role_id", "public"."ms_users"."company_id", "public"."ms_users"."employee_id", "public"."ms_users"."email", "public"."ms_users"."password_hash", "public"."ms_users"."full_name", "public"."ms_users"."phone", "public"."ms_users"."avatar_url", "public"."ms_users"."fcm_token", "public"."ms_users"."is_active", "public"."ms_users"."last_login_at", "public"."ms_users"."created_at", "public"."ms_users"."updated_at" FROM "public"."ms_users" WHERE ("public"."ms_users"."email" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."ms_plans"."id", "public"."ms_plans"."name", "public"."ms_plans"."code", "public"."ms_plans"."max_employees", "public"."ms_plans"."max_departments", "public"."ms_plans"."features", "public"."ms_plans"."price_monthly", "public"."ms_plans"."price_yearly", "public"."ms_plans"."is_active", "public"."ms_plans"."created_at", "public"."ms_plans"."updated_at" FROM "public"."ms_plans" WHERE ("public"."ms_plans"."code" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."ms_permissions"."id", "public"."ms_permissions"."menu_id", "public"."ms_permissions"."action", "public"."ms_permissions"."description", "public"."ms_permissions"."created_at" FROM "public"."ms_permissions" WHERE 1=1 OFFSET $1
+prisma:query SELECT "public"."ms_menus"."id", "public"."ms_menus"."code", "public"."ms_menus"."name", "public"."ms_menus"."icon", "public"."ms_menus"."parent_id", "public"."ms_menus"."sort_order", "public"."ms_menus"."is_active", "public"."ms_menus"."created_at" FROM "public"."ms_menus" WHERE "public"."ms_menus"."id" IN ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23) OFFSET $24
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query INSERT INTO "public"."ms_companies" ("name","address","phone","email","is_active","created_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "public"."ms_companies"."id", "public"."ms_companies"."name", "public"."ms_companies"."code", "public"."ms_companies"."address", "public"."ms_companies"."phone", "public"."ms_companies"."email", "public"."ms_companies"."npwp", "public"."ms_companies"."is_active", "public"."ms_companies"."created_at", "public"."ms_companies"."updated_at"
+prisma:query INSERT INTO "public"."ms_roles" ("company_id","name","display_name","permissions","is_active","created_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "public"."ms_roles"."id", "public"."ms_roles"."company_id", "public"."ms_roles"."name", "public"."ms_roles"."display_name", "public"."ms_roles"."permissions", "public"."ms_roles"."is_active", "public"."ms_roles"."created_at", "public"."ms_roles"."updated_at"
+prisma:query INSERT INTO "public"."ms_role_permissions" ("role_id","permission_id","created_at") VALUES ($1,$2,$3), ($4,$5,$6), ($7,$8,$9), ($10,$11,$12), ($13,$14,$15), ($16,$17,$18), ($19,$20,$21), ($22,$23,$24), ($25,$26,$27), ($28,$29,$30), ($31,$32,$33), ($34,$35,$36), ($37,$38,$39), ($40,$41,$42), ($43,$44,$45), ($46,$47,$48), ($49,$50,$51), ($52,$53,$54), ($55,$56,$57), ($58,$59,$60), ($61,$62,$63), ($64,$65,$66), ($67,$68,$69), ($70,$71,$72), ($73,$74,$75), ($76,$77,$78), ($79,$80,$81), ($82,$83,$84), ($85,$86,$87), ($88,$89,$90), ($91,$92,$93), ($94,$95,$96), ($97,$98,$99), ($100,$101,$102), ($103,$104,$105), ($106,$107,$108), ($109,$110,$111), ($112,$113,$114), ($115,$116,$117), ($118,$119,$120), ($121,$122,$123), ($124,$125,$126), ($127,$128,$129), ($130,$131,$132), ($133,$134,$135), ($136,$137,$138), ($139,$140,$141), ($142,$143,$144), ($145,$146,$147), ($148,$149,$150), ($151,$152,$153), ($154,$155,$156), ($157,$158,$159), ($160,$161,$162), ($163,$164,$165), ($166,$167,$168), ($169,$170,$171), ($172,$173,$174), ($175,$176,$177), ($178,$179,$180), ($181,$182,$183), ($184,$185,$186), ($187,$188,$189), ($190,$191,$192), ($193,$194,$195), ($196,$197,$198), ($199,$200,$201), ($202,$203,$204), ($205,$206,$207), ($208,$209,$210), ($211,$212,$213), ($214,$215,$216), ($217,$218,$219), ($220,$221,$222), ($223,$224,$225), ($226,$227,$228), ($229,$230,$231), ($232,$233,$234), ($235,$236,$237), ($238,$239,$240), ($241,$242,$243), ($244,$245,$246), ($247,$248,$249), ($250,$251,$252), ($253,$254,$255), ($256,$257,$258)
+prisma:query INSERT INTO "public"."ms_roles" ("company_id","name","display_name","permissions","is_active","created_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "public"."ms_roles"."id", "public"."ms_roles"."company_id", "public"."ms_roles"."name", "public"."ms_roles"."display_name", "public"."ms_roles"."permissions", "public"."ms_roles"."is_active", "public"."ms_roles"."created_at", "public"."ms_roles"."updated_at"
+prisma:query INSERT INTO "public"."ms_role_permissions" ("permission_id","created_at","role_id") VALUES ($1,$2,$3), ($4,$5,$6), ($7,$8,$9), ($10,$11,$12), ($13,$14,$15), ($16,$17,$18), ($19,$20,$21), ($22,$23,$24), ($25,$26,$27), ($28,$29,$30), ($31,$32,$33), ($34,$35,$36), ($37,$38,$39), ($40,$41,$42), ($43,$44,$45), ($46,$47,$48), ($49,$50,$51), ($52,$53,$54), ($55,$56,$57), ($58,$59,$60), ($61,$62,$63), ($64,$65,$66), ($67,$68,$69), ($70,$71,$72), ($73,$74,$75), ($76,$77,$78), ($79,$80,$81), ($82,$83,$84), ($85,$86,$87), ($88,$89,$90), ($91,$92,$93), ($94,$95,$96), ($97,$98,$99), ($100,$101,$102), ($103,$104,$105), ($106,$107,$108), ($109,$110,$111), ($112,$113,$114), ($115,$116,$117), ($118,$119,$120), ($121,$122,$123), ($124,$125,$126), ($127,$128,$129), ($130,$131,$132), ($133,$134,$135), ($136,$137,$138), ($139,$140,$141), ($142,$143,$144), ($145,$146,$147), ($148,$149,$150), ($151,$152,$153), ($154,$155,$156), ($157,$158,$159), ($160,$161,$162), ($163,$164,$165), ($166,$167,$168), ($169,$170,$171), ($172,$173,$174), ($175,$176,$177), ($178,$179,$180), ($181,$182,$183), ($184,$185,$186), ($187,$188,$189), ($190,$191,$192), ($193,$194,$195), ($196,$197,$198), ($199,$200,$201), ($202,$203,$204), ($205,$206,$207), ($208,$209,$210), ($211,$212,$213), ($214,$215,$216), ($217,$218,$219), ($220,$221,$222), ($223,$224,$225), ($226,$227,$228), ($229,$230,$231), ($232,$233,$234), ($235,$236,$237), ($238,$239,$240)
+prisma:query INSERT INTO "public"."ms_roles" ("company_id","name","display_name","permissions","is_active","created_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "public"."ms_roles"."id", "public"."ms_roles"."company_id", "public"."ms_roles"."name", "public"."ms_roles"."display_name", "public"."ms_roles"."permissions", "public"."ms_roles"."is_active", "public"."ms_roles"."created_at", "public"."ms_roles"."updated_at"
+prisma:query INSERT INTO "public"."ms_role_permissions" ("created_at","permission_id","role_id") VALUES ($1,$2,$3), ($4,$5,$6), ($7,$8,$9), ($10,$11,$12), ($13,$14,$15), ($16,$17,$18), ($19,$20,$21), ($22,$23,$24), ($25,$26,$27), ($28,$29,$30), ($31,$32,$33), ($34,$35,$36), ($37,$38,$39)
+prisma:query INSERT INTO "public"."ms_roles" ("company_id","name","display_name","permissions","is_active","created_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "public"."ms_roles"."id", "public"."ms_roles"."company_id", "public"."ms_roles"."name", "public"."ms_roles"."display_name", "public"."ms_roles"."permissions", "public"."ms_roles"."is_active", "public"."ms_roles"."created_at", "public"."ms_roles"."updated_at"
+prisma:query INSERT INTO "public"."ms_role_permissions" ("created_at","role_id","permission_id") VALUES ($1,$2,$3), ($4,$5,$6), ($7,$8,$9), ($10,$11,$12), ($13,$14,$15), ($16,$17,$18), ($19,$20,$21), ($22,$23,$24), ($25,$26,$27), ($28,$29,$30), ($31,$32,$33), ($34,$35,$36), ($37,$38,$39)
+prisma:query INSERT INTO "public"."ms_roles" ("company_id","name","display_name","permissions","is_active","created_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING "public"."ms_roles"."id", "public"."ms_roles"."company_id", "public"."ms_roles"."name", "public"."ms_roles"."display_name", "public"."ms_roles"."permissions", "public"."ms_roles"."is_active", "public"."ms_roles"."created_at", "public"."ms_roles"."updated_at"
+prisma:query INSERT INTO "public"."ms_role_permissions" ("created_at","permission_id","role_id") VALUES ($1,$2,$3), ($4,$5,$6), ($7,$8,$9), ($10,$11,$12), ($13,$14,$15), ($16,$17,$18), ($19,$20,$21), ($22,$23,$24)
+prisma:query INSERT INTO "public"."ms_users" ("role_id","company_id","email","password_hash","full_name","is_active","created_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING "public"."ms_users"."id", "public"."ms_users"."role_id", "public"."ms_users"."company_id", "public"."ms_users"."employee_id", "public"."ms_users"."email", "public"."ms_users"."password_hash", "public"."ms_users"."full_name", "public"."ms_users"."phone", "public"."ms_users"."avatar_url", "public"."ms_users"."fcm_token", "public"."ms_users"."is_active", "public"."ms_users"."last_login_at", "public"."ms_users"."created_at", "public"."ms_users"."updated_at"
+prisma:query INSERT INTO "public"."ms_subscriptions" ("id","company_id","plan_id","status","trial_ends_at","starts_at","created_at","updated_at") VALUES ($1,$2,$3,$4,$5,$6,$7,$8) RETURNING "public"."ms_subscriptions"."id", "public"."ms_subscriptions"."company_id", "public"."ms_subscriptions"."plan_id", "public"."ms_subscriptions"."status", "public"."ms_subscriptions"."trial_ends_at", "public"."ms_subscriptions"."starts_at", "public"."ms_subscriptions"."ends_at", "public"."ms_subscriptions"."created_at", "public"."ms_subscriptions"."updated_at"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."ms_companies"."id", "public"."ms_companies"."name", "public"."ms_companies"."code", "public"."ms_companies"."address", "public"."ms_companies"."phone", "public"."ms_companies"."email", "public"."ms_companies"."npwp", "public"."ms_companies"."is_active", "public"."ms_companies"."created_at", "public"."ms_companies"."updated_at" FROM "public"."ms_companies" WHERE ("public"."ms_companies"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."ms_subscriptions"."id", "public"."ms_subscriptions"."company_id", "public"."ms_subscriptions"."plan_id", "public"."ms_subscriptions"."status", "public"."ms_subscriptions"."trial_ends_at", "public"."ms_subscriptions"."starts_at", "public"."ms_subscriptions"."ends_at", "public"."ms_subscriptions"."created_at", "public"."ms_subscriptions"."updated_at" FROM "public"."ms_subscriptions" WHERE ("public"."ms_subscriptions"."company_id" = $1 AND "public"."ms_subscriptions"."status" = $2) LIMIT $3 OFFSET $4
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."ms_subscriptions"."id", "public"."ms_subscriptions"."company_id", "public"."ms_subscriptions"."plan_id", "public"."ms_subscriptions"."status", "public"."ms_subscriptions"."trial_ends_at", "public"."ms_subscriptions"."starts_at", "public"."ms_subscriptions"."ends_at", "public"."ms_subscriptions"."created_at", "public"."ms_subscriptions"."updated_at" FROM "public"."ms_subscriptions" WHERE ("public"."ms_subscriptions"."company_id" = $1 AND "public"."ms_subscriptions"."status" = $2) LIMIT $3 OFFSET $4
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."ms_subscriptions"."id", "public"."ms_subscriptions"."company_id", "public"."ms_subscriptions"."plan_id", "public"."ms_subscriptions"."status", "public"."ms_subscriptions"."trial_ends_at", "public"."ms_subscriptions"."starts_at", "public"."ms_subscriptions"."ends_at", "public"."ms_subscriptions"."created_at", "public"."ms_subscriptions"."updated_at" FROM "public"."ms_subscriptions" WHERE ("public"."ms_subscriptions"."company_id" = $1 AND "public"."ms_subscriptions"."status" = $2) LIMIT $3 OFFSET $4
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."ms_users"."id", "public"."ms_users"."role_id", "public"."ms_users"."company_id", "public"."ms_users"."employee_id", "public"."ms_users"."email", "public"."ms_users"."password_hash", "public"."ms_users"."full_name", "public"."ms_users"."phone", "public"."ms_users"."avatar_url", "public"."ms_users"."fcm_token", "public"."ms_users"."is_active", "public"."ms_users"."last_login_at", "public"."ms_users"."created_at", "public"."ms_users"."updated_at" FROM "public"."ms_users" WHERE ("public"."ms_users"."id" = $1 AND 1=1) LIMIT $2 OFFSET $3
+prisma:query SELECT "public"."ms_roles"."id", "public"."ms_roles"."company_id", "public"."ms_roles"."name", "public"."ms_roles"."display_name", "public"."ms_roles"."permissions", "public"."ms_roles"."is_active", "public"."ms_roles"."created_at", "public"."ms_roles"."updated_at" FROM "public"."ms_roles" WHERE "public"."ms_roles"."id" IN ($1) OFFSET $2
+prisma:query SELECT "public"."ms_employees"."id", "public"."ms_employees"."company_id", "public"."ms_employees"."user_id", "public"."ms_employees"."department_id", "public"."ms_employees"."position_id", "public"."ms_employees"."location_id", "public"."ms_employees"."supervisor_id", "public"."ms_employees"."manager_id", "public"."ms_employees"."team_id", "public"."ms_employees"."current_remote_work_id", "public"."ms_employees"."nik", "public"."ms_employees"."full_name", "public"."ms_employees"."gender", "public"."ms_employees"."birth_date", "public"."ms_employees"."address", "public"."ms_employees"."employment_status", "public"."ms_employees"."join_date", "public"."ms_employees"."contract_end_date", "public"."ms_employees"."resignation_date", "public"."ms_employees"."base_salary", "public"."ms_employees"."fixed_allowance", "public"."ms_employees"."phone_allowance", "public"."ms_employees"."dinas_allowance", "public"."ms_employees"."bpjs_payment_type", "public"."ms_employees"."ptkp_status", "public"."ms_employees"."npwp", "public"."ms_employees"."bank_name", "public"."ms_employees"."bank_account_number", "public"."ms_employees"."bank_account_holder", "public"."ms_employees"."shift_type", "public"."ms_employees"."is_security", "public"."ms_employees"."is_active", "public"."ms_employees"."face_registration_status", "public"."ms_employees"."created_at", "public"."ms_employees"."updated_at" FROM "public"."ms_employees" WHERE "public"."ms_employees"."user_id" IN ($1) OFFSET $2
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."ms_role_permissions"."id", "public"."ms_role_permissions"."role_id", "public"."ms_role_permissions"."permission_id", "public"."ms_role_permissions"."created_at" FROM "public"."ms_role_permissions" WHERE "public"."ms_role_permissions"."role_id" = $1 OFFSET $2
+prisma:query SELECT "public"."ms_permissions"."id", "public"."ms_permissions"."menu_id", "public"."ms_permissions"."action", "public"."ms_permissions"."description", "public"."ms_permissions"."created_at" FROM "public"."ms_permissions" WHERE "public"."ms_permissions"."id" IN ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25,$26,$27,$28,$29,$30,$31,$32,$33,$34,$35,$36,$37,$38,$39,$40,$41,$42,$43,$44,$45,$46,$47,$48,$49,$50,$51,$52,$53,$54,$55,$56,$57,$58,$59,$60,$61,$62,$63,$64,$65,$66,$67,$68,$69,$70,$71,$72,$73,$74,$75,$76,$77,$78,$79,$80,$81,$82,$83,$84,$85,$86) OFFSET $87
+prisma:query SELECT "public"."ms_menus"."id", "public"."ms_menus"."code", "public"."ms_menus"."name", "public"."ms_menus"."icon", "public"."ms_menus"."parent_id", "public"."ms_menus"."sort_order", "public"."ms_menus"."is_active", "public"."ms_menus"."created_at" FROM "public"."ms_menus" WHERE "public"."ms_menus"."id" IN ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23) OFFSET $24
+prisma:query COMMIT
+prisma:error 
+Invalid `this.prisma.ms_job_postings.findMany()` invocation in
+C:\Users\ikrarnegaraa\akbar-workspace\samugara\hris\github\saas-hris-backend\dist\modules\recruitment\recruitment.service.js:133:41
+
+  130     where.status = query.status;
+  131 }
+  132 const [data, total] = await Promise.all([
+→ 133     this.prisma.ms_job_postings.findMany({
+            where: {
+              status: "active",
+          +   company_id: {
+          +     equals: String | StringFieldRefInput,
+          +     in: String[] | ListStringFieldRefInput,
+          +     notIn: String[] | ListStringFieldRefInput,
+          +     lt: String | StringFieldRefInput,
+          +     lte: String | StringFieldRefInput,
+          +     gt: String | StringFieldRefInput,
+          +     gte: String | StringFieldRefInput,
+          +     mode: QueryMode,
+          +     not: String | NestedUuidFilter
+          +   }
+            },
+            skip: 0,
+            take: 10,
+            orderBy: {
+              created_at: "desc"
+            },
+            include: {
+              ms_departments: {
+                select: {
+                  id: true,
+                  name: true
+                }
+              },
+              ms_positions: {
+                select: {
+                  id: true,
+                  name: true
+                }
+              },
+              ms_locations: {
+                select: {
+                  id: true,
+                  name: true
+                }
+              }
+            }
+          })
+
+Argument `company_id` must not be null.
+[31m[Nest] 28604  - [39m22/06/2026, 13.44.39 [31m  ERROR[39m [38;5;3m[HttpExceptionFilter] [39m[31mObject:[39m
+{
+  "msg": "HTTP Error: GET /api/v1/recruitment/jobs",
+  "error": "\nInvalid `this.prisma.ms_job_postings.findMany()` invocation in\nC:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\dist\\modules\\recruitment\\recruitment.service.js:133:41\n\n  130     where.status = query.status;\n  131 }\n  132 const [data, total] = await Promise.all([\n→ 133     this.prisma.ms_job_postings.findMany({\n            where: {\n              status: \"active\",\n          +   company_id: {\n          +     equals: String | StringFieldRefInput,\n          +     in: String[] | ListStringFieldRefInput,\n          +     notIn: String[] | ListStringFieldRefInput,\n          +     lt: String | StringFieldRefInput,\n          +     lte: String | StringFieldRefInput,\n          +     gt: String | StringFieldRefInput,\n          +     gte: String | StringFieldRefInput,\n          +     mode: QueryMode,\n          +     not: String | NestedUuidFilter\n          +   }\n            },\n            skip: 0,\n            take: 10,\n            orderBy: {\n              created_at: \"desc\"\n            },\n            include: {\n              ms_departments: {\n                select: {\n                  id: true,\n                  name: true\n                }\n              },\n              ms_positions: {\n                select: {\n                  id: true,\n                  name: true\n                }\n              },\n              ms_locations: {\n                select: {\n                  id: true,\n                  name: true\n                }\n              }\n            }\n          })\n\nArgument `company_id` must not be null.",
+  "stack": "PrismaClientValidationError: \nInvalid `this.prisma.ms_job_postings.findMany()` invocation in\nC:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\dist\\modules\\recruitment\\recruitment.service.js:133:41\n\n  130     where.status = query.status;\n  131 }\n  132 const [data, total] = await Promise.all([\n→ 133     this.prisma.ms_job_postings.findMany({\n            where: {\n              status: \"active\",\n          +   company_id: {\n          +     equals: String | StringFieldRefInput,\n          +     in: String[] | ListStringFieldRefInput,\n          +     notIn: String[] | ListStringFieldRefInput,\n          +     lt: String | StringFieldRefInput,\n          +     lte: String | StringFieldRefInput,\n          +     gt: String | StringFieldRefInput,\n          +     gte: String | StringFieldRefInput,\n          +     mode: QueryMode,\n          +     not: String | NestedUuidFilter\n          +   }\n            },\n            skip: 0,\n            take: 10,\n            orderBy: {\n              created_at: \"desc\"\n            },\n            include: {\n              ms_departments: {\n                select: {\n                  id: true,\n                  name: true\n                }\n              },\n              ms_positions: {\n                select: {\n                  id: true,\n                  name: true\n                }\n              },\n              ms_locations: {\n                select: {\n                  id: true,\n                  name: true\n                }\n              }\n            }\n          })\n\nArgument `company_id` must not be null.\n    at wn (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\@prisma\\client\\runtime\\library.js:29:1363)\n    at $n.handleRequestError (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\@prisma\\client\\runtime\\library.js:121:6958)\n    at $n.handleAndLogRequestError (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\@prisma\\client\\runtime\\library.js:121:6623)\n    at $n.request (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\@prisma\\client\\runtime\\library.js:121:6307)\n    at async l (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\node_modules\\@prisma\\client\\runtime\\library.js:130:9633)\n    at async Promise.all (index 0)\n    at async RecruitmentService.listJobs (C:\\Users\\ikrarnegaraa\\akbar-workspace\\samugara\\hris\\github\\saas-hris-backend\\dist\\modules\\recruitment\\recruitment.service.js:132:31)",
+  "path": "/api/v1/recruitment/jobs",
+  "method": "GET"
+}
+
+prisma:error 
+Invalid `this.prisma.ms_job_postings.count()` invocation in
+C:\Users\ikrarnegaraa\akbar-workspace\samugara\hris\github\saas-hris-backend\dist\modules\recruitment\recruitment.service.js:144:41
+
+  141         ms_locations: { select: { id: true, name: true } },
+  142     },
+  143 }),
+→ 144 this.prisma.ms_job_postings.count({
+        select: {
+          _count: {
+            select: {
+              _all: true
+            }
+          }
+        },
+        where: {
+          status: "active",
+      +   company_id: {
+      +     equals: String | StringFieldRefInput,
+      +     in: String[] | ListStringFieldRefInput,
+      +     notIn: String[] | ListStringFieldRefInput,
+      +     lt: String | StringFieldRefInput,
+      +     lte: String | StringFieldRefInput,
+      +     gt: String | StringFieldRefInput,
+      +     gte: String | StringFieldRefInput,
+      +     mode: QueryMode,
+      +     not: String | NestedUuidFilter
+      +   }
+        }
+      })
+
+Argument `company_id` must not be null.
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT COUNT(*) FROM (SELECT "public"."ms_job_postings"."id" FROM "public"."ms_job_postings" WHERE ("public"."ms_job_postings"."company_id" = $1 AND "public"."ms_job_postings"."status" = $2) OFFSET $3) AS "sub"
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT "public"."ms_job_postings"."id", "public"."ms_job_postings"."company_id", "public"."ms_job_postings"."title", "public"."ms_job_postings"."department_id", "public"."ms_job_postings"."position_id", "public"."ms_job_postings"."location_id", "public"."ms_job_postings"."description", "public"."ms_job_postings"."requirements", "public"."ms_job_postings"."employment_type", "public"."ms_job_postings"."status", "public"."ms_job_postings"."public_slug", "public"."ms_job_postings"."opened_at", "public"."ms_job_postings"."closed_at", "public"."ms_job_postings"."created_by", "public"."ms_job_postings"."created_at", "public"."ms_job_postings"."updated_at" FROM "public"."ms_job_postings" WHERE ("public"."ms_job_postings"."company_id" = $1 AND "public"."ms_job_postings"."status" = $2) ORDER BY "public"."ms_job_postings"."created_at" DESC LIMIT $3 OFFSET $4
+prisma:query COMMIT
+prisma:query BEGIN
+prisma:query DEALLOCATE ALL
+prisma:query SELECT 1
+prisma:query COMMIT

@@ -1,0 +1,964 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x", "rhel-openssl-3.0.x"]
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model ms_companies {
+  id                       String                        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name                     String                        @db.VarChar(255)
+  code                     String?                       @unique @db.VarChar(50)
+  address                  String?
+  phone                    String?                       @db.VarChar(20)
+  email                    String?                       @db.VarChar(255)
+  npwp                     String?                       @db.VarChar(50)
+  is_active                Boolean?                      @default(true)
+  created_at               DateTime?                     @default(now()) @db.Timestamptz(6)
+  updated_at               DateTime?                     @default(now()) @db.Timestamptz(6)
+  ms_departments           ms_departments[]
+  ms_holiday_calendars     ms_holiday_calendars[]
+  ms_job_postings          ms_job_postings[]
+  ms_locations             ms_locations[]
+  tr_payroll_periods       tr_payroll_periods[]
+  ms_users                 ms_users[]
+  msLeaveTypes             ms_leave_types[]
+  msOvertimeMealAllowances ms_overtime_meal_allowances[]
+  msTimeOffTypes           ms_time_off_types[]
+  msWorkSchedules          ms_work_schedules[]
+  msParameters             ms_parameters[]
+  ms_subscriptions         ms_subscriptions[]
+  ms_usage_tracking        ms_usage_tracking[]
+  ms_roles                 ms_roles[]
+}
+
+model ms_departments {
+  id                                                         String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id                                                 String            @db.Uuid
+  name                                                       String            @db.VarChar(255)
+  code                                                       String?           @db.VarChar(50)
+  head_employee_id                                           String?           @db.Uuid
+  created_at                                                 DateTime?         @default(now()) @db.Timestamptz(6)
+  ms_employees_ms_departments_head_employee_idToms_employees ms_employees?     @relation("ms_departments_head_employee_idToms_employees", fields: [head_employee_id], references: [id], onUpdate: NoAction, map: "fk_departments_head_employee")
+  ms_companies                                               ms_companies      @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_job_postings                                            ms_job_postings[]
+  ms_positions                                               ms_positions[]
+  ms_employees_ms_employees_department_idToms_departments    ms_employees[]    @relation("ms_employees_department_idToms_departments")
+  ms_teams                                                   ms_teams[]
+
+  @@index([company_id], map: "idx_departments_company")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model ms_holiday_calendars {
+  id           String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id   String       @db.Uuid
+  holiday_date DateTime     @db.Date
+  name         String       @db.VarChar(255)
+  type         String       @db.VarChar(50)
+  is_recurring Boolean?     @default(false)
+  year         Int
+  created_at   DateTime?    @default(now()) @db.Timestamptz(6)
+  ms_companies ms_companies @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([company_id, holiday_date])
+  @@index([company_id, holiday_date], map: "idx_holiday_calendars_company_date")
+  @@index([year], map: "idx_holiday_calendars_year")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model ms_job_postings {
+  id                  String                @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id          String                @db.Uuid
+  title               String                @db.VarChar(255)
+  department_id       String?               @db.Uuid
+  position_id         String?               @db.Uuid
+  location_id         String?               @db.Uuid
+  description         String
+  requirements        String?
+  employment_type     String?               @db.VarChar(50)
+  status              String?               @default("draft") @db.VarChar(50)
+  public_slug         String?               @unique @db.VarChar(255)
+  opened_at           DateTime?             @db.Date
+  closed_at           DateTime?             @db.Date
+  created_by          String?               @db.Uuid
+  created_at          DateTime?             @default(now()) @db.Timestamptz(6)
+  updated_at          DateTime?             @default(now()) @db.Timestamptz(6)
+  ms_users            ms_users?             @relation(fields: [created_by], references: [id], onUpdate: NoAction, map: "fk_job_postings_created_by")
+  ms_companies        ms_companies          @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_departments      ms_departments?       @relation(fields: [department_id], references: [id], onUpdate: NoAction)
+  ms_locations        ms_locations?         @relation(fields: [location_id], references: [id], onUpdate: NoAction)
+  ms_positions        ms_positions?         @relation(fields: [position_id], references: [id], onUpdate: NoAction)
+  tr_job_applications tr_job_applications[]
+
+  @@index([public_slug], map: "idx_job_postings_slug")
+  @@index([status], map: "idx_job_postings_status")
+}
+
+model ms_leave_types {
+  id                   String              @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id           String              @db.Uuid
+  name                 String              @db.VarChar(255)
+  code                 String?             @unique @db.VarChar(50)
+  default_days         Int?                @default(0)
+  is_annual            Boolean?            @default(false)
+  is_paid              Boolean?            @default(true)
+  requires_attachment  Boolean?            @default(false)
+  max_days_per_request Int?
+  created_at           DateTime?           @default(now()) @db.Timestamptz(6)
+  tr_leave_balances    tr_leave_balances[]
+  tr_leave_requests    tr_leave_requests[]
+  ms_companies         ms_companies        @relation(fields: [company_id], references: [id])
+
+  @@index([company_id], map: "idx_leave_types_company")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model ms_locations {
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id      String            @db.Uuid
+  name            String            @db.VarChar(255)
+  type            String            @db.VarChar(50)
+  latitude        Decimal?          @db.Decimal(10, 8)
+  longitude       Decimal?          @db.Decimal(11, 8)
+  radius_meters   Int?              @default(100)
+  address         String?
+  is_active       Boolean?          @default(true)
+  created_at      DateTime?         @default(now()) @db.Timestamptz(6)
+  ms_job_postings ms_job_postings[]
+  ms_companies    ms_companies      @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tr_attendances  tr_attendances[]
+  ms_employees    ms_employees[]
+
+  @@index([company_id], map: "idx_locations_company")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model ms_overtime_meal_allowances {
+  id           String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id   String       @db.Uuid
+  day_type     String       @db.VarChar(50)
+  time_start   DateTime     @db.Time(6)
+  time_end     DateTime     @db.Time(6)
+  amount       Decimal      @db.Decimal(15, 2)
+  created_at   DateTime?    @default(now()) @db.Timestamptz(6)
+  ms_companies ms_companies @relation(fields: [company_id], references: [id])
+
+  @@index([company_id], map: "idx_overtime_meal_allowances_company")
+}
+
+model ms_positions {
+  id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  department_id   String?           @db.Uuid
+  name            String            @db.VarChar(255)
+  level           String?           @db.VarChar(50)
+  grade           String?           @db.VarChar(20)
+  created_at      DateTime?         @default(now()) @db.Timestamptz(6)
+  ms_job_postings ms_job_postings[]
+  ms_departments  ms_departments?   @relation(fields: [department_id], references: [id], onUpdate: NoAction)
+  ms_employees    ms_employees[]
+}
+
+model ms_teams {
+  id             String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  department_id  String         @db.Uuid
+  name           String         @db.VarChar(255)
+  code           String?        @db.VarChar(50)
+  is_active      Boolean?       @default(true)
+  created_at     DateTime?      @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime?      @default(now()) @db.Timestamptz(6)
+  ms_departments ms_departments @relation(fields: [department_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_employees   ms_employees[]
+
+  @@index([department_id], map: "idx_teams_department")
+}
+
+model ms_roles {
+  id            String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id    String?              @db.Uuid
+  name          String               @db.VarChar(100)
+  display_name  String?              @db.VarChar(255)
+  permissions   Json?                @default("[]")
+  is_active     Boolean?             @default(true)
+  created_at    DateTime?            @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime?            @updatedAt @db.Timestamptz(6)
+  ms_users      ms_users[]
+  companies     ms_companies?        @relation(fields: [company_id], references: [id])
+  role_permissions ms_role_permissions[]
+
+  @@unique([company_id, name])
+  @@index([company_id], map: "idx_roles_company")
+}
+
+model ms_menus {
+  id         String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  code       String         @unique @db.VarChar(100)
+  name       String         @db.VarChar(255)
+  icon       String?        @db.VarChar(100)
+  parent_id  String?        @db.Uuid
+  sort_order Int            @default(0)
+  is_active  Boolean?       @default(true)
+  created_at DateTime?      @default(now()) @db.Timestamptz(6)
+
+  parent      ms_menus?        @relation("menu_hierarchy", fields: [parent_id], references: [id])
+  children    ms_menus[]       @relation("menu_hierarchy")
+  permissions ms_permissions[]
+
+  @@index([parent_id], map: "idx_menus_parent")
+}
+
+model ms_permissions {
+  id          String               @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  menu_id     String               @db.Uuid
+  action      String               @db.VarChar(50)
+  description String?              @db.VarChar(255)
+  created_at  DateTime?            @default(now()) @db.Timestamptz(6)
+
+  menu            ms_menus              @relation(fields: [menu_id], references: [id])
+  role_permissions ms_role_permissions[]
+
+  @@unique([menu_id, action])
+  @@index([menu_id], map: "idx_permissions_menu")
+}
+
+model ms_role_permissions {
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role_id       String    @db.Uuid
+  permission_id String    @db.Uuid
+  created_at    DateTime? @default(now()) @db.Timestamptz(6)
+
+  role       ms_roles       @relation(fields: [role_id], references: [id], onDelete: Cascade)
+  permission ms_permissions @relation(fields: [permission_id], references: [id], onDelete: Cascade)
+
+  @@unique([role_id, permission_id])
+  @@index([role_id], map: "idx_role_permissions_role")
+  @@index([permission_id], map: "idx_role_permissions_permission")
+}
+
+model ms_face_registrations {
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id     String       @unique @db.Uuid
+  front_photo_url String
+  smile_photo_url String
+  right_photo_url String
+  left_photo_url  String
+  face_descriptor Json?
+  registered_at   DateTime     @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime     @default(now()) @db.Timestamptz(6)
+  ms_employees    ms_employees @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+}
+
+model ms_time_off_types {
+  id                   String                 @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id           String                 @db.Uuid
+  name                 String                 @db.VarChar(255)
+  code                 String?                @unique @db.VarChar(50)
+  affects_salary       Boolean?               @default(false)
+  requires_attachment  Boolean?               @default(false)
+  created_at           DateTime?              @default(now()) @db.Timestamptz(6)
+  tr_time_off_requests tr_time_off_requests[]
+  ms_companies         ms_companies           @relation(fields: [company_id], references: [id])
+
+  @@index([company_id], map: "idx_time_off_types_company")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model ms_work_schedules {
+  id                    String                  @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id            String                  @db.Uuid
+  name                  String                  @db.VarChar(255)
+  shift_code            String?                 @db.VarChar(50)
+  schedule_type         String                  @db.VarChar(50)
+  start_time            DateTime?               @db.Time(6)
+  end_time              DateTime?               @db.Time(6)
+  break_start           DateTime?               @db.Time(6)
+  break_end             DateTime?               @db.Time(6)
+  work_days             Int[]                   @default([1, 2, 3, 4, 5])
+  is_holiday_off        Boolean?                @default(true)
+  notes                 String?
+  created_at            DateTime?               @default(now()) @db.Timestamptz(6)
+  tr_employee_schedules tr_employee_schedules[]
+  ms_companies          ms_companies            @relation(fields: [company_id], references: [id])
+
+  @@index([company_id], map: "idx_work_schedules_company")
+  @@index([schedule_type], map: "idx_work_schedules_type")
+}
+
+model ms_parameters {
+  id           Int          @id @default(autoincrement())
+  company_id   String       @db.Uuid
+  key          String       @db.VarChar(100)
+  value        String       @db.VarChar(255)
+  created_at   DateTime?    @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime?    @default(now()) @db.Timestamptz(6)
+  ms_companies ms_companies @relation(fields: [company_id], references: [id])
+
+  @@unique([company_id, key])
+  @@index([company_id], map: "idx_parameters_company")
+}
+
+model ms_ter {
+  id         Int          @id @default(autoincrement())
+  ptkp_name  String       @db.VarChar(50)
+  ter_type   String       @unique @db.VarChar(10)
+  ms_ter_fee ms_ter_fee[]
+}
+
+model ms_ter_fee {
+  id                Int     @id @default(autoincrement())
+  ter_type          String  @db.VarChar(10)
+  fee_from          BigInt
+  fee_until         BigInt
+  amount_in_percent Decimal @db.Decimal(5, 2)
+  ms_ter            ms_ter? @relation(fields: [ter_type], references: [ter_type])
+
+  @@index([ter_type], map: "idx_ter_fee_type")
+  @@index([fee_from, fee_until], map: "idx_ter_fee_range")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_approvals {
+  id              String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  approvable_type String       @db.VarChar(100)
+  approvable_id   String       @db.Uuid
+  approver_id     String       @db.Uuid
+  approver_role   String       @db.VarChar(50)
+  level           Int
+  action          String       @db.VarChar(50)
+  notes           String?
+  acted_at        DateTime?    @default(now()) @db.Timestamptz(6)
+  created_at      DateTime?    @default(now()) @db.Timestamptz(6)
+  ms_employees    ms_employees @relation(fields: [approver_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([approvable_type, approvable_id], map: "idx_approvals_approvable")
+  @@index([approver_id, action], map: "idx_approvals_approver")
+  @@index([created_at], map: "idx_approvals_created")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_attendance_corrections {
+  id                                                                   String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  attendance_id                                                        String?         @db.Uuid
+  employee_id                                                          String          @db.Uuid
+  submitted_by                                                         String?         @db.Uuid
+  correction_type                                                      String          @db.VarChar(50)
+  correct_clock_in                                                     DateTime?       @db.Time(6)
+  correct_clock_out                                                    DateTime?       @db.Time(6)
+  reason                                                               String
+  status                                                               String?         @default("pending") @db.VarChar(50)
+  supervisor_approved_at                                               DateTime?       @db.Timestamptz(6)
+  hrga_approved_at                                                     DateTime?       @db.Timestamptz(6)
+  supervisor_id                                                        String?         @db.Uuid
+  hrga_manager_id                                                      String?         @db.Uuid
+  rejection_reason                                                     String?
+  created_at                                                           DateTime?       @default(now()) @db.Timestamptz(6)
+  updated_at                                                           DateTime?       @default(now()) @db.Timestamptz(6)
+  tr_attendances                                                       tr_attendances? @relation(fields: [attendance_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_employees_tr_attendance_corrections_employee_idToms_employees     ms_employees    @relation("tr_attendance_corrections_employee_idToms_employees", fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_employees_tr_attendance_corrections_hrga_manager_idToms_employees ms_employees?   @relation("tr_attendance_corrections_hrga_manager_idToms_employees", fields: [hrga_manager_id], references: [id], onUpdate: NoAction)
+  ms_users                                                             ms_users?       @relation(fields: [submitted_by], references: [id], onUpdate: NoAction)
+  ms_employees_tr_attendance_corrections_supervisor_idToms_employees   ms_employees?   @relation("tr_attendance_corrections_supervisor_idToms_employees", fields: [supervisor_id], references: [id], onUpdate: NoAction)
+
+  @@index([attendance_id], map: "idx_attendance_corrections_attendance")
+  @@index([employee_id, status], map: "idx_attendance_corrections_employee")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_attendances {
+  id                        String                      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id               String                      @db.Uuid
+  location_id               String?                     @db.Uuid
+  attendance_date           DateTime                    @db.Date
+  clock_in                  DateTime?                   @db.Timestamptz(6)
+  clock_out                 DateTime?                   @db.Timestamptz(6)
+  clock_in_lat              Decimal?                    @db.Decimal(10, 8)
+  clock_in_lng              Decimal?                    @db.Decimal(11, 8)
+  clock_out_lat             Decimal?                    @db.Decimal(10, 8)
+  clock_out_lng             Decimal?                    @db.Decimal(11, 8)
+  clock_in_photo_url        String?
+  clock_out_photo_url       String?
+  clock_in_distance         Int?
+  clock_out_distance        Int?
+  status                    String?                     @db.VarChar(50)
+  late_minutes              Int?                        @default(0)
+  early_leave_minutes       Int?                        @default(0)
+  attendance_allowance      Decimal?                    @default(0) @db.Decimal(15, 2)
+  late_deduction            Decimal?                    @default(0) @db.Decimal(15, 2)
+  is_holiday                Boolean?                    @default(false)
+  notes                     String?
+  created_at                DateTime?                   @default(now()) @db.Timestamptz(6)
+  updated_at                DateTime?                   @default(now()) @db.Timestamptz(6)
+  tr_attendance_corrections tr_attendance_corrections[]
+  ms_employees              ms_employees                @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_locations              ms_locations?               @relation(fields: [location_id], references: [id], onUpdate: NoAction)
+
+  @@unique([employee_id, attendance_date])
+  @@index([attendance_date, status], map: "idx_attendances_date_status")
+  @@index([employee_id, attendance_date], map: "idx_attendances_employee_date")
+  @@index([location_id], map: "idx_attendances_location")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_audit_logs {
+  id           String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  table_name   String    @db.VarChar(100)
+  record_id    String    @db.Uuid
+  action       String    @db.VarChar(50)
+  old_values   Json?
+  new_values   Json?
+  performed_by String?   @db.Uuid
+  performed_at DateTime? @default(now()) @db.Timestamptz(6)
+  ms_users     ms_users? @relation(fields: [performed_by], references: [id], onUpdate: NoAction)
+
+  @@index([performed_by, performed_at], map: "idx_audit_logs_performed")
+  @@index([table_name, record_id, performed_at], map: "idx_audit_logs_table_record")
+}
+
+model tr_employee_schedules {
+  id                String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id       String            @db.Uuid
+  schedule_id       String            @db.Uuid
+  effective_date    DateTime          @db.Date
+  end_date          DateTime?         @db.Date
+  created_at        DateTime?         @default(now()) @db.Timestamptz(6)
+  ms_employees      ms_employees      @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_work_schedules ms_work_schedules @relation(fields: [schedule_id], references: [id], onUpdate: NoAction)
+
+  @@unique([employee_id, effective_date])
+  @@index([employee_id, effective_date], map: "idx_employee_schedules_employee")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model ms_employees {
+  id                                                                                String                      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  user_id                                                                           String?                     @unique @db.Uuid
+  department_id                                                                     String?                     @db.Uuid
+  position_id                                                                       String?                     @db.Uuid
+  location_id                                                                       String?                     @db.Uuid
+  supervisor_id                                                                     String?                     @db.Uuid
+  manager_id                                                                        String?                     @db.Uuid
+  team_id                                                                           String?                     @db.Uuid
+  current_remote_work_id                                                            String?                     @unique @db.Uuid
+  nik                                                                               String?                     @unique @db.VarChar(50)
+  full_name                                                                         String                      @db.VarChar(255)
+  gender                                                                            String?                     @db.VarChar(20)
+  birth_date                                                                        DateTime?                   @db.Date
+  address                                                                           String?
+  employment_status                                                                 String?                     @db.VarChar(50)
+  join_date                                                                         DateTime?                   @db.Date
+  contract_end_date                                                                 DateTime?                   @db.Date
+  resignation_date                                                                  DateTime?                   @db.Date
+  base_salary                                                                       String?                     @db.VarChar(255)
+  fixed_allowance                                                                   String?                     @db.VarChar(255)
+  phone_allowance                                                                   String?                     @db.VarChar(255)
+  dinas_allowance                                                                   String?                     @db.VarChar(255)
+  bpjs_payment_type                                                                 String?                     @default("company") @db.VarChar(50)
+  ptkp_status                                                                       String?                     @default("TK/0") @db.VarChar(50)
+  npwp                                                                              String?                     @db.VarChar(50)
+  bank_name                                                                         String?                     @db.VarChar(100)
+  bank_account_number                                                               String?                     @db.VarChar(100)
+  bank_account_holder                                                               String?                     @db.VarChar(255)
+  shift_type                                                                        String?                     @db.VarChar(50)
+  is_security                                                                       Boolean?                    @default(false)
+  is_active                                                                         Boolean?                    @default(true)
+  face_registration_status                                                          String?                     @default("not_registered") @db.VarChar(50)
+  created_at                                                                        DateTime?                   @default(now()) @db.Timestamptz(6)
+  updated_at                                                                        DateTime?                   @default(now()) @db.Timestamptz(6)
+  ms_departments_ms_departments_head_employee_idToms_employees                      ms_departments[]            @relation("ms_departments_head_employee_idToms_employees")
+  tr_approvals                                                                      tr_approvals[]
+  tr_attendance_corrections_tr_attendance_corrections_employee_idToms_employees     tr_attendance_corrections[] @relation("tr_attendance_corrections_employee_idToms_employees")
+  tr_attendance_corrections_tr_attendance_corrections_hrga_manager_idToms_employees tr_attendance_corrections[] @relation("tr_attendance_corrections_hrga_manager_idToms_employees")
+  tr_attendance_corrections_tr_attendance_corrections_supervisor_idToms_employees   tr_attendance_corrections[] @relation("tr_attendance_corrections_supervisor_idToms_employees")
+  tr_attendances                                                                    tr_attendances[]
+  ms_face_registrations                                                             ms_face_registrations?
+  tr_employee_schedules                                                             tr_employee_schedules[]
+  ms_departments_ms_employees_department_idToms_departments                         ms_departments?             @relation("ms_employees_department_idToms_departments", fields: [department_id], references: [id], onUpdate: NoAction)
+  ms_teams                                                                          ms_teams?                   @relation(fields: [team_id], references: [id], onUpdate: NoAction)
+  ms_locations                                                                      ms_locations?               @relation(fields: [location_id], references: [id], onUpdate: NoAction)
+  tr_remote_work_requests_current_remote_work                                       tr_remote_work_requests?    @relation("ms_employees_current_remote_work", fields: [current_remote_work_id], references: [id], onUpdate: NoAction)
+  ms_employees_ms_employees_manager_idToms_employees                                ms_employees?               @relation("ms_employees_manager_idToms_employees", fields: [manager_id], references: [id], onUpdate: NoAction)
+  other_ms_employees_ms_employees_manager_idToms_employees                          ms_employees[]              @relation("ms_employees_manager_idToms_employees")
+  ms_positions                                                                      ms_positions?               @relation(fields: [position_id], references: [id], onUpdate: NoAction)
+  ms_employees_ms_employees_supervisor_idToms_employees                             ms_employees?               @relation("ms_employees_supervisor_idToms_employees", fields: [supervisor_id], references: [id], onUpdate: NoAction)
+  other_ms_employees_ms_employees_supervisor_idToms_employees                       ms_employees[]              @relation("ms_employees_supervisor_idToms_employees")
+  ms_users                                                                          ms_users?                   @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tr_leave_balances                                                                 tr_leave_balances[]
+  tr_leave_requests_tr_leave_requests_employee_idToms_employees                     tr_leave_requests[]         @relation("tr_leave_requests_employee_idToms_employees")
+  tr_leave_requests_tr_leave_requests_hrga_manager_idToms_employees                 tr_leave_requests[]         @relation("tr_leave_requests_hrga_manager_idToms_employees")
+  tr_leave_requests_tr_leave_requests_supervisor_idToms_employees                   tr_leave_requests[]         @relation("tr_leave_requests_supervisor_idToms_employees")
+  tr_leave_requests_tr_leave_requests_work_handover_toToms_employees                tr_leave_requests[]         @relation("tr_leave_requests_work_handover_toToms_employees")
+  tr_loan_deductions                                                                tr_loan_deductions[]
+  tr_overtime_requests_tr_overtime_requests_employee_idToms_employees               tr_overtime_requests[]      @relation("tr_overtime_requests_employee_idToms_employees")
+  tr_overtime_requests_tr_overtime_requests_hrd_idToms_employees                    tr_overtime_requests[]      @relation("tr_overtime_requests_hrd_idToms_employees")
+  tr_overtime_requests_tr_overtime_requests_manager_idToms_employees                tr_overtime_requests[]      @relation("tr_overtime_requests_manager_idToms_employees")
+  tr_overtime_requests_tr_overtime_requests_requested_byToms_employees              tr_overtime_requests[]      @relation("tr_overtime_requests_requested_byToms_employees")
+  tr_payslips                                                                       tr_payslips[]
+  tr_thr_records                                                                    tr_thr_records[]
+  tr_time_off_requests_tr_time_off_requests_employee_idToms_employees               tr_time_off_requests[]      @relation("tr_time_off_requests_employee_idToms_employees")
+  tr_time_off_requests_tr_time_off_requests_hrga_manager_idToms_employees           tr_time_off_requests[]      @relation("tr_time_off_requests_hrga_manager_idToms_employees")
+  tr_time_off_requests_tr_time_off_requests_supervisor_idToms_employees             tr_time_off_requests[]      @relation("tr_time_off_requests_supervisor_idToms_employees")
+  tr_time_off_requests_tr_time_off_requests_work_handover_toToms_employees          tr_time_off_requests[]      @relation("tr_time_off_requests_work_handover_toToms_employees")
+  tr_remote_work_requests_tr_remote_work_requests_employee_idToms_employees         tr_remote_work_requests[]   @relation("tr_remote_work_requests_employee_idToms_employees")
+  tr_remote_work_requests_tr_remote_work_requests_supervisor_idToms_employees       tr_remote_work_requests[]   @relation("tr_remote_work_requests_supervisor_idToms_employees")
+  tr_overnight_requests_tr_overnight_requests_employee_idToms_employees             tr_overnight_requests[]     @relation("tr_overnight_requests_employee_idToms_employees")
+  tr_overnight_requests_tr_overnight_requests_supervisor_idToms_employees           tr_overnight_requests[]     @relation("tr_overnight_requests_supervisor_idToms_employees")
+  tr_reimbursements_tr_reimbursements_employee_idToms_employees                     tr_reimbursements[]         @relation("tr_reimbursements_employee_idToms_employees")
+  tr_reimbursements_tr_reimbursements_supervisor_idToms_employees                   tr_reimbursements[]         @relation("tr_reimbursements_supervisor_idToms_employees")
+  tr_reimbursements_tr_reimbursements_hr_approved_byToms_employees                  tr_reimbursements[]         @relation("tr_reimbursements_hr_approved_byToms_employees")
+
+  @@index([is_active], map: "idx_employees_active")
+  @@index([department_id], map: "idx_employees_department")
+  @@index([manager_id], map: "idx_employees_manager")
+  @@index([nik], map: "idx_employees_nik")
+  @@index([position_id], map: "idx_employees_position")
+  @@index([supervisor_id], map: "idx_employees_supervisor")
+  @@index([current_remote_work_id], map: "idx_employees_current_remote_work")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_job_applications {
+  id                      String          @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  job_posting_id          String          @db.Uuid
+  full_name               String          @db.VarChar(255)
+  email                   String          @db.VarChar(255)
+  phone                   String?         @db.VarChar(20)
+  resume_url              String?
+  cover_letter            String?
+  status                  String?         @default("new") @db.VarChar(50)
+  rejection_email_sent    Boolean?        @default(false)
+  rejection_email_sent_at DateTime?       @db.Timestamptz(6)
+  notes                   String?
+  created_at              DateTime?       @default(now()) @db.Timestamptz(6)
+  updated_at              DateTime?       @default(now()) @db.Timestamptz(6)
+  ms_job_postings         ms_job_postings @relation(fields: [job_posting_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([email], map: "idx_job_applications_email")
+  @@index([job_posting_id, status], map: "idx_job_applications_posting")
+}
+
+model tr_leave_balances {
+  id             String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id    String         @db.Uuid
+  leave_type_id  String         @db.Uuid
+  year           Int
+  total_days     Int
+  used_days      Int?           @default(0)
+  remaining_days Int?
+  created_at     DateTime?      @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime?      @default(now()) @db.Timestamptz(6)
+  ms_employees   ms_employees   @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_leave_types ms_leave_types @relation(fields: [leave_type_id], references: [id], onUpdate: NoAction)
+
+  @@unique([employee_id, leave_type_id, year])
+  @@index([employee_id, year], map: "idx_leave_balances_employee")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_leave_requests {
+  id                                                            String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id                                                   String         @db.Uuid
+  leave_type_id                                                 String         @db.Uuid
+  start_date                                                    DateTime       @db.Date
+  end_date                                                      DateTime       @db.Date
+  total_days                                                    Int
+  reason                                                        String
+  attachment_url                                                String?
+  status                                                        String?        @default("pending") @db.VarChar(50)
+  supervisor_approved_at                                        DateTime?      @db.Timestamptz(6)
+  hrga_approved_at                                              DateTime?      @db.Timestamptz(6)
+  supervisor_id                                                 String?        @db.Uuid
+  hrga_manager_id                                               String?        @db.Uuid
+  work_handover_to                                              String?        @db.Uuid
+  rejection_reason                                              String?
+  created_at                                                    DateTime?      @default(now()) @db.Timestamptz(6)
+  updated_at                                                    DateTime?      @default(now()) @db.Timestamptz(6)
+  ms_employees_tr_leave_requests_employee_idToms_employees      ms_employees   @relation("tr_leave_requests_employee_idToms_employees", fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_employees_tr_leave_requests_hrga_manager_idToms_employees  ms_employees?  @relation("tr_leave_requests_hrga_manager_idToms_employees", fields: [hrga_manager_id], references: [id], onUpdate: NoAction)
+  ms_leave_types                                                ms_leave_types @relation(fields: [leave_type_id], references: [id], onUpdate: NoAction)
+  ms_employees_tr_leave_requests_supervisor_idToms_employees    ms_employees?  @relation("tr_leave_requests_supervisor_idToms_employees", fields: [supervisor_id], references: [id], onUpdate: NoAction)
+  ms_employees_tr_leave_requests_work_handover_toToms_employees ms_employees?  @relation("tr_leave_requests_work_handover_toToms_employees", fields: [work_handover_to], references: [id], onUpdate: NoAction)
+
+  @@index([start_date, end_date], map: "idx_leave_requests_dates")
+  @@index([employee_id, status], map: "idx_leave_requests_employee")
+  @@index([status, created_at], map: "idx_leave_requests_status_created")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_loan_deductions {
+  id                String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id       String       @db.Uuid
+  amount            Decimal      @db.Decimal(15, 2)
+  remaining_amount  Decimal      @db.Decimal(15, 2)
+  monthly_deduction Decimal      @db.Decimal(15, 2)
+  description       String?
+  status            String?      @default("active") @db.VarChar(50)
+  created_at        DateTime?    @default(now()) @db.Timestamptz(6)
+  updated_at        DateTime?    @default(now()) @db.Timestamptz(6)
+  ms_employees      ms_employees @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([employee_id, status], map: "idx_loan_deductions_employee")
+}
+
+model tr_notifications {
+  id             String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  user_id        String    @db.Uuid
+  type           String    @db.VarChar(100)
+  title          String    @db.VarChar(255)
+  message        String
+  reference_type String?   @db.VarChar(100)
+  reference_id   String?   @db.Uuid
+  is_read        Boolean?  @default(false)
+  read_at        DateTime? @db.Timestamptz(6)
+  created_at     DateTime? @default(now()) @db.Timestamptz(6)
+  ms_users       ms_users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([reference_type, reference_id], map: "idx_notifications_reference")
+  @@index([user_id, is_read, created_at], map: "idx_notifications_user_read")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_overtime_requests {
+  id                                                           String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id                                                  String        @db.Uuid
+  requested_by                                                 String        @db.Uuid
+  date                                                         DateTime      @db.Date
+  start_time                                                   DateTime      @db.Time(6)
+  end_time                                                     DateTime      @db.Time(6)
+  total_hours                                                  Decimal       @db.Decimal(4, 2)
+  raw_minutes                                                  Int?
+  type                                                         String?       @db.VarChar(50)
+  day_type                                                     String        @db.VarChar(50)
+  description                                                  String
+  rate_per_hour                                                Decimal       @db.Decimal(15, 2)
+  total_overtime_pay                                           Decimal?      @default(0) @db.Decimal(15, 2)
+  total_meal_allowance                                         Decimal?      @default(0) @db.Decimal(15, 2)
+  status                                                       String?       @default("pending") @db.VarChar(50)
+  manager_approved_at                                          DateTime?     @db.Timestamptz(6)
+  hrd_processed_at                                             DateTime?     @db.Timestamptz(6)
+  manager_id                                                   String?       @db.Uuid
+  hrd_id                                                       String?       @db.Uuid
+  rejection_reason                                             String?
+  created_at                                                   DateTime?     @default(now()) @db.Timestamptz(6)
+  updated_at                                                   DateTime?     @default(now()) @db.Timestamptz(6)
+  ms_employees_tr_overtime_requests_employee_idToms_employees  ms_employees  @relation("tr_overtime_requests_employee_idToms_employees", fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_employees_tr_overtime_requests_hrd_idToms_employees       ms_employees? @relation("tr_overtime_requests_hrd_idToms_employees", fields: [hrd_id], references: [id], onUpdate: NoAction)
+  ms_employees_tr_overtime_requests_manager_idToms_employees   ms_employees? @relation("tr_overtime_requests_manager_idToms_employees", fields: [manager_id], references: [id], onUpdate: NoAction)
+  ms_employees_tr_overtime_requests_requested_byToms_employees ms_employees  @relation("tr_overtime_requests_requested_byToms_employees", fields: [requested_by], references: [id], onUpdate: NoAction)
+
+  @@index([date], map: "idx_overtime_requests_date")
+  @@index([employee_id, status], map: "idx_overtime_requests_employee")
+  @@index([status, date], map: "idx_overtime_requests_status")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_payroll_periods {
+  id                      String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id              String        @db.Uuid
+  month                   Int
+  year                    Int
+  period_name             String        @db.VarChar(255)
+  start_date              DateTime?     @db.Date
+  end_date                DateTime?     @db.Date
+  attendance_cutoff_start DateTime?     @db.Date
+  attendance_cutoff_end   DateTime?     @db.Date
+  payment_date            DateTime?     @db.Date
+  status                  String?       @default("draft") @db.VarChar(50)
+  created_at              DateTime?     @default(now()) @db.Timestamptz(6)
+  ms_companies            ms_companies  @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tr_payslips             tr_payslips[]
+
+  @@index([company_id, year, month], map: "idx_payroll_periods_company")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_payslips {
+  id                      String             @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id             String             @db.Uuid
+  payroll_period_id       String             @db.Uuid
+  base_salary             Decimal            @db.Decimal(15, 2)
+  fixed_allowance         Decimal?           @default(0) @db.Decimal(15, 2)
+  attendance_allowance    Decimal?           @default(0) @db.Decimal(15, 2)
+  phone_allowance         Decimal?           @default(0) @db.Decimal(15, 2)
+  dinas_allowance         Decimal?           @default(0) @db.Decimal(15, 2)
+  overtime_pay            Decimal?           @default(0) @db.Decimal(15, 2)
+  overtime_meal_allowance Decimal?           @default(0) @db.Decimal(15, 2)
+  late_deduction          Decimal?           @default(0) @db.Decimal(15, 2)
+  loan_deduction          Decimal?           @default(0) @db.Decimal(15, 2)
+  bpjs_kesehatan          Decimal?           @default(0) @db.Decimal(15, 2)
+  bpjs_ketenagakerjaan    Decimal?           @default(0) @db.Decimal(15, 2)
+  bpjs_jp                 Decimal?           @default(0) @db.Decimal(15, 2)
+  pph21                   Decimal?           @default(0) @db.Decimal(15, 2)
+  other_deductions        Decimal?           @default(0) @db.Decimal(15, 2)
+  reimbursement_amount    Decimal?           @default(0) @db.Decimal(15, 2)
+  unpaid_leave_deduction  Decimal?           @default(0) @db.Decimal(15, 2)
+  prorate_days_worked     Int?
+  prorate_days_effective  Int?
+  is_prorated             Boolean?           @default(false)
+  gross_income            Decimal            @db.Decimal(15, 2)
+  total_deductions        Decimal?           @default(0) @db.Decimal(15, 2)
+  net_income              Decimal            @db.Decimal(15, 2)
+  pdf_url                 String?
+  status                  String?            @default("draft") @db.VarChar(50)
+  published_at            DateTime?          @db.Timestamptz(6)
+  created_at              DateTime?          @default(now()) @db.Timestamptz(6)
+  updated_at              DateTime?          @default(now()) @db.Timestamptz(6)
+  ms_employees            ms_employees       @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  tr_payroll_periods      tr_payroll_periods @relation(fields: [payroll_period_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([employee_id, payroll_period_id], map: "idx_payslips_employee_period")
+  @@index([payroll_period_id, status], map: "idx_payslips_period_status")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_thr_records {
+  id            String       @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id   String       @db.Uuid
+  period_name   String       @db.VarChar(255)
+  base_salary   Decimal      @db.Decimal(15, 2)
+  months_worked Int
+  thr_amount    Decimal      @db.Decimal(15, 2)
+  is_prorated   Boolean?     @default(false)
+  status        String?      @default("draft") @db.VarChar(50)
+  paid_at       DateTime?    @db.Timestamptz(6)
+  created_at    DateTime?    @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime?    @default(now()) @db.Timestamptz(6)
+  ms_employees  ms_employees @relation(fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([employee_id, period_name], map: "idx_thr_records_employee")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_time_off_requests {
+  id                                                               String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id                                                      String            @db.Uuid
+  time_off_type_id                                                 String            @db.Uuid
+  start_date                                                       DateTime          @db.Date
+  end_date                                                         DateTime          @db.Date
+  start_time                                                       DateTime?         @db.Time(6)
+  end_time                                                         DateTime?         @db.Time(6)
+  reason                                                           String
+  attachment_url                                                   String?
+  status                                                           String?           @default("pending") @db.VarChar(50)
+  supervisor_approved_at                                           DateTime?         @db.Timestamptz(6)
+  hrga_approved_at                                                 DateTime?         @db.Timestamptz(6)
+  supervisor_id                                                    String?           @db.Uuid
+  hrga_manager_id                                                  String?           @db.Uuid
+  work_handover_to                                                 String?           @db.Uuid
+  rejection_reason                                                 String?
+  created_at                                                       DateTime?         @default(now()) @db.Timestamptz(6)
+  updated_at                                                       DateTime?         @default(now()) @db.Timestamptz(6)
+  ms_employees_tr_time_off_requests_employee_idToms_employees      ms_employees      @relation("tr_time_off_requests_employee_idToms_employees", fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_employees_tr_time_off_requests_hrga_manager_idToms_employees  ms_employees?     @relation("tr_time_off_requests_hrga_manager_idToms_employees", fields: [hrga_manager_id], references: [id], onUpdate: NoAction)
+  ms_employees_tr_time_off_requests_supervisor_idToms_employees    ms_employees?     @relation("tr_time_off_requests_supervisor_idToms_employees", fields: [supervisor_id], references: [id], onUpdate: NoAction)
+  ms_employees_tr_time_off_requests_work_handover_toToms_employees ms_employees?     @relation("tr_time_off_requests_work_handover_toToms_employees", fields: [work_handover_to], references: [id], onUpdate: NoAction)
+  ms_time_off_types                                                ms_time_off_types @relation(fields: [time_off_type_id], references: [id], onUpdate: NoAction)
+
+  @@index([start_date, end_date], map: "idx_time_off_requests_dates")
+  @@index([employee_id, status], map: "idx_time_off_requests_employee")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_remote_work_requests {
+  id                                                               String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id                                                      String        @db.Uuid
+  start_date                                                       DateTime      @db.Date
+  end_date                                                         DateTime      @db.Date
+  latitude                                                         Decimal?      @db.Decimal(10, 8)
+  longitude                                                        Decimal?      @db.Decimal(11, 8)
+  address                                                          String?
+  radius_meters                                                    Int?          @default(50)
+  status                                                           String?       @default("pending") @db.VarChar(50)
+  supervisor_id                                                    String?       @db.Uuid
+  approved_at                                                      DateTime?     @db.Timestamptz(6)
+  rejected_reason                                                  String?
+  cancelled_at                                                     DateTime?     @db.Timestamptz(6)
+  cancelled_reason                                                 String?
+  reason                                                           String?
+  created_at                                                       DateTime?     @default(now()) @db.Timestamptz(6)
+  updated_at                                                       DateTime?     @default(now()) @db.Timestamptz(6)
+  ms_employees_tr_remote_work_requests_employee_idToms_employees   ms_employees  @relation("tr_remote_work_requests_employee_idToms_employees", fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_employees_tr_remote_work_requests_supervisor_idToms_employees ms_employees? @relation("tr_remote_work_requests_supervisor_idToms_employees", fields: [supervisor_id], references: [id], onUpdate: NoAction)
+  ms_employees_current_remote_work                                 ms_employees? @relation("ms_employees_current_remote_work")
+
+  @@index([employee_id], map: "idx_remote_work_employee")
+  @@index([status], map: "idx_remote_work_status")
+  @@index([start_date, end_date], map: "idx_remote_work_dates")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_overnight_requests {
+  id                                                             String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id                                                    String        @db.Uuid
+  date                                                           DateTime      @db.Date
+  shift_type                                                     String        @db.VarChar(50)
+  remarks                                                        String?
+  status                                                         String?       @default("pending") @db.VarChar(50)
+  supervisor_approved_at                                         DateTime?     @db.Timestamptz(6)
+  supervisor_id                                                  String?       @db.Uuid
+  rejection_reason                                               String?
+  created_at                                                     DateTime?     @default(now()) @db.Timestamptz(6)
+  updated_at                                                     DateTime?     @default(now()) @db.Timestamptz(6)
+  ms_employees_tr_overnight_requests_employee_idToms_employees   ms_employees  @relation("tr_overnight_requests_employee_idToms_employees", fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_employees_tr_overnight_requests_supervisor_idToms_employees ms_employees? @relation("tr_overnight_requests_supervisor_idToms_employees", fields: [supervisor_id], references: [id], onUpdate: NoAction)
+
+  @@index([date], map: "idx_overnight_requests_date")
+  @@index([employee_id, status], map: "idx_overnight_requests_employee")
+}
+
+/// This table contains check constraints and requires additional setup for migrations. Visit https://pris.ly/d/check-constraints for more info.
+model tr_reimbursements {
+  id                                                          String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  company_id String @db.Uuid
+  employee_id                                                 String        @db.Uuid
+  date                                                        DateTime      @db.Date
+  category                                                    String        @db.VarChar(100)
+  amount                                                      Decimal       @db.Decimal(15, 2)
+  description                                                 String?
+  proof_image_url                                             String?
+  status                                                      String?       @default("pending") @db.VarChar(50)
+  supervisor_id                                               String?       @db.Uuid
+  supervisor_approved_at                                      DateTime?     @db.Timestamptz(6)
+  hr_approved_by                                              String?       @db.Uuid
+  approved_at                                                 DateTime?     @db.Timestamptz(6)
+  rejection_reason                                            String?
+  created_at                                                  DateTime?     @default(now()) @db.Timestamptz(6)
+  updated_at                                                  DateTime?     @default(now()) @db.Timestamptz(6)
+  ms_employees_tr_reimbursements_employee_idToms_employees    ms_employees  @relation("tr_reimbursements_employee_idToms_employees", fields: [employee_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_employees_tr_reimbursements_supervisor_idToms_employees  ms_employees? @relation("tr_reimbursements_supervisor_idToms_employees", fields: [supervisor_id], references: [id], onUpdate: NoAction)
+  ms_employees_tr_reimbursements_hr_approved_byToms_employees ms_employees? @relation("tr_reimbursements_hr_approved_byToms_employees", fields: [hr_approved_by], references: [id], onUpdate: NoAction)
+
+  @@index([date], map: "idx_reimbursements_date")
+  @@index([employee_id, status], map: "idx_reimbursements_employee")
+  @@index([category], map: "idx_reimbursements_category")
+  @@index([supervisor_id], map: "idx_reimbursements_supervisor")
+}
+
+model ms_users {
+  id                        String                      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  role_id                   String                      @db.Uuid
+  company_id                String                      @db.Uuid
+  employee_id               String?                     @unique @db.VarChar(100)
+  email                     String                      @unique @db.VarChar(255)
+  password_hash             String                      @db.VarChar(255)
+  full_name                 String                      @db.VarChar(255)
+  phone                     String?                     @db.VarChar(20)
+  avatar_url                String?
+  fcm_token                 String?
+  is_active                 Boolean?                    @default(true)
+  last_login_at             DateTime?                   @db.Timestamptz(6)
+  created_at                DateTime?                   @default(now()) @db.Timestamptz(6)
+  updated_at                DateTime?                   @default(now()) @db.Timestamptz(6)
+  ms_job_postings           ms_job_postings[]
+  tr_attendance_corrections tr_attendance_corrections[]
+  tr_audit_logs             tr_audit_logs[]
+  ms_employees              ms_employees?
+  tr_notifications          tr_notifications[]
+  tr_user_devices           tr_user_devices[]
+  ms_companies              ms_companies                @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  ms_roles                  ms_roles                    @relation(fields: [role_id], references: [id], onUpdate: NoAction)
+
+  @@index([company_id], map: "idx_users_company")
+  @@index([email], map: "idx_users_email")
+  @@index([role_id], map: "idx_users_role")
+}
+
+model tr_user_devices {
+  id         String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  user_id    String    @db.Uuid
+  fcm_token  String    @unique @db.VarChar(512)
+  device_id  String?   @db.VarChar(255)
+  platform   String?   @db.VarChar(50)
+  is_active  Boolean?  @default(true)
+  created_at DateTime? @default(now()) @db.Timestamptz(6)
+  updated_at DateTime? @default(now()) @db.Timestamptz(6)
+  ms_users   ms_users  @relation(fields: [user_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([user_id], map: "idx_user_devices_user")
+  @@index([device_id], map: "idx_user_devices_device")
+}
+
+model ms_salary_keys {
+  id           String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  keycode_hash String   @db.VarChar(255)
+  month        Int
+  year         Int
+  created_at   DateTime @default(now()) @db.Timestamptz(6)
+  updated_at   DateTime @default(now()) @db.Timestamptz(6)
+
+  @@unique([month, year])
+  @@index([month, year], map: "idx_salary_keys_month_year")
+}
+
+model ms_plans {
+  id              String   @id @default(uuid()) @db.Uuid
+  name            String   @db.VarChar(100)
+  code            String   @unique @db.VarChar(50)
+  max_employees   Int      @default(10)
+  max_departments Int?
+  features        Json     @default("{}")
+  price_monthly   Decimal  @db.Decimal(12, 2)
+  price_yearly    Decimal  @db.Decimal(12, 2)
+  is_active       Boolean? @default(true)
+  created_at      DateTime @default(now()) @db.Timestamptz(6)
+  updated_at      DateTime @default(now()) @db.Timestamptz(6)
+  subscriptions   ms_subscriptions[]
+}
+
+model ms_subscriptions {
+  id            String    @id @default(uuid()) @db.Uuid
+  company_id    String    @db.Uuid
+  plan_id       String    @db.Uuid
+  status        String    @default("active") @db.VarChar(20)
+  trial_ends_at DateTime? @db.Timestamptz(6)
+  starts_at     DateTime  @default(now()) @db.Timestamptz(6)
+  ends_at       DateTime? @db.Timestamptz(6)
+  created_at    DateTime  @default(now()) @db.Timestamptz(6)
+  updated_at    DateTime  @default(now()) @db.Timestamptz(6)
+
+  company ms_companies @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  plan    ms_plans     @relation(fields: [plan_id], references: [id], onUpdate: NoAction)
+
+  @@index([company_id], map: "idx_subscriptions_company")
+  @@index([plan_id], map: "idx_subscriptions_plan")
+}
+
+model ms_usage_tracking {
+  id             String   @id @default(uuid()) @db.Uuid
+  company_id     String   @db.Uuid
+  month          Int
+  year           Int
+  employee_count Int      @default(0)
+  storage_bytes  Int      @default(0)
+  api_calls      Int      @default(0)
+  created_at     DateTime @default(now()) @db.Timestamptz(6)
+  updated_at     DateTime @default(now()) @db.Timestamptz(6)
+
+  company ms_companies @relation(fields: [company_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@unique([company_id, month, year])
+  @@index([company_id, month, year], map: "idx_usage_tracking_company_month")
+}

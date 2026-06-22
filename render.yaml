@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: hris-samugara-api
+    env: node
+    buildCommand: npm install && npx prisma generate
+    startCommand: npm run start:prod
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 3000
+      - key: APP_NAME
+        value: HRIS Samugara
+      - key: DATABASE_URL
+        sync: false
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_ANON_KEY
+        sync: false
+      - key: SUPABASE_SERVICE_ROLE_KEY
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: SUPABASE_STORAGE_BUCKET
+        value: attendance-photos
+      - key: MAX_FILE_SIZE
+        value: 5242880
