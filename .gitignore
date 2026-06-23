@@ -7,3 +7,5 @@ database/
 coverage/
 *.log
 prisma/nul
+logs/
+ecosystem.*
