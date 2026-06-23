@@ -9,3 +9,4 @@ coverage/
 prisma/nul
 logs/
 ecosystem.*
+.idea/

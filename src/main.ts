@@ -3,6 +3,11 @@ if (typeof (globalThis as any).crypto === 'undefined') {
   (globalThis as any).crypto = crypto;
 }
 
+import WebSocket from 'ws';
+if (typeof (globalThis as any).WebSocket === 'undefined') {
+  (globalThis as any).WebSocket = WebSocket;
+}
+
 import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
