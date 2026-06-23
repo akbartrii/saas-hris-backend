@@ -1,8 +1,8 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { INestApplication } from '@nestjs/common';
-import { AppModule } from '../src/app.module';
+import { Test, TestingModule } from "@nestjs/testing";
+import { INestApplication } from "@nestjs/common";
+import { AppModule } from "../src/app.module";
 
-describe('App (e2e)', () => {
+describe("App (e2e)", () => {
   let app: INestApplication;
 
   beforeEach(async () => {
@@ -11,7 +11,7 @@ describe('App (e2e)', () => {
     }).compile();
 
     app = moduleFixture.createNestApplication();
-    app.setGlobalPrefix('api/v1');
+    app.setGlobalPrefix("api/v1");
     await app.init();
   });
 
@@ -19,11 +19,11 @@ describe('App (e2e)', () => {
     await app.close();
   });
 
-  it('should be defined', () => {
+  it("should be defined", () => {
     expect(app).toBeDefined();
   });
 
-  it('should have global prefix set', () => {
+  it("should have global prefix set", () => {
     expect(app.getHttpServer()).toBeDefined();
   });
 });
