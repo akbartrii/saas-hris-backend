@@ -50,6 +50,7 @@ jobs:
     env:
       NODE_ENV: test
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/hris_test
+      DIRECT_URL: postgresql://postgres:postgres@localhost:5432/hris_test
       JWT_SECRET: test-jwt-secret-at-least-32-characters-long!!
       SUPABASE_URL: https://test.supabase.co
       SUPABASE_SERVICE_ROLE_KEY: test-key
