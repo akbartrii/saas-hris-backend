@@ -1,59 +1,59 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import {
   IsString,
   IsNotEmpty,
   IsOptional,
   IsInt,
   IsBoolean,
-} from 'class-validator';
+} from "class-validator";
 
 export class CreateLeaveTypeDto {
-  @ApiProperty({ description: 'Leave type name' })
+  @ApiProperty({ description: "Leave type name" })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @ApiPropertyOptional({ description: 'Unique code' })
+  @ApiPropertyOptional({ description: "Unique code" })
   @IsString()
   @IsOptional()
   code?: string;
 
-  @ApiPropertyOptional({ description: 'Default days allocated', default: 0 })
+  @ApiPropertyOptional({ description: "Default days allocated", default: 0 })
   @IsInt()
   @IsOptional()
   default_days?: number;
 
-  @ApiPropertyOptional({ description: 'Is annual leave', default: false })
+  @ApiPropertyOptional({ description: "Is annual leave", default: false })
   @IsBoolean()
   @IsOptional()
   is_annual?: boolean;
 
-  @ApiPropertyOptional({ description: 'Is paid leave', default: true })
+  @ApiPropertyOptional({ description: "Is paid leave", default: true })
   @IsBoolean()
   @IsOptional()
   is_paid?: boolean;
 
-  @ApiPropertyOptional({ description: 'Requires attachment', default: false })
+  @ApiPropertyOptional({ description: "Requires attachment", default: false })
   @IsBoolean()
   @IsOptional()
   requires_attachment?: boolean;
 
-  @ApiPropertyOptional({ description: 'Max days per request' })
+  @ApiPropertyOptional({ description: "Max days per request" })
   @IsInt()
   @IsOptional()
   max_days_per_request?: number;
 
   @ApiPropertyOptional({
-    description: 'Leave category',
+    description: "Leave category",
     enum: [
-      'annual',
-      'government_mandatory',
-      'umroh',
-      'sick',
-      'personal',
-      'other',
+      "annual",
+      "government_mandatory",
+      "umroh",
+      "sick",
+      "personal",
+      "other",
     ],
-    default: 'other',
+    default: "other",
   })
   @IsString()
   @IsOptional()

@@ -1,21 +1,28 @@
-import { Injectable, BadRequestException } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import * as crypto from 'crypto';
-import * as bcrypt from 'bcryptjs';
+import { Injectable, BadRequestException } from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import * as crypto from "crypto";
+import * as bcrypt from "bcryptjs";
 
 @Injectable()
 export class EncryptionService {
   constructor(private prisma: PrismaService) {}
 
-  private readonly salt = Buffer.from(process.env.ENCRYPTION_SALT || 'samugara-hris-secret-salt-2026', 'utf-8');
+  private readonly salt = Buffer.from(
+    process.env.ENCRYPTION_SALT || "samugara-hris-secret-salt-2026",
+    "utf-8",
+  );
 
   // Derive a 256-bit (32 bytes) key using PBKDF2 with 100,000 iterations
   deriveKey(keycode: string): Buffer {
-    return crypto.pbkdf2Sync(keycode, this.salt, 100000, 32, 'sha256');
+    return crypto.pbkdf2Sync(keycode, this.salt, 100000, 32, "sha256");
   }
 
   // Validate the keycode against the active database keycode for the current month/year
-  async validateKeycode(keycode: string, month?: number, year?: number): Promise<boolean> {
+  async validateKeycode(
+    keycode: string,
+    month?: number,
+    year?: number,
+  ): Promise<boolean> {
     const today = new Date();
     const targetMonth = month || today.getMonth() + 1;
     const targetYear = year || today.getFullYear();
@@ -35,7 +42,11 @@ export class EncryptionService {
   }
 
   // Hashing and storing a new keycode for the month, and initializing legacy plain numbers
-  async generateKeycode(keycode: string, month?: number, year?: number): Promise<void> {
+  async generateKeycode(
+    keycode: string,
+    month?: number,
+    year?: number,
+  ): Promise<void> {
     const today = new Date();
     const targetMonth = month || today.getMonth() + 1;
     const targetYear = year || today.getFullYear();
@@ -45,7 +56,9 @@ export class EncryptionService {
     });
 
     if (existingKey) {
-      throw new BadRequestException('A keycode has already been generated for this month. Please use rotation instead.');
+      throw new BadRequestException(
+        "A keycode has already been generated for this month. Please use rotation instead.",
+      );
     }
 
     const hash = await bcrypt.hash(keycode, 10);
@@ -62,10 +75,14 @@ export class EncryptionService {
   }
 
   // Encrypt existing plain numeric values on legacy employee profiles
-  async initializeLegacySalaries(keycode: string, month: number, year: number): Promise<void> {
+  async initializeLegacySalaries(
+    keycode: string,
+    month: number,
+    year: number,
+  ): Promise<void> {
     const isCreated = await this.validateKeycode(keycode, month, year);
     if (!isCreated) {
-      throw new BadRequestException('Keycode is not active for this month.');
+      throw new BadRequestException("Keycode is not active for this month.");
     }
 
     const employees = await this.prisma.ms_employees.findMany();
@@ -77,12 +94,29 @@ export class EncryptionService {
           const phonePlain = emp.phone_allowance;
           const dinasPlain = emp.dinas_allowance;
 
-          const baseEnc = basePlain && !this.isEncrypted(basePlain) ? this.encrypt(basePlain, keycode) : basePlain;
-          const fixedEnc = fixedPlain && !this.isEncrypted(fixedPlain) ? this.encrypt(fixedPlain, keycode) : fixedPlain;
-          const phoneEnc = phonePlain && !this.isEncrypted(phonePlain) ? this.encrypt(phonePlain, keycode) : phonePlain;
-          const dinasEnc = dinasPlain && !this.isEncrypted(dinasPlain) ? this.encrypt(dinasPlain, keycode) : dinasPlain;
+          const baseEnc =
+            basePlain && !this.isEncrypted(basePlain)
+              ? this.encrypt(basePlain, keycode)
+              : basePlain;
+          const fixedEnc =
+            fixedPlain && !this.isEncrypted(fixedPlain)
+              ? this.encrypt(fixedPlain, keycode)
+              : fixedPlain;
+          const phoneEnc =
+            phonePlain && !this.isEncrypted(phonePlain)
+              ? this.encrypt(phonePlain, keycode)
+              : phonePlain;
+          const dinasEnc =
+            dinasPlain && !this.isEncrypted(dinasPlain)
+              ? this.encrypt(dinasPlain, keycode)
+              : dinasPlain;
 
-          if (baseEnc !== basePlain || fixedEnc !== fixedPlain || phoneEnc !== phonePlain || dinasEnc !== dinasPlain) {
+          if (
+            baseEnc !== basePlain ||
+            fixedEnc !== fixedPlain ||
+            phoneEnc !== phonePlain ||
+            dinasEnc !== dinasPlain
+          ) {
             await tx.ms_employees.update({
               where: { id: emp.id },
               data: {
@@ -95,37 +129,62 @@ export class EncryptionService {
           }
         }
       },
-      { maxWait: 15000, timeout: 30000 }
+      { maxWait: 15000, timeout: 30000 },
     );
   }
 
   // Core Key Rotation Engine: safe transaction to re-encrypt all database compensation fields
-  async rotateKeycode(oldKeycode: string, newKeycode: string, month?: number, year?: number): Promise<void> {
+  async rotateKeycode(
+    oldKeycode: string,
+    newKeycode: string,
+    month?: number,
+    year?: number,
+  ): Promise<void> {
     const today = new Date();
     const targetMonth = month || today.getMonth() + 1;
     const targetYear = year || today.getFullYear();
 
-    const isOldValid = await this.validateKeycode(oldKeycode, targetMonth, targetYear);
+    const isOldValid = await this.validateKeycode(
+      oldKeycode,
+      targetMonth,
+      targetYear,
+    );
     if (!isOldValid) {
-      throw new BadRequestException('Old keycode is incorrect.');
+      throw new BadRequestException("Old keycode is incorrect.");
     }
 
     const employees = await this.prisma.ms_employees.findMany();
-    
+
     await this.prisma.$transaction(
       async (tx) => {
         for (const emp of employees) {
           // Decrypt with old keycode (returns plain numbers or null)
-          const basePlain = emp.base_salary ? this.decrypt(emp.base_salary, oldKeycode) : null;
-          const fixedPlain = emp.fixed_allowance ? this.decrypt(emp.fixed_allowance, oldKeycode) : null;
-          const phonePlain = emp.phone_allowance ? this.decrypt(emp.phone_allowance, oldKeycode) : null;
-          const dinasPlain = emp.dinas_allowance ? this.decrypt(emp.dinas_allowance, oldKeycode) : null;
+          const basePlain = emp.base_salary
+            ? this.decrypt(emp.base_salary, oldKeycode)
+            : null;
+          const fixedPlain = emp.fixed_allowance
+            ? this.decrypt(emp.fixed_allowance, oldKeycode)
+            : null;
+          const phonePlain = emp.phone_allowance
+            ? this.decrypt(emp.phone_allowance, oldKeycode)
+            : null;
+          const dinasPlain = emp.dinas_allowance
+            ? this.decrypt(emp.dinas_allowance, oldKeycode)
+            : null;
 
           // Re-encrypt with new keycode
-          const baseEnc = basePlain ? this.encrypt(basePlain, newKeycode) : null;
-          const fixedEnc = fixedPlain ? this.encrypt(fixedPlain, newKeycode) : null;
-          const phoneEnc = phonePlain ? this.encrypt(phonePlain, newKeycode) : null;
-          const dinasEnc = dinasPlain ? this.encrypt(dinasPlain, newKeycode) : null;
+          const baseEnc = basePlain
+            ? this.encrypt(basePlain, newKeycode)
+            : null;
+          const fixedEnc = fixedPlain
+            ? this.encrypt(fixedPlain, newKeycode)
+            : null;
+          const phoneEnc = phonePlain
+            ? this.encrypt(phonePlain, newKeycode)
+            : null;
+          const dinasEnc = dinasPlain
+            ? this.encrypt(dinasPlain, newKeycode)
+            : null;
 
           await tx.ms_employees.update({
             where: { id: emp.id },
@@ -143,21 +202,25 @@ export class EncryptionService {
         await tx.ms_salary_keys.upsert({
           where: { month_year: { month: targetMonth, year: targetYear } },
           update: { keycode_hash: newHash },
-          create: { keycode_hash: newHash, month: targetMonth, year: targetYear },
+          create: {
+            keycode_hash: newHash,
+            month: targetMonth,
+            year: targetYear,
+          },
         });
       },
-      { maxWait: 15000, timeout: 30000 }
+      { maxWait: 15000, timeout: 30000 },
     );
   }
 
   // Helper to check if a value is encrypted (matches GCM format)
   isEncrypted(value: string | null): boolean {
     if (!value) return false;
-    const parts = value.split(':');
+    const parts = value.split(":");
     if (parts.length !== 3) return false;
     // Check if all parts are valid hex strings
     const hexRegex = /^[0-9a-fA-F]+$/;
-    return parts.every(part => hexRegex.test(part));
+    return parts.every((part) => hexRegex.test(part));
   }
 
   // Encrypt a value using AES-256-GCM
@@ -168,13 +231,13 @@ export class EncryptionService {
 
     const key = this.deriveKey(keycode);
     const iv = crypto.randomBytes(12); // 96-bit IV is standard for GCM
-    const cipher = crypto.createCipheriv('aes-256-gcm', key, iv);
-    
-    let encrypted = cipher.update(value.toString(), 'utf8', 'hex');
-    encrypted += cipher.final('hex');
-    const authTag = cipher.getAuthTag().toString('hex');
-    
-    return `${iv.toString('hex')}:${encrypted}:${authTag}`;
+    const cipher = crypto.createCipheriv("aes-256-gcm", key, iv);
+
+    let encrypted = cipher.update(value.toString(), "utf8", "hex");
+    encrypted += cipher.final("hex");
+    const authTag = cipher.getAuthTag().toString("hex");
+
+    return `${iv.toString("hex")}:${encrypted}:${authTag}`;
   }
 
   // Decrypt a value using AES-256-GCM
@@ -189,17 +252,17 @@ export class EncryptionService {
 
     try {
       const key = this.deriveKey(keycode);
-      const [ivHex, ciphertextHex, authTagHex] = encryptedValue.split(':');
-      
-      const iv = Buffer.from(ivHex, 'hex');
-      const authTag = Buffer.from(authTagHex, 'hex');
-      const decipher = crypto.createDecipheriv('aes-256-gcm', key, iv);
+      const [ivHex, ciphertextHex, authTagHex] = encryptedValue.split(":");
+
+      const iv = Buffer.from(ivHex, "hex");
+      const authTag = Buffer.from(authTagHex, "hex");
+      const decipher = crypto.createDecipheriv("aes-256-gcm", key, iv);
       decipher.setAuthTag(authTag);
-      
-      let decrypted = decipher.update(ciphertextHex, 'hex', 'utf8');
-      decrypted += decipher.final('utf8');
+
+      let decrypted = decipher.update(ciphertextHex, "hex", "utf8");
+      decrypted += decipher.final("utf8");
       return decrypted;
-    } catch (err) {
+    } catch {
       // If decryption fails (e.g. wrong keycode), gracefully return the ciphertext
       // so it shows as locked in the UI rather than throwing a crash
       return encryptedValue;

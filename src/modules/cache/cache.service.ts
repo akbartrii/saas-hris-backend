@@ -1,13 +1,13 @@
-import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import Redis from 'ioredis';
+import { Injectable, Logger, OnModuleDestroy } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import Redis from "ioredis";
 
 export enum CacheNamespace {
-  LEAVE_TYPES = 'leave_types',
-  PARAMETERS = 'parameters',
-  SCHEDULES = 'schedules',
-  LOCATIONS = 'locations',
-  COMPANY_PROFILE = 'company_profile',
+  LEAVE_TYPES = "leave_types",
+  PARAMETERS = "parameters",
+  SCHEDULES = "schedules",
+  LOCATIONS = "locations",
+  COMPANY_PROFILE = "company_profile",
 }
 
 const TTL_CONFIG: Record<CacheNamespace, number> = {
@@ -22,18 +22,20 @@ const TTL_CONFIG: Record<CacheNamespace, number> = {
 export class CacheService implements OnModuleDestroy {
   private readonly logger = new Logger(CacheService.name);
   private readonly redis: Redis;
-  private readonly prefix = 'hris:cache:';
+  private readonly prefix = "hris:cache:";
 
   constructor(private readonly configService: ConfigService) {
-    const host = this.configService.get('REDIS_HOST', 'localhost');
-    const port = Number(this.configService.get('REDIS_PORT', 6379));
-    const password = this.configService.get('REDIS_PASSWORD') || undefined;
+    const host = this.configService.get("REDIS_HOST", "localhost");
+    const port = Number(this.configService.get("REDIS_PORT", 6379));
+    const password = this.configService.get("REDIS_PASSWORD") || undefined;
 
-    const db = Number(this.configService.get('REDIS_DB', 4));
+    const db = Number(this.configService.get("REDIS_DB", 4));
     this.redis = new Redis({ host, port, password, db, lazyConnect: true });
 
-    this.redis.on('error', (err) => {
-      this.logger.warn(`Redis connection error (cache degraded): ${err.message}`);
+    this.redis.on("error", (err) => {
+      this.logger.warn(
+        `Redis connection error (cache degraded): ${err.message}`,
+      );
     });
   }
 
@@ -46,14 +48,17 @@ export class CacheService implements OnModuleDestroy {
   }
 
   private buildKey(namespace: CacheNamespace, ...parts: string[]): string {
-    return `${this.prefix}${namespace}:${parts.join(':')}`;
+    return `${this.prefix}${namespace}:${parts.join(":")}`;
   }
 
   private getTtl(namespace: CacheNamespace): number {
     return TTL_CONFIG[namespace] ?? 300;
   }
 
-  async get<T>(namespace: CacheNamespace, ...keys: string[]): Promise<T | null> {
+  async get<T>(
+    namespace: CacheNamespace,
+    ...keys: string[]
+  ): Promise<T | null> {
     try {
       const raw = await this.redis.get(this.buildKey(namespace, ...keys));
       if (raw === null) return null;
@@ -64,16 +69,27 @@ export class CacheService implements OnModuleDestroy {
     }
   }
 
-  async set<T>(namespace: CacheNamespace, value: T, ...keys: string[]): Promise<void> {
+  async set<T>(
+    namespace: CacheNamespace,
+    value: T,
+    ...keys: string[]
+  ): Promise<void> {
     try {
       const ttl = this.getTtl(namespace);
-      await this.redis.setex(this.buildKey(namespace, ...keys), ttl, JSON.stringify(value));
+      await this.redis.setex(
+        this.buildKey(namespace, ...keys),
+        ttl,
+        JSON.stringify(value),
+      );
     } catch (error) {
       this.logger.warn(`Cache set error: ${(error as Error).message}`);
     }
   }
 
-  async invalidate(namespace: CacheNamespace, ...keys: string[]): Promise<void> {
+  async invalidate(
+    namespace: CacheNamespace,
+    ...keys: string[]
+  ): Promise<void> {
     try {
       if (keys.length > 0) {
         await this.redis.del(this.buildKey(namespace, ...keys));
@@ -89,20 +105,22 @@ export class CacheService implements OnModuleDestroy {
       const stream = this.redis.scanStream({ match: pattern, count: 100 });
       const pipeline = this.redis.pipeline();
 
-      stream.on('data', (keys: string[]) => {
+      stream.on("data", (keys: string[]) => {
         for (const key of keys) {
           pipeline.del(key);
         }
       });
 
       await new Promise<void>((resolve, reject) => {
-        stream.on('end', () => resolve());
-        stream.on('error', (err) => reject(err));
+        stream.on("end", () => resolve());
+        stream.on("error", (err) => reject(err));
       });
 
       await pipeline.exec();
     } catch (error) {
-      this.logger.warn(`Cache namespace invalidate error: ${(error as Error).message}`);
+      this.logger.warn(
+        `Cache namespace invalidate error: ${(error as Error).message}`,
+      );
     }
   }
 

@@ -2,19 +2,18 @@ import {
   Injectable,
   ForbiddenException,
   NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { CreateHolidayDto } from './dto/create-holiday.dto';
-import { UpdateHolidayDto } from './dto/update-holiday.dto';
-import { ListHolidayDto } from './dto/list-holiday.dto';
-import { SyncHolidayDto } from './dto/sync-holiday.dto';
+} from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { CreateHolidayDto } from "./dto/create-holiday.dto";
+import { UpdateHolidayDto } from "./dto/update-holiday.dto";
+import { ListHolidayDto } from "./dto/list-holiday.dto";
 
 @Injectable()
 export class HolidayCalendarService {
   constructor(private prisma: PrismaService) {}
 
   private isAdminOrHRD(role: string): boolean {
-    return ['manager_hrga', 'hrd', 'admin', 'super_admin'].includes(role);
+    return ["manager_hrga", "hrd", "admin", "super_admin"].includes(role);
   }
 
   async list(
@@ -30,7 +29,7 @@ export class HolidayCalendarService {
 
     return this.prisma.ms_holiday_calendars.findMany({
       where,
-      orderBy: { holiday_date: 'asc' },
+      orderBy: { holiday_date: "asc" },
     });
   }
 
@@ -41,7 +40,7 @@ export class HolidayCalendarService {
     dto: CreateHolidayDto,
   ) {
     if (!this.isAdminOrHRD(userRole)) {
-      throw new ForbiddenException('Only HRD or admin can manage holidays');
+      throw new ForbiddenException("Only HRD or admin can manage holidays");
     }
 
     const existing = await this.prisma.ms_holiday_calendars.findFirst({
@@ -52,7 +51,7 @@ export class HolidayCalendarService {
     });
     if (existing) {
       throw new ForbiddenException(
-        'Holiday already exists for this date and company',
+        "Holiday already exists for this date and company",
       );
     }
 
@@ -76,14 +75,14 @@ export class HolidayCalendarService {
     dto: UpdateHolidayDto,
   ) {
     if (!this.isAdminOrHRD(userRole)) {
-      throw new ForbiddenException('Only HRD or admin can manage holidays');
+      throw new ForbiddenException("Only HRD or admin can manage holidays");
     }
 
     const holiday = await this.prisma.ms_holiday_calendars.findUnique({
       where: { id },
     });
     if (!holiday) {
-      throw new NotFoundException('Holiday not found');
+      throw new NotFoundException("Holiday not found");
     }
 
     const data: any = {};
@@ -98,16 +97,21 @@ export class HolidayCalendarService {
     return this.prisma.ms_holiday_calendars.update({ where: { id }, data });
   }
 
-  async delete(userId: string, companyId: string, userRole: string, id: string) {
+  async delete(
+    userId: string,
+    companyId: string,
+    userRole: string,
+    id: string,
+  ) {
     if (!this.isAdminOrHRD(userRole)) {
-      throw new ForbiddenException('Only HRD or admin can manage holidays');
+      throw new ForbiddenException("Only HRD or admin can manage holidays");
     }
 
     const holiday = await this.prisma.ms_holiday_calendars.findUnique({
       where: { id },
     });
     if (!holiday) {
-      throw new NotFoundException('Holiday not found');
+      throw new NotFoundException("Holiday not found");
     }
 
     return this.prisma.ms_holiday_calendars.delete({ where: { id } });
@@ -119,7 +123,7 @@ export class HolidayCalendarService {
         `https://api-hari-libur.vercel.app/api?year=${year}`,
       );
       if (!response.ok) {
-        throw new Error('Failed to fetch holidays from public API');
+        throw new Error("Failed to fetch holidays from public API");
       }
 
       const holidays = await response.json();
@@ -137,14 +141,14 @@ export class HolidayCalendarService {
           },
           update: {
             name: h.holiday_name,
-            type: h.is_national_holiday ? 'national' : 'other',
+            type: h.is_national_holiday ? "national" : "other",
             year: year,
           },
           create: {
             company_id: companyId,
             holiday_date: holidayDate,
             name: h.holiday_name,
-            type: h.is_national_holiday ? 'national' : 'other',
+            type: h.is_national_holiday ? "national" : "other",
             year: year,
             is_recurring: false,
           },

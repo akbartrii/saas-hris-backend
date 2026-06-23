@@ -1,30 +1,25 @@
-import {
-  Injectable,
-  BadRequestException,
-  NotFoundException,
-  Logger,
-} from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { SupabaseStorageService } from '../../common/services/supabase-storage.service';
+import { Injectable, NotFoundException, Logger } from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { SupabaseStorageService } from "../../common/services/supabase-storage.service";
 
 @Injectable()
 export class FaceRegistrationService {
   private readonly logger = new Logger(FaceRegistrationService.name);
-  private readonly STORAGE_BUCKET = 'face-registrations';
+  private readonly STORAGE_BUCKET = "face-registrations";
 
   constructor(
     private prisma: PrismaService,
     private storageService: SupabaseStorageService,
   ) {}
 
-  async getStatus(userId: string, companyId: string) {
+  async getStatus(userId: string, _companyId: string) {
     const user = await this.prisma.ms_users.findUnique({
       where: { id: userId },
       include: { ms_employees: true },
     });
 
     if (!user || !user.ms_employees) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const registration = await this.prisma.ms_face_registrations.findUnique({
@@ -32,7 +27,7 @@ export class FaceRegistrationService {
     });
 
     return {
-      status: user.ms_employees.face_registration_status || 'not_registered',
+      status: user.ms_employees.face_registration_status || "not_registered",
       registered_at: registration?.registered_at || null,
       photos: registration
         ? {
@@ -61,7 +56,7 @@ export class FaceRegistrationService {
     });
 
     if (!user || !user.ms_employees) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const employeeId = user.ms_employees.id;
@@ -73,7 +68,7 @@ export class FaceRegistrationService {
     const uploadStart = Date.now();
 
     const uploadPhoto = async (file: Express.Multer.File, pose: string) => {
-      const ext = file.mimetype.split('/')[1] || 'jpg';
+      const ext = file.mimetype.split("/")[1] || "jpg";
       const path = `companies/${companyId}/faces/${employeeId}/${pose}.${ext}`;
       return this.storageService.uploadFile(
         this.STORAGE_BUCKET,
@@ -84,10 +79,10 @@ export class FaceRegistrationService {
     };
 
     const [frontUrl, smileUrl, rightUrl, leftUrl] = await Promise.all([
-      uploadPhoto(files.front_photo, 'front'),
-      uploadPhoto(files.smile_photo, 'smile'),
-      uploadPhoto(files.right_photo, 'right'),
-      uploadPhoto(files.left_photo, 'left'),
+      uploadPhoto(files.front_photo, "front"),
+      uploadPhoto(files.smile_photo, "smile"),
+      uploadPhoto(files.right_photo, "right"),
+      uploadPhoto(files.left_photo, "left"),
     ]);
 
     this.logger.log(`[FaceReg] Upload done in ${Date.now() - uploadStart}ms`);
@@ -115,7 +110,7 @@ export class FaceRegistrationService {
 
     await this.prisma.ms_employees.update({
       where: { id: employeeId },
-      data: { face_registration_status: 'registered' },
+      data: { face_registration_status: "registered" },
     });
 
     this.logger.log(
@@ -123,8 +118,8 @@ export class FaceRegistrationService {
     );
 
     return {
-      message: 'Face registration successful',
-      status: 'registered',
+      message: "Face registration successful",
+      status: "registered",
     };
   }
 }

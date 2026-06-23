@@ -2,18 +2,18 @@ import {
   Injectable,
   ForbiddenException,
   NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { CreateLocationDto } from './dto/create-location.dto';
-import { UpdateLocationDto } from './dto/update-location.dto';
-import { ListLocationDto } from './dto/list-location.dto';
+} from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { CreateLocationDto } from "./dto/create-location.dto";
+import { UpdateLocationDto } from "./dto/update-location.dto";
+import { ListLocationDto } from "./dto/list-location.dto";
 
 @Injectable()
 export class LocationService {
   constructor(private prisma: PrismaService) {}
 
   private canManageLocations(role: string): boolean {
-    return ['manager_hrga', 'hrd', 'admin', 'super_admin'].includes(role);
+    return ["manager_hrga", "hrd", "admin", "super_admin"].includes(role);
   }
 
   async list(userId: string, companyId: string, query: ListLocationDto) {
@@ -23,17 +23,17 @@ export class LocationService {
 
     return this.prisma.ms_locations.findMany({
       where,
-      orderBy: { name: 'asc' },
+      orderBy: { name: "asc" },
     });
   }
 
-  async getAssignedLocations(userId: string, companyId: string) {
+  async getAssignedLocations(userId: string, _companyId: string) {
     const user = await this.prisma.ms_users.findUnique({
       where: { id: userId },
       include: { ms_employees: { include: { ms_locations: true } } },
     });
     if (!user?.ms_employees) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const locations: any[] = [];
@@ -45,7 +45,7 @@ export class LocationService {
       locations.push({
         id: employee.ms_locations.id,
         name: employee.ms_locations.name,
-        type: employee.ms_locations.type || 'office',
+        type: employee.ms_locations.type || "office",
         latitude: employee.ms_locations.latitude,
         longitude: employee.ms_locations.longitude,
         radius_meters: employee.ms_locations.radius_meters,
@@ -56,22 +56,22 @@ export class LocationService {
 
     // Active WFH location
     if (employee.current_remote_work_id) {
-      const todayStr = new Date().toISOString().split('T')[0];
+      const todayStr = new Date().toISOString().split("T")[0];
 
       const wfh = await this.prisma.tr_remote_work_requests.findUnique({
         where: { id: employee.current_remote_work_id },
       });
 
       const startStr = wfh?.start_date
-        ? new Date(wfh.start_date).toISOString().split('T')[0]
+        ? new Date(wfh.start_date).toISOString().split("T")[0]
         : null;
       const endStr = wfh?.end_date
-        ? new Date(wfh.end_date).toISOString().split('T')[0]
+        ? new Date(wfh.end_date).toISOString().split("T")[0]
         : null;
 
       if (
         wfh &&
-        wfh.status === 'approved' &&
+        wfh.status === "approved" &&
         startStr &&
         endStr &&
         startStr <= todayStr &&
@@ -79,8 +79,8 @@ export class LocationService {
       ) {
         locations.push({
           id: wfh.id,
-          name: `WFH - ${wfh.address || 'Rumah'}`,
-          type: 'wfh',
+          name: `WFH - ${wfh.address || "Rumah"}`,
+          type: "wfh",
           latitude: wfh.latitude,
           longitude: wfh.longitude,
           radius_meters: wfh.radius_meters || 50,
@@ -98,7 +98,7 @@ export class LocationService {
   async create(companyId: string, userRole: string, dto: CreateLocationDto) {
     if (!this.canManageLocations(userRole)) {
       throw new ForbiddenException(
-        'Only manager HRGA, HRD, or admin can manage locations',
+        "Only manager HRGA, HRD, or admin can manage locations",
       );
     }
     return this.prisma.ms_locations.create({
@@ -115,15 +115,20 @@ export class LocationService {
     });
   }
 
-  async update(companyId: string, userRole: string, id: string, dto: UpdateLocationDto) {
+  async update(
+    companyId: string,
+    userRole: string,
+    id: string,
+    dto: UpdateLocationDto,
+  ) {
     if (!this.canManageLocations(userRole)) {
       throw new ForbiddenException(
-        'Only manager HRGA, HRD, or admin can manage locations',
+        "Only manager HRGA, HRD, or admin can manage locations",
       );
     }
     const exists = await this.prisma.ms_locations.findUnique({ where: { id } });
     if (!exists) {
-      throw new NotFoundException('Location not found');
+      throw new NotFoundException("Location not found");
     }
 
     const data: any = {};
@@ -142,12 +147,12 @@ export class LocationService {
   async delete(companyId: string, userRole: string, id: string) {
     if (!this.canManageLocations(userRole)) {
       throw new ForbiddenException(
-        'Only manager HRGA, HRD, or admin can manage locations',
+        "Only manager HRGA, HRD, or admin can manage locations",
       );
     }
     const exists = await this.prisma.ms_locations.findUnique({ where: { id } });
     if (!exists) {
-      throw new NotFoundException('Location not found');
+      throw new NotFoundException("Location not found");
     }
     return this.prisma.ms_locations.delete({ where: { id } });
   }

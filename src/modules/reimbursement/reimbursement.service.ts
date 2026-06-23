@@ -1,15 +1,13 @@
 import {
   Injectable,
-  ForbiddenException,
   NotFoundException,
   BadRequestException,
-} from '@nestjs/common';
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { PrismaService } from '../../prisma/prisma.service';
-import { HrisRequestEvent } from '../notification/events/hris-request.event';
-import { CreateReimbursementDto } from './dto/create-reimbursement.dto';
-import { ListReimbursementDto } from './dto/list-reimbursement.dto';
-import { ApproveReimbursementDto } from './dto/approve-reimbursement.dto';
+} from "@nestjs/common";
+import { EventEmitter2 } from "@nestjs/event-emitter";
+import { PrismaService } from "../../prisma/prisma.service";
+import { CreateReimbursementDto } from "./dto/create-reimbursement.dto";
+import { ListReimbursementDto } from "./dto/list-reimbursement.dto";
+import { ApproveReimbursementDto } from "./dto/approve-reimbursement.dto";
 
 @Injectable()
 export class ReimbursementService {
@@ -29,7 +27,7 @@ export class ReimbursementService {
       include: { ms_employees: true },
     });
     if (!user || !user.ms_employees) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const page = query.page ?? 1;
@@ -37,7 +35,7 @@ export class ReimbursementService {
     const skip = (page - 1) * limit;
 
     const where: any = { company_id: companyId };
-    const isAdmin = ['admin', 'super_admin'].includes(userRole);
+    const isAdmin = ["admin", "super_admin"].includes(userRole);
 
     if (!isAdmin) {
       where.employee_id = user.ms_employees.id;
@@ -55,7 +53,7 @@ export class ReimbursementService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
       }),
       this.prisma.tr_reimbursements.count({ where }),
     ]);
@@ -74,7 +72,7 @@ export class ReimbursementService {
       include: { ms_employees: true },
     });
     if (!user || !user.ms_employees) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const page = query.page ?? 1;
@@ -113,7 +111,7 @@ export class ReimbursementService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
       }),
       this.prisma.tr_reimbursements.count({ where }),
     ]);
@@ -128,7 +126,7 @@ export class ReimbursementService {
       include: { ms_employees: true },
     });
     if (!user || !user.ms_employees) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const reimbursement = await this.prisma.tr_reimbursements.create({
@@ -141,7 +139,7 @@ export class ReimbursementService {
         amount: dto.amount,
         description: dto.description || null,
         proof_image_url: dto.proof_image_url || null,
-        status: 'pending',
+        status: "pending",
       },
     });
 
@@ -160,37 +158,37 @@ export class ReimbursementService {
       include: { ms_employees: true },
     });
     if (!approver || !approver.ms_employees) {
-      throw new NotFoundException('Approver not found');
+      throw new NotFoundException("Approver not found");
     }
 
     const reimbursement = await this.prisma.tr_reimbursements.findUnique({
       where: { id: reimbursementId, company_id: companyId },
     });
     if (!reimbursement) {
-      throw new NotFoundException('Reimbursement not found');
+      throw new NotFoundException("Reimbursement not found");
     }
 
-    if (dto.action === 'reject') {
+    if (dto.action === "reject") {
       return this.prisma.tr_reimbursements.update({
         where: { id: reimbursementId },
         data: {
-          status: 'rejected',
-          rejection_reason: dto.rejection_reason || 'Rejected',
+          status: "rejected",
+          rejection_reason: dto.rejection_reason || "Rejected",
         },
       });
     }
 
-    if (dto.action === 'approve') {
+    if (dto.action === "approve") {
       return this.prisma.tr_reimbursements.update({
         where: { id: reimbursementId },
         data: {
-          status: 'approved',
+          status: "approved",
           approved_at: new Date(),
           hr_approved_by: approver.id,
         },
       });
     }
 
-    throw new BadRequestException('Invalid action');
+    throw new BadRequestException("Invalid action");
   }
 }

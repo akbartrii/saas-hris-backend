@@ -1,5 +1,5 @@
-import { Injectable, OnModuleDestroy } from '@nestjs/common';
-import { AsyncLocalStorage } from 'async_hooks';
+import { Injectable, OnModuleDestroy } from "@nestjs/common";
+import { AsyncLocalStorage } from "async_hooks";
 
 export interface TenantContext {
   companyId: string | null;

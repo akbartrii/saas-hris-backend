@@ -9,7 +9,12 @@ import {
   UseGuards,
   ParseUUIDPipe,
 } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+} from "@nestjs/swagger";
 import { LeaveService } from "./leave.service";
 import { CreateLeaveDto } from "./dto/create-leave.dto";
 import { ApproveLeaveDto } from "./dto/approve-leave.dto";
@@ -28,8 +33,8 @@ export class LeaveController {
   constructor(private readonly leaveService: LeaveService) {}
 
   @Post()
-  @ApiOperation({ summary: 'Create a new leave request' })
-  @ApiResponse({ status: 201, description: 'Leave created successfully' })
+  @ApiOperation({ summary: "Create a new leave request" })
+  @ApiResponse({ status: 201, description: "Leave created successfully" })
   async createLeave(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,
@@ -40,8 +45,8 @@ export class LeaveController {
   }
 
   @Get("balance")
-  @ApiOperation({ summary: 'Get leave balance for current user' })
-  @ApiResponse({ status: 200, description: 'Leave balance retrieved' })
+  @ApiOperation({ summary: "Get leave balance for current user" })
+  @ApiResponse({ status: 200, description: "Leave balance retrieved" })
   async getLeaveBalance(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,
@@ -50,8 +55,8 @@ export class LeaveController {
   }
 
   @Get()
-  @ApiOperation({ summary: 'List leave requests for current user' })
-  @ApiResponse({ status: 200, description: 'Leave list retrieved' })
+  @ApiOperation({ summary: "List leave requests for current user" })
+  @ApiResponse({ status: 200, description: "Leave list retrieved" })
   async listLeaves(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,
@@ -62,8 +67,8 @@ export class LeaveController {
 
   @Get("subordinates")
   @Roles("atasan", "manager_hrga", "admin", "super_admin")
-  @ApiOperation({ summary: 'List subordinate leave requests for approval' })
-  @ApiResponse({ status: 200, description: 'Subordinate leave list retrieved' })
+  @ApiOperation({ summary: "List subordinate leave requests for approval" })
+  @ApiResponse({ status: 200, description: "Subordinate leave list retrieved" })
   async listSubordinateLeaves(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,
@@ -74,8 +79,8 @@ export class LeaveController {
 
   @Patch(":id/approve")
   @Roles("atasan", "manager_hrga", "admin", "super_admin")
-  @ApiOperation({ summary: 'Approve or reject a leave request' })
-  @ApiResponse({ status: 200, description: 'Leave approved/rejected' })
+  @ApiOperation({ summary: "Approve or reject a leave request" })
+  @ApiResponse({ status: 200, description: "Leave approved/rejected" })
   async approveLeave(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,
@@ -88,8 +93,8 @@ export class LeaveController {
 
   @Patch(":id/cancel")
   @Roles("karyawan", "atasan", "manager_hrga", "hrd", "admin", "super_admin")
-  @ApiOperation({ summary: 'Cancel a leave request' })
-  @ApiResponse({ status: 200, description: 'Leave cancelled successfully' })
+  @ApiOperation({ summary: "Cancel a leave request" })
+  @ApiResponse({ status: 200, description: "Leave cancelled successfully" })
   async cancelLeave(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,

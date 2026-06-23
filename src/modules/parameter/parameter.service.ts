@@ -1,5 +1,5 @@
-import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
+import { Injectable } from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
 
 @Injectable()
 export class ParameterService {
@@ -11,7 +11,7 @@ export class ParameterService {
   async findAll(companyId: string) {
     return this.prisma.ms_parameters.findMany({
       where: { company_id: companyId },
-      orderBy: { key: 'asc' },
+      orderBy: { key: "asc" },
     });
   }
 
@@ -42,7 +42,11 @@ export class ParameterService {
     return value;
   }
 
-  async getNumber(key: string, companyId: string, defaultValue: number = 0): Promise<number> {
+  async getNumber(
+    key: string,
+    companyId: string,
+    defaultValue: number = 0,
+  ): Promise<number> {
     const val = await this.getValue(key, companyId);
     return val ? Number(val) : defaultValue;
   }

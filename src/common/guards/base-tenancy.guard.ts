@@ -3,13 +3,13 @@ import {
   ExecutionContext,
   Injectable,
   BadRequestException,
-} from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { JwtAuthGuard } from './jwt-auth.guard';
-import { PrismaService } from '../../prisma/prisma.service';
-import { TenantContextService } from '../services/tenant-context.service';
-import { IS_PUBLIC_KEY } from '../decorators/public.decorator';
-import { SKIP_TENANCY_KEY } from '../decorators/skip-tenancy.decorator';
+} from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
+import { JwtAuthGuard } from "./jwt-auth.guard";
+import { PrismaService } from "../../prisma/prisma.service";
+import { TenantContextService } from "../services/tenant-context.service";
+import { IS_PUBLIC_KEY } from "../decorators/public.decorator";
+import { SKIP_TENANCY_KEY } from "../decorators/skip-tenancy.decorator";
 
 @Injectable()
 export class BaseTenancyGuard implements CanActivate {
@@ -46,7 +46,7 @@ export class BaseTenancyGuard implements CanActivate {
     const companyId = request.user.companyId;
 
     if (!companyId) {
-      throw new BadRequestException('Company ID not found in token');
+      throw new BadRequestException("Company ID not found in token");
     }
 
     this.tenantContext.setCompanyId(companyId);
@@ -57,7 +57,7 @@ export class BaseTenancyGuard implements CanActivate {
     });
 
     if (request.company && !request.company.is_active) {
-      throw new BadRequestException('Company is inactive');
+      throw new BadRequestException("Company is inactive");
     }
 
     return true;

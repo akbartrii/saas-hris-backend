@@ -3,8 +3,8 @@ import {
   OnModuleInit,
   OnModuleDestroy,
   Logger,
-} from '@nestjs/common';
-import { PrismaClient } from '@prisma/client';
+} from "@nestjs/common";
+import { PrismaClient } from "@prisma/client";
 
 @Injectable()
 export class PrismaService
@@ -16,9 +16,9 @@ export class PrismaService
   constructor() {
     super({
       log:
-        process.env.NODE_ENV === 'development'
-          ? ['query', 'info', 'warn', 'error']
-          : ['warn', 'error'],
+        process.env.NODE_ENV === "development"
+          ? ["query", "info", "warn", "error"]
+          : ["warn", "error"],
     });
   }
 
@@ -39,7 +39,7 @@ export class PrismaService
           error.message,
         );
         if (retries === 0) {
-          this.logger.error('Prisma connection failed after all retries');
+          this.logger.error("Prisma connection failed after all retries");
           throw error;
         }
         await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -49,6 +49,6 @@ export class PrismaService
 
   async onModuleDestroy() {
     await this.$disconnect();
-    this.logger.log('Prisma disconnected');
+    this.logger.log("Prisma disconnected");
   }
 }

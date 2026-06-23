@@ -4,17 +4,17 @@ import {
   NotFoundException,
   ForbiddenException,
   Logger,
-} from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
-import { PrismaService } from '../../prisma/prisma.service';
-import { SupabaseStorageService } from '../../common/services/supabase-storage.service';
-import { ParameterService } from '../parameter/parameter.service';
-import { ClockInDto } from './dto/clock-in.dto';
-import { ClockOutDto } from './dto/clock-out.dto';
-import { CreateCorrectionDto } from './dto/create-correction.dto';
-import { ApproveCorrectionDto } from './dto/approve-correction.dto';
-import { ListAttendanceDto } from './dto/list-attendance.dto';
-import { FaceRecognitionService } from '../../common/services/face-recognition.service';
+} from "@nestjs/common";
+import { Cron, CronExpression } from "@nestjs/schedule";
+import { PrismaService } from "../../prisma/prisma.service";
+import { SupabaseStorageService } from "../../common/services/supabase-storage.service";
+import { ParameterService } from "../parameter/parameter.service";
+import { ClockInDto } from "./dto/clock-in.dto";
+import { ClockOutDto } from "./dto/clock-out.dto";
+import { CreateCorrectionDto } from "./dto/create-correction.dto";
+import { ApproveCorrectionDto } from "./dto/approve-correction.dto";
+import { ListAttendanceDto } from "./dto/list-attendance.dto";
+import { FaceRecognitionService } from "../../common/services/face-recognition.service";
 
 @Injectable()
 export class AttendanceService {
@@ -59,7 +59,7 @@ export class AttendanceService {
       },
     });
     if (!employee) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
     return employee;
   }
@@ -72,7 +72,7 @@ export class AttendanceService {
         OR: [{ end_date: null }, { end_date: { gte: date } }],
       },
       include: { ms_work_schedules: true },
-      orderBy: { effective_date: 'desc' },
+      orderBy: { effective_date: "desc" },
     });
     return schedule?.ms_work_schedules || null;
   }
@@ -109,7 +109,7 @@ export class AttendanceService {
         isValid: false,
         distance: 0,
         radius: 0,
-        error: 'Employee not found',
+        error: "Employee not found",
       };
     }
 
@@ -122,7 +122,7 @@ export class AttendanceService {
 
       if (
         wfhRequest &&
-        wfhRequest.status === 'approved' &&
+        wfhRequest.status === "approved" &&
         wfhRequest.start_date <= today &&
         wfhRequest.end_date >= today
       ) {
@@ -155,7 +155,7 @@ export class AttendanceService {
         isValid: false,
         distance: 0,
         radius: 0,
-        error: 'Work location not assigned. Please contact your supervisor.',
+        error: "Work location not assigned. Please contact your supervisor.",
       };
     }
 
@@ -164,7 +164,7 @@ export class AttendanceService {
         isValid: false,
         distance: 0,
         radius: 0,
-        error: 'Assigned location not found.',
+        error: "Assigned location not found.",
       };
     }
 
@@ -173,13 +173,13 @@ export class AttendanceService {
         isValid: false,
         distance: 0,
         radius: 0,
-        error: 'Assigned location is inactive. Please contact your supervisor.',
+        error: "Assigned location is inactive. Please contact your supervisor.",
       };
     }
 
     const location = employee.ms_locations;
     const defaultRadius = await this.parameterService.getNumber(
-      'gps_default_radius_meters',
+      "gps_default_radius_meters",
       employee.company_id,
       100,
     );
@@ -211,7 +211,7 @@ export class AttendanceService {
     const clockInMinutes = clockIn.getHours() * 60 + clockIn.getMinutes();
     const diff = clockInMinutes - scheduleMinutes;
     const tolerance = await this.parameterService.getNumber(
-      'late_tolerance_minutes',
+      "late_tolerance_minutes",
       companyId,
       5,
     );
@@ -229,7 +229,7 @@ export class AttendanceService {
     const clockOutMinutes = clockOut.getHours() * 60 + clockOut.getMinutes();
     const diff = scheduleMinutes - clockOutMinutes;
     const tolerance = await this.parameterService.getNumber(
-      'late_tolerance_minutes',
+      "late_tolerance_minutes",
       companyId,
       5,
     );
@@ -250,8 +250,7 @@ export class AttendanceService {
     let lateMinutes = 0;
     let lateDeduction = 0;
     let earlyLeaveMinutes = 0;
-    let earlyLeaveDeduction = 0;
-    let status = 'present';
+    let status = "present";
     let attendanceAllowance = 0;
 
     if (attendance.clock_in && schedule?.start_time) {
@@ -262,12 +261,12 @@ export class AttendanceService {
       );
       if (lateMinutes > 0) {
         const lateRate = await this.parameterService.getNumber(
-          'late_deduction_rate_per_hour',
+          "late_deduction_rate_per_hour",
           attendance.company_id,
           5000,
         );
         lateDeduction = Math.ceil(lateMinutes / 60) * lateRate;
-        status = 'late';
+        status = "late";
       }
     }
 
@@ -278,13 +277,7 @@ export class AttendanceService {
         attendance.company_id,
       );
       if (earlyLeaveMinutes > 0) {
-        const earlyRate = await this.parameterService.getNumber(
-          'early_leave_deduction_rate_per_hour',
-          attendance.company_id,
-          5000,
-        );
-        earlyLeaveDeduction = Math.ceil(earlyLeaveMinutes / 60) * earlyRate;
-        if (status === 'present') status = 'early_leave';
+        if (status === "present") status = "early_leave";
       }
     }
 
@@ -292,7 +285,7 @@ export class AttendanceService {
 
     if (attendance.clock_in && attendance.clock_out) {
       attendanceAllowance = await this.parameterService.getNumber(
-        'attendance_allowance_daily',
+        "attendance_allowance_daily",
         attendance.company_id,
         25000,
       );
@@ -300,7 +293,7 @@ export class AttendanceService {
       attendanceAllowance = 0;
     }
 
-    if (isHoliday) status = 'holiday';
+    if (isHoliday) status = "holiday";
 
     await this.prisma.tr_attendances.update({
       where: { id: attendanceId },
@@ -322,7 +315,7 @@ export class AttendanceService {
 
     if (!registration) {
       throw new BadRequestException(
-        'Face registration required. Please complete face registration first.',
+        "Face registration required. Please complete face registration first.",
       );
     }
 
@@ -340,7 +333,7 @@ export class AttendanceService {
 
     if (!currentDescriptor) {
       throw new BadRequestException(
-        'Could not detect face in photo. Please ensure your face is clearly visible.',
+        "Could not detect face in photo. Please ensure your face is clearly visible.",
       );
     }
 
@@ -351,7 +344,7 @@ export class AttendanceService {
 
     if (!isMatch) {
       throw new BadRequestException(
-        'Face verification failed. Wajah tidak cocok dengan data terdaftar.',
+        "Face verification failed. Wajah tidak cocok dengan data terdaftar.",
       );
     }
   }
@@ -362,9 +355,9 @@ export class AttendanceService {
       select: { face_registration_status: true },
     });
 
-    if (!employee || employee.face_registration_status !== 'registered') {
+    if (!employee || employee.face_registration_status !== "registered") {
       throw new BadRequestException(
-        'Face registration required. Please complete face registration before clocking in/out.',
+        "Face registration required. Please complete face registration before clocking in/out.",
       );
     }
   }
@@ -387,7 +380,7 @@ export class AttendanceService {
     });
 
     if (existing?.clock_in) {
-      throw new BadRequestException('Already clocked in today');
+      throw new BadRequestException("Already clocked in today");
     }
 
     const gpsValidation = await this.validateGPS(employee, dto.lat, dto.lng);
@@ -399,12 +392,14 @@ export class AttendanceService {
       );
     }
 
-    const ext = photo.mimetype.split('/')[1] || 'jpg';
-    const dateStr = today.toISOString().split('T')[0];
+    const ext = photo.mimetype.split("/")[1] || "jpg";
+    const dateStr = today.toISOString().split("T")[0];
     const photoPath = `companies/${employee.company_id}/attendance/${employee.id}/${dateStr}_clock_in.${ext}`;
     const bucket =
-      (await this.parameterService.getValue('attendance_photo_bucket', employee.company_id)) ||
-      'attendance-proof';
+      (await this.parameterService.getValue(
+        "attendance_photo_bucket",
+        employee.company_id,
+      )) || "attendance-proof";
     const photoUrl = await this.storageService.uploadFile(
       bucket,
       photoPath,
@@ -420,16 +415,16 @@ export class AttendanceService {
       employee.company_id,
     );
     const lateRate = await this.parameterService.getNumber(
-      'late_deduction_rate_per_hour',
+      "late_deduction_rate_per_hour",
       employee.company_id,
       5000,
     );
     const lateDeduction = Math.ceil(lateMinutes / 60) * lateRate;
     const isHoliday = await this.isHoliday(today);
 
-    let status = 'present';
-    if (lateMinutes > 0) status = 'late';
-    if (isHoliday) status = 'holiday';
+    let status = "present";
+    if (lateMinutes > 0) status = "late";
+    if (isHoliday) status = "holiday";
 
     const attendance = await this.prisma.tr_attendances.upsert({
       where: {
@@ -490,11 +485,11 @@ export class AttendanceService {
     });
 
     if (!attendance || !attendance.clock_in) {
-      throw new BadRequestException('You must clock in before clocking out');
+      throw new BadRequestException("You must clock in before clocking out");
     }
 
     if (attendance.clock_out) {
-      throw new BadRequestException('Already clocked out today');
+      throw new BadRequestException("Already clocked out today");
     }
 
     const gpsValidation = await this.validateGPS(employee, dto.lat, dto.lng);
@@ -506,12 +501,14 @@ export class AttendanceService {
       );
     }
 
-    const ext = photo.mimetype.split('/')[1] || 'jpg';
-    const dateStr = today.toISOString().split('T')[0];
+    const ext = photo.mimetype.split("/")[1] || "jpg";
+    const dateStr = today.toISOString().split("T")[0];
     const photoPath = `companies/${employee.company_id}/attendance/${employee.id}/${dateStr}_clock_out.${ext}`;
     const bucket =
-      (await this.parameterService.getValue('attendance_photo_bucket', employee.company_id)) ||
-      'attendance-proof';
+      (await this.parameterService.getValue(
+        "attendance_photo_bucket",
+        employee.company_id,
+      )) || "attendance-proof";
     const photoUrl = await this.storageService.uploadFile(
       bucket,
       photoPath,
@@ -527,21 +524,21 @@ export class AttendanceService {
       employee.company_id,
     );
     const earlyRate = await this.parameterService.getNumber(
-      'early_leave_deduction_rate_per_hour',
+      "early_leave_deduction_rate_per_hour",
       employee.company_id,
       5000,
     );
     const earlyLeaveDeduction = Math.ceil(earlyLeaveMinutes / 60) * earlyRate;
 
     let status = attendance.status;
-    if (earlyLeaveMinutes > 0 && status === 'present') {
-      status = 'early_leave';
-    } else if (earlyLeaveMinutes > 0 && status === 'late') {
-      status = 'late_and_early_leave';
+    if (earlyLeaveMinutes > 0 && status === "present") {
+      status = "early_leave";
+    } else if (earlyLeaveMinutes > 0 && status === "late") {
+      status = "late_and_early_leave";
     }
 
     const attendanceAllowance = await this.parameterService.getNumber(
-      'attendance_allowance_daily',
+      "attendance_allowance_daily",
       employee.company_id,
       25000,
     );
@@ -583,10 +580,6 @@ export class AttendanceService {
       ? (schedule.start_time as any as Date).getHours() * 60 +
         (schedule.start_time as any as Date).getMinutes()
       : 480; // default 08:00
-    const scheduleEndMinutes = schedule?.end_time
-      ? (schedule.end_time as any as Date).getHours() * 60 +
-        (schedule.end_time as any as Date).getMinutes()
-      : 1020; // default 17:00
 
     return {
       date: today,
@@ -640,7 +633,7 @@ export class AttendanceService {
     }
 
     if (query.month) {
-      const [year, month] = query.month.split('-').map(Number);
+      const [year, month] = query.month.split("-").map(Number);
       const startDate = new Date(year, month - 1, 1);
       const endDate = new Date(year, month, 0);
       where.attendance_date = { gte: startDate, lte: endDate };
@@ -655,7 +648,7 @@ export class AttendanceService {
         where,
         skip,
         take: limit,
-        orderBy: { attendance_date: 'desc' },
+        orderBy: { attendance_date: "desc" },
         include: { ms_locations: true },
       }),
       this.prisma.tr_attendances.count({ where }),
@@ -674,7 +667,7 @@ export class AttendanceService {
     if (query.employee_id) where.employee_id = query.employee_id;
     if (query.status) where.status = query.status;
     if (query.month) {
-      const [year, month] = query.month.split('-').map(Number);
+      const [year, month] = query.month.split("-").map(Number);
       const startDate = new Date(year, month - 1, 1);
       const endDate = new Date(year, month, 0);
       where.attendance_date = { gte: startDate, lte: endDate };
@@ -685,7 +678,7 @@ export class AttendanceService {
         where,
         skip,
         take: limit,
-        orderBy: { attendance_date: 'desc' },
+        orderBy: { attendance_date: "desc" },
         include: {
           ms_locations: true,
           ms_employees: { select: { id: true, full_name: true, nik: true } },
@@ -730,7 +723,7 @@ export class AttendanceService {
     }
 
     if (query.month) {
-      const [year, month] = query.month.split('-').map(Number);
+      const [year, month] = query.month.split("-").map(Number);
       const startDate = new Date(year, month - 1, 1);
       const endDate = new Date(year, month, 0);
       where.attendance_date = { gte: startDate, lte: endDate };
@@ -745,7 +738,7 @@ export class AttendanceService {
         where,
         skip,
         take: limit,
-        orderBy: { attendance_date: 'desc' },
+        orderBy: { attendance_date: "desc" },
         include: {
           ms_locations: true,
           ms_employees: { select: { id: true, full_name: true, nik: true } },
@@ -767,20 +760,20 @@ export class AttendanceService {
     });
 
     if (!attendance) {
-      throw new NotFoundException('Attendance record not found');
+      throw new NotFoundException("Attendance record not found");
     }
 
     const pendingCorrection =
       await this.prisma.tr_attendance_corrections.findFirst({
         where: {
           attendance_id: dto.attendance_id,
-          status: { in: ['pending', 'supervisor_approved'] },
+          status: { in: ["pending", "supervisor_approved"] },
         },
       });
 
     if (pendingCorrection) {
       throw new BadRequestException(
-        'A pending correction already exists for this attendance',
+        "A pending correction already exists for this attendance",
       );
     }
 
@@ -798,7 +791,7 @@ export class AttendanceService {
           ? new Date(`1970-01-01T${dto.correct_clock_out}:00`)
           : null,
         reason: dto.reason,
-        status: 'pending',
+        status: "pending",
       },
     });
 
@@ -811,25 +804,25 @@ export class AttendanceService {
     });
 
     if (!correction) {
-      throw new NotFoundException('Correction not found');
+      throw new NotFoundException("Correction not found");
     }
 
     if (correction.employee_id !== employeeId) {
-      throw new ForbiddenException('You can only cancel your own corrections');
+      throw new ForbiddenException("You can only cancel your own corrections");
     }
 
-    if (correction.status !== 'pending') {
+    if (correction.status !== "pending") {
       throw new BadRequestException(
-        'Only pending corrections can be cancelled',
+        "Only pending corrections can be cancelled",
       );
     }
 
     await this.prisma.tr_attendance_corrections.update({
       where: { id: correctionId },
-      data: { status: 'cancelled' },
+      data: { status: "cancelled" },
     });
 
-    return { message: 'Correction cancelled' };
+    return { message: "Correction cancelled" };
   }
 
   async listCorrections(employeeId: string, query: any) {
@@ -839,7 +832,7 @@ export class AttendanceService {
 
     const where: any = {};
     // If it's a specific employee list, we filter by employee_id.
-    // The role filtering should happen in the controller if needed, 
+    // The role filtering should happen in the controller if needed,
     // but here we just ensure we only show current employee data if requested.
     where.employee_id = employeeId;
 
@@ -850,7 +843,7 @@ export class AttendanceService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
         include: {
           tr_attendances: true,
           ms_employees_tr_attendance_corrections_employee_idToms_employees: true,
@@ -875,19 +868,19 @@ export class AttendanceService {
     });
 
     if (!correction) {
-      throw new NotFoundException('Correction request not found');
+      throw new NotFoundException("Correction request not found");
     }
 
     if (
-      correction.status !== 'pending' &&
-      correction.status !== 'supervisor_approved'
+      correction.status !== "pending" &&
+      correction.status !== "supervisor_approved"
     ) {
-      throw new BadRequestException('Correction request already processed');
+      throw new BadRequestException("Correction request already processed");
     }
 
-    if (approverRole === 'atasan') {
-      if (correction.status !== 'pending') {
-        throw new BadRequestException('Correction request already processed');
+    if (approverRole === "atasan") {
+      if (correction.status !== "pending") {
+        throw new BadRequestException("Correction request already processed");
       }
 
       const employee = await this.prisma.ms_employees.findUnique({
@@ -895,17 +888,17 @@ export class AttendanceService {
       });
       if (employee?.supervisor_id !== employeeId) {
         throw new ForbiddenException(
-          'You can only approve corrections of your subordinates',
+          "You can only approve corrections of your subordinates",
         );
       }
 
-      if (dto.action === 'approve') {
+      if (dto.action === "approve") {
         await this.prisma.tr_attendance_corrections.update({
           where: { id: correctionId },
           data: {
             supervisor_approved_at: new Date(),
             supervisor_id: employeeId,
-            status: 'supervisor_approved',
+            status: "supervisor_approved",
           },
         });
       } else {
@@ -913,23 +906,23 @@ export class AttendanceService {
           where: { id: correctionId },
           data: {
             supervisor_id: employeeId,
-            status: 'rejected',
-            rejection_reason: dto.rejection_reason || 'Rejected by supervisor',
+            status: "rejected",
+            rejection_reason: dto.rejection_reason || "Rejected by supervisor",
           },
         });
       }
       return { message: `Correction ${dto.action}d by supervisor` };
     }
 
-    if (['manager_hrga', 'admin', 'super_admin'].includes(approverRole)) {
-      if (correction.status !== 'supervisor_approved') {
-        throw new BadRequestException('Must be approved by supervisor first');
+    if (["manager_hrga", "admin", "super_admin"].includes(approverRole)) {
+      if (correction.status !== "supervisor_approved") {
+        throw new BadRequestException("Must be approved by supervisor first");
       }
 
-      if (dto.action === 'approve') {
+      if (dto.action === "approve") {
         const attendanceDate = correction.tr_attendances?.attendance_date;
         if (!attendanceDate) {
-          throw new NotFoundException('Attendance record not found');
+          throw new NotFoundException("Attendance record not found");
         }
 
         const updateData: any = {};
@@ -958,7 +951,7 @@ export class AttendanceService {
           data: {
             hrga_approved_at: new Date(),
             hrga_manager_id: employeeId,
-            status: 'approved',
+            status: "approved",
           },
         });
       } else {
@@ -966,20 +959,20 @@ export class AttendanceService {
           where: { id: correctionId },
           data: {
             hrga_manager_id: employeeId,
-            status: 'rejected',
-            rejection_reason: dto.rejection_reason || 'Rejected by HRGA',
+            status: "rejected",
+            rejection_reason: dto.rejection_reason || "Rejected by HRGA",
           },
         });
       }
       return { message: `Correction ${dto.action}d by HRGA` };
     }
 
-    throw new ForbiddenException('Insufficient permissions');
+    throw new ForbiddenException("Insufficient permissions");
   }
 
   @Cron(CronExpression.EVERY_DAY_AT_11PM)
   async markAbsentEmployees() {
-    this.logger.log('Running absent marking cron job...');
+    this.logger.log("Running absent marking cron job...");
 
     const companies = await this.prisma.ms_companies.findMany({
       where: { is_active: true },
@@ -990,7 +983,7 @@ export class AttendanceService {
       await this.markAbsentForCompany(company.id);
     }
 
-    this.logger.log('Absent marking completed');
+    this.logger.log("Absent marking completed");
   }
 
   private async markAbsentForCompany(companyId: string) {
@@ -1042,7 +1035,7 @@ export class AttendanceService {
             employee_id: employee.id,
             company_id: companyId,
             attendance_date: today,
-            status: 'absent',
+            status: "absent",
             is_holiday: isTodayHoliday,
             attendance_allowance: 0,
             late_deduction: 0,
@@ -1053,7 +1046,7 @@ export class AttendanceService {
       } else if (!existingAttendance.clock_in) {
         await this.prisma.tr_attendances.update({
           where: { id: existingAttendance.id },
-          data: { status: 'absent', attendance_allowance: 0 },
+          data: { status: "absent", attendance_allowance: 0 },
         });
       }
     }

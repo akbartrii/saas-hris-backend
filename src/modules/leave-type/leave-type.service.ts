@@ -2,41 +2,48 @@ import {
   Injectable,
   ForbiddenException,
   NotFoundException,
-} from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { CreateLeaveTypeDto } from './dto/create-leave-type.dto';
-import { UpdateLeaveTypeDto } from './dto/update-leave-type.dto';
+} from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { CreateLeaveTypeDto } from "./dto/create-leave-type.dto";
+import { UpdateLeaveTypeDto } from "./dto/update-leave-type.dto";
 
 @Injectable()
 export class LeaveTypeService {
   constructor(private prisma: PrismaService) {}
 
   private isAdminOrHRD(role: string): boolean {
-    return ['manager_hrga', 'hrd', 'admin', 'super_admin'].includes(role);
+    return ["manager_hrga", "hrd", "admin", "super_admin"].includes(role);
   }
 
   async list(companyId: string) {
-    return this.prisma.ms_leave_types.findMany({ 
-      where: { company_id: companyId }, 
-      orderBy: { name: 'asc' } 
+    return this.prisma.ms_leave_types.findMany({
+      where: { company_id: companyId },
+      orderBy: { name: "asc" },
     });
   }
 
   async create(companyId: string, userRole: string, dto: CreateLeaveTypeDto) {
     if (!this.isAdminOrHRD(userRole)) {
-      throw new ForbiddenException('Only HRD or admin can manage leave types');
+      throw new ForbiddenException("Only HRD or admin can manage leave types");
     }
-    return this.prisma.ms_leave_types.create({ data: { ...dto, company_id: companyId } as any });
+    return this.prisma.ms_leave_types.create({
+      data: { ...dto, company_id: companyId } as any,
+    });
   }
 
-  async update(companyId: string, userRole: string, id: string, dto: UpdateLeaveTypeDto) {
+  async update(
+    companyId: string,
+    userRole: string,
+    id: string,
+    dto: UpdateLeaveTypeDto,
+  ) {
     if (!this.isAdminOrHRD(userRole)) {
-      throw new ForbiddenException('Only HRD or admin can manage leave types');
+      throw new ForbiddenException("Only HRD or admin can manage leave types");
     }
     const exists = await this.prisma.ms_leave_types.findUnique({
       where: { id, company_id: companyId },
     });
-    if (!exists) throw new NotFoundException('Leave type not found');
+    if (!exists) throw new NotFoundException("Leave type not found");
     return this.prisma.ms_leave_types.update({
       where: { id },
       data: { ...dto, company_id: companyId } as any,
@@ -45,12 +52,14 @@ export class LeaveTypeService {
 
   async delete(companyId: string, userRole: string, id: string) {
     if (!this.isAdminOrHRD(userRole)) {
-      throw new ForbiddenException('Only HRD or admin can manage leave types');
+      throw new ForbiddenException("Only HRD or admin can manage leave types");
     }
     const exists = await this.prisma.ms_leave_types.findUnique({
       where: { id, company_id: companyId },
     });
-    if (!exists) throw new NotFoundException('Leave type not found');
-    return this.prisma.ms_leave_types.delete({ where: { id, company_id: companyId } });
+    if (!exists) throw new NotFoundException("Leave type not found");
+    return this.prisma.ms_leave_types.delete({
+      where: { id, company_id: companyId },
+    });
   }
 }

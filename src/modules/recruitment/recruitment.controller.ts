@@ -77,7 +77,9 @@ export class RecruitmentController {
   ) {
     const companyId = query.company_id || companyIdFromAuth;
     if (!companyId) {
-      throw new BadRequestException('company_id query parameter is required for public access');
+      throw new BadRequestException(
+        "company_id query parameter is required for public access",
+      );
     }
     return this.recruitmentService.listJobs(companyId, query);
   }
@@ -85,18 +87,14 @@ export class RecruitmentController {
   @Get("jobs/:slug")
   @Public()
   @Throttle({ default: { limit: 30, ttl: 60000 } })
-  async getJobBySlug(
-    @Param("slug") slug: string,
-  ) {
+  async getJobBySlug(@Param("slug") slug: string) {
     return this.recruitmentService.getJobBySlug(slug);
   }
 
   @Post("apply")
   @Public()
   @Throttle({ default: { limit: 5, ttl: 60000 } })
-  async applyJob(
-    @Body() dto: ApplyJobDto,
-  ) {
+  async applyJob(@Body() dto: ApplyJobDto) {
     return this.recruitmentService.applyJob(dto);
   }
 

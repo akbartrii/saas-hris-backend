@@ -1,14 +1,14 @@
-import * as bcrypt from 'bcryptjs';
+import * as bcrypt from "bcryptjs";
 import {
   Injectable,
   BadRequestException,
   NotFoundException,
   ForbiddenException,
-} from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { ListEmployeeDto } from './dto/list-employee.dto';
-import { UpdateEmployeeDto } from './dto/update-employee.dto';
-import { CreateEmployeeDto } from './dto/create-employee.dto';
+} from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { ListEmployeeDto } from "./dto/list-employee.dto";
+import { UpdateEmployeeDto } from "./dto/update-employee.dto";
+import { CreateEmployeeDto } from "./dto/create-employee.dto";
 
 @Injectable()
 export class EmployeeService {
@@ -20,8 +20,8 @@ export class EmployeeService {
     userRole: string,
     dto: CreateEmployeeDto,
   ) {
-    if (!['manager_hrga', 'hrd', 'admin', 'super_admin'].includes(userRole)) {
-      throw new ForbiddenException('Only HR/Admin can create employees');
+    if (!["manager_hrga", "hrd", "admin", "super_admin"].includes(userRole)) {
+      throw new ForbiddenException("Only HR/Admin can create employees");
     }
 
     if (dto.email && dto.password) {
@@ -29,19 +29,19 @@ export class EmployeeService {
         where: { email: dto.email },
       });
       if (existingUser) {
-        throw new BadRequestException('Email already registered');
+        throw new BadRequestException("Email already registered");
       }
 
       let role_id = dto.role_id;
       if (!role_id) {
         const karyawanRole = await this.prisma.ms_roles.findFirst({
-          where: { name: 'karyawan' },
+          where: { name: "karyawan" },
         });
         role_id = karyawanRole?.id;
       }
 
       if (!role_id) {
-        throw new BadRequestException('Default role not found');
+        throw new BadRequestException("Default role not found");
       }
 
       const hashedPassword = await bcrypt.hash(dto.password, 10);
@@ -138,14 +138,14 @@ export class EmployeeService {
 
     const where: any = { company_id: companyId };
 
-    if (!['admin', 'hrd', 'manager_hrga', 'super_admin'].includes(userRole)) {
+    if (!["admin", "hrd", "manager_hrga", "super_admin"].includes(userRole)) {
       where.id = userId;
     }
 
     if (query.search) {
       where.OR = [
-        { full_name: { contains: query.search, mode: 'insensitive' } },
-        { nik: { contains: query.search, mode: 'insensitive' } },
+        { full_name: { contains: query.search, mode: "insensitive" } },
+        { nik: { contains: query.search, mode: "insensitive" } },
       ];
     }
 
@@ -154,10 +154,12 @@ export class EmployeeService {
         where,
         skip,
         take: limit,
-        orderBy: { full_name: 'asc' },
+        orderBy: { full_name: "asc" },
         include: {
           ms_users: { select: { id: true, email: true, full_name: true } },
-          ms_departments_ms_employees_department_idToms_departments: { select: { id: true, name: true } },
+          ms_departments_ms_employees_department_idToms_departments: {
+            select: { id: true, name: true },
+          },
           ms_positions: { select: { id: true, name: true } },
           ms_locations: { select: { id: true, name: true, type: true } },
           ms_teams: { select: { id: true, name: true } },
@@ -180,15 +182,16 @@ export class EmployeeService {
               status: true,
             },
           },
-          tr_remote_work_requests_tr_remote_work_requests_employee_idToms_employees: {
-            select: {
-              id: true,
-              start_date: true,
-              end_date: true,
-              status: true,
-              address: true,
+          tr_remote_work_requests_tr_remote_work_requests_employee_idToms_employees:
+            {
+              select: {
+                id: true,
+                start_date: true,
+                end_date: true,
+                status: true,
+                address: true,
+              },
             },
-          },
         },
       }),
       this.prisma.ms_employees.count({ where }),
@@ -205,8 +208,12 @@ export class EmployeeService {
     const employee = await this.prisma.ms_employees.findUnique({
       where: { id: employeeId, company_id: companyId },
       include: {
-        ms_users: { select: { id: true, email: true, full_name: true, phone: true } },
-        ms_departments_ms_employees_department_idToms_departments: { select: { id: true, name: true } },
+        ms_users: {
+          select: { id: true, email: true, full_name: true, phone: true },
+        },
+        ms_departments_ms_employees_department_idToms_departments: {
+          select: { id: true, name: true },
+        },
         ms_positions: { select: { id: true, name: true } },
         ms_locations: { select: { id: true, name: true, type: true } },
         ms_teams: { select: { id: true, name: true } },
@@ -231,21 +238,22 @@ export class EmployeeService {
             status: true,
           },
         },
-        tr_remote_work_requests_tr_remote_work_requests_employee_idToms_employees: {
-          select: {
-            id: true,
-            start_date: true,
-            end_date: true,
-            status: true,
-            address: true,
-            radius_meters: true,
+        tr_remote_work_requests_tr_remote_work_requests_employee_idToms_employees:
+          {
+            select: {
+              id: true,
+              start_date: true,
+              end_date: true,
+              status: true,
+              address: true,
+              radius_meters: true,
+            },
           },
-        },
       },
     });
 
     if (!employee) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     return employee;
@@ -261,7 +269,7 @@ export class EmployeeService {
       where: { id: employeeId, company_id: companyId },
     });
     if (!employee) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const data: any = {};
@@ -275,20 +283,29 @@ export class EmployeeService {
     if (dto.full_name !== undefined) data.full_name = dto.full_name;
     if (dto.birth_date !== undefined) data.birth_date = dto.birth_date;
     if (dto.address !== undefined) data.address = dto.address;
-    if (dto.employment_status !== undefined) data.employment_status = dto.employment_status;
+    if (dto.employment_status !== undefined)
+      data.employment_status = dto.employment_status;
     if (dto.join_date !== undefined) data.join_date = dto.join_date;
-    if (dto.contract_end_date !== undefined) data.contract_end_date = dto.contract_end_date;
-    if (dto.resignation_date !== undefined) data.resignation_date = dto.resignation_date;
+    if (dto.contract_end_date !== undefined)
+      data.contract_end_date = dto.contract_end_date;
+    if (dto.resignation_date !== undefined)
+      data.resignation_date = dto.resignation_date;
     if (dto.base_salary !== undefined) data.base_salary = dto.base_salary;
-    if (dto.fixed_allowance !== undefined) data.fixed_allowance = dto.fixed_allowance;
-    if (dto.phone_allowance !== undefined) data.phone_allowance = dto.phone_allowance;
-    if (dto.dinas_allowance !== undefined) data.dinas_allowance = dto.dinas_allowance;
-    if (dto.bpjs_payment_type !== undefined) data.bpjs_payment_type = dto.bpjs_payment_type;
+    if (dto.fixed_allowance !== undefined)
+      data.fixed_allowance = dto.fixed_allowance;
+    if (dto.phone_allowance !== undefined)
+      data.phone_allowance = dto.phone_allowance;
+    if (dto.dinas_allowance !== undefined)
+      data.dinas_allowance = dto.dinas_allowance;
+    if (dto.bpjs_payment_type !== undefined)
+      data.bpjs_payment_type = dto.bpjs_payment_type;
     if (dto.ptkp_status !== undefined) data.ptkp_status = dto.ptkp_status;
     if (dto.npwp !== undefined) data.npwp = dto.npwp;
     if (dto.bank_name !== undefined) data.bank_name = dto.bank_name;
-    if (dto.bank_account_number !== undefined) data.bank_account_number = dto.bank_account_number;
-    if (dto.bank_account_holder !== undefined) data.bank_account_holder = dto.bank_account_holder;
+    if (dto.bank_account_number !== undefined)
+      data.bank_account_number = dto.bank_account_number;
+    if (dto.bank_account_holder !== undefined)
+      data.bank_account_holder = dto.bank_account_holder;
     if (dto.shift_type !== undefined) data.shift_type = dto.shift_type;
 
     return this.prisma.ms_employees.update({
@@ -308,7 +325,7 @@ export class EmployeeService {
         company_id: companyId,
       },
       include: { ms_work_schedules: true },
-      orderBy: { effective_date: 'asc' },
+      orderBy: { effective_date: "asc" },
     });
 
     return schedules;
@@ -318,7 +335,7 @@ export class EmployeeService {
     const employee = await this.prisma.ms_employees.findUnique({
       where: { id: employeeId },
     });
-    if (!employee) throw new NotFoundException('Employee not found');
+    if (!employee) throw new NotFoundException("Employee not found");
     return this.prisma.ms_employees.findMany({
       where: {
         supervisor_id: employee.supervisor_id,
@@ -344,7 +361,7 @@ export class EmployeeService {
       where: { id: employeeId, company_id: companyId },
     });
     if (!employee) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     return this.prisma.ms_employees.update({

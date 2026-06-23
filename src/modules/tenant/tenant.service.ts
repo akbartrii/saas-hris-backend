@@ -3,14 +3,14 @@ import {
   ConflictException,
   InternalServerErrorException,
   Logger,
-} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { PrismaService } from '../../prisma/prisma.service';
-import { RegisterTenantDto } from './dto/register-tenant.dto';
-import { SetupTenantDto } from './dto/setup-tenant.dto';
-import { DEFAULT_ROLES } from './default-roles';
-import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
+} from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { PrismaService } from "../../prisma/prisma.service";
+import { RegisterTenantDto } from "./dto/register-tenant.dto";
+import { SetupTenantDto } from "./dto/setup-tenant.dto";
+import { DEFAULT_ROLES } from "./default-roles";
+import * as bcrypt from "bcryptjs";
+import * as jwt from "jsonwebtoken";
 
 @Injectable()
 export class TenantService {
@@ -27,13 +27,13 @@ export class TenantService {
     });
 
     if (existingUser) {
-      throw new ConflictException('Email already registered');
+      throw new ConflictException("Email already registered");
     }
 
     const passwordHash = await bcrypt.hash(dto.admin_password, 12);
 
     const freePlan = await this.prisma.ms_plans.findUnique({
-      where: { code: 'free' },
+      where: { code: "free" },
     });
 
     const allPermissions = await this.prisma.ms_permissions.findMany({
@@ -65,11 +65,11 @@ export class TenantService {
       for (const def of DEFAULT_ROLES) {
         let rolePermissionIds: string[] = [];
 
-        if (def.roleName === 'admin') {
+        if (def.roleName === "admin") {
           rolePermissionIds = allPermissions.map((p) => p.id);
         } else {
           for (const mp of def.permissions) {
-            const menuPerms = permissionMap.get(mp.menu) || [];
+            const _menuPerms = permissionMap.get(mp.menu) || [];
             const menuActions = allPermissions.filter(
               (p) => p.menu.code === mp.menu && mp.actions.includes(p.action),
             );
@@ -102,8 +102,8 @@ export class TenantService {
         data: {
           email: dto.admin_email,
           password_hash: passwordHash,
-          full_name: 'Admin',
-          role_id: createdRoles['admin'],
+          full_name: "Admin",
+          role_id: createdRoles["admin"],
           company_id: company.id,
           is_active: true,
         },
@@ -114,7 +114,7 @@ export class TenantService {
           data: {
             company_id: company.id,
             plan_id: freePlan.id,
-            status: 'trial',
+            status: "trial",
             trial_ends_at: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000),
             starts_at: new Date(),
           },
@@ -124,17 +124,17 @@ export class TenantService {
       return { company, user };
     });
 
-    const jwtSecret = this.configService.get<string>('JWT_SECRET');
+    const jwtSecret = this.configService.get<string>("JWT_SECRET");
     const token = jwt.sign(
       {
         sub: result.user.id,
         email: result.user.email,
-        role: 'admin',
+        role: "admin",
         company_id: result.company.id,
         name: result.user.full_name,
       },
       jwtSecret,
-      { expiresIn: '30d' },
+      { expiresIn: "30d" },
     );
 
     return {
@@ -158,7 +158,7 @@ export class TenantService {
     });
 
     if (!company) {
-      throw new InternalServerErrorException('Company not found');
+      throw new InternalServerErrorException("Company not found");
     }
 
     const result = await this.prisma.$transaction(async (tx) => {
@@ -208,7 +208,7 @@ export class TenantService {
     });
 
     if (!company) {
-      throw new InternalServerErrorException('Company not found');
+      throw new InternalServerErrorException("Company not found");
     }
 
     const departmentCount = await this.prisma.ms_departments.count({

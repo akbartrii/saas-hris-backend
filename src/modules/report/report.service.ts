@@ -1,13 +1,13 @@
-import { Injectable, ForbiddenException } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { PdfService } from '../../common/services/pdf.service';
-import * as ExcelJS from 'exceljs';
+import { Injectable, ForbiddenException } from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { PdfService } from "../../common/services/pdf.service";
+import * as ExcelJS from "exceljs";
 import {
   AttendanceReportDto,
   LeaveReportDto,
   PayrollReportDto,
   OvertimeReportDto,
-} from './dto/report.dto';
+} from "./dto/report.dto";
 
 @Injectable()
 export class ReportService {
@@ -17,7 +17,7 @@ export class ReportService {
   ) {}
 
   private isAdminOrHRD(role: string): boolean {
-    return ['manager_hrga', 'hrd', 'admin', 'super_admin'].includes(role);
+    return ["manager_hrga", "hrd", "admin", "super_admin"].includes(role);
   }
 
   async attendanceReport(
@@ -26,13 +26,13 @@ export class ReportService {
     query: AttendanceReportDto,
   ) {
     if (!this.isAdminOrHRD(userRole)) {
-      throw new ForbiddenException('Only Admin/HRD can access reports');
+      throw new ForbiddenException("Only Admin/HRD can access reports");
     }
 
     const where: any = { company_id: companyId };
 
     if (query.month) {
-      const [year, month] = query.month.split('-').map(Number);
+      const [year, month] = query.month.split("-").map(Number);
       const startDate = new Date(year, month - 1, 1);
       const endDate = new Date(year, month, 0);
       where.attendance_date = { gte: startDate, lte: endDate };
@@ -52,11 +52,13 @@ export class ReportService {
 
     const data = await this.prisma.tr_attendances.findMany({
       where,
-      orderBy: { attendance_date: 'desc' },
+      orderBy: { attendance_date: "desc" },
       include: {
         ms_employees: {
           include: {
-            ms_departments_ms_employees_department_idToms_departments: { select: { id: true, name: true } },
+            ms_departments_ms_employees_department_idToms_departments: {
+              select: { id: true, name: true },
+            },
           },
         },
       },
@@ -64,8 +66,8 @@ export class ReportService {
 
     const summary = {
       total_records: data.length,
-      present_count: data.filter((a) => a.status === 'present').length,
-      late_count: data.filter((a) => a.status === 'late').length,
+      present_count: data.filter((a) => a.status === "present").length,
+      late_count: data.filter((a) => a.status === "late").length,
       absent_count: data.filter((a) => !a.clock_in).length,
       total_late_deduction: data.reduce(
         (sum, a) => sum + Number(a.late_deduction || 0),
@@ -82,7 +84,7 @@ export class ReportService {
     query: LeaveReportDto,
   ) {
     if (!this.isAdminOrHRD(userRole)) {
-      throw new ForbiddenException('Only Admin/HRD can access reports');
+      throw new ForbiddenException("Only Admin/HRD can access reports");
     }
 
     const where: any = { company_id: companyId };
@@ -109,12 +111,14 @@ export class ReportService {
 
     const data = await this.prisma.tr_leave_requests.findMany({
       where,
-      orderBy: { created_at: 'desc' },
+      orderBy: { created_at: "desc" },
       include: {
         ms_leave_types: true,
         ms_employees_tr_leave_requests_employee_idToms_employees: {
           include: {
-            ms_departments_ms_employees_department_idToms_departments: { select: { id: true, name: true } },
+            ms_departments_ms_employees_department_idToms_departments: {
+              select: { id: true, name: true },
+            },
           },
         },
       },
@@ -122,9 +126,9 @@ export class ReportService {
 
     const summary = {
       total_requests: data.length,
-      approved_count: data.filter((l) => l.status === 'approved').length,
-      rejected_count: data.filter((l) => l.status === 'rejected').length,
-      pending_count: data.filter((l) => l.status === 'pending').length,
+      approved_count: data.filter((l) => l.status === "approved").length,
+      rejected_count: data.filter((l) => l.status === "rejected").length,
+      pending_count: data.filter((l) => l.status === "pending").length,
       total_days: data.reduce((sum, l) => sum + (l.total_days || 0), 0),
     };
 
@@ -137,7 +141,7 @@ export class ReportService {
     query: PayrollReportDto,
   ) {
     if (!this.isAdminOrHRD(userRole)) {
-      throw new ForbiddenException('Only Admin/HRD can access reports');
+      throw new ForbiddenException("Only Admin/HRD can access reports");
     }
 
     const where: any = { company_id: companyId };
@@ -156,12 +160,14 @@ export class ReportService {
 
     const data = await this.prisma.tr_payslips.findMany({
       where,
-      orderBy: { created_at: 'desc' },
+      orderBy: { created_at: "desc" },
       include: {
         tr_payroll_periods: true,
         ms_employees: {
           include: {
-            ms_departments_ms_employees_department_idToms_departments: { select: { id: true, name: true } },
+            ms_departments_ms_employees_department_idToms_departments: {
+              select: { id: true, name: true },
+            },
           },
         },
       },
@@ -193,13 +199,13 @@ export class ReportService {
   ) {
     const report = await this.attendanceReport(companyId, userRole, query);
     const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet('Attendance');
+    const sheet = workbook.addWorksheet("Attendance");
     sheet.columns = [
-      { header: 'Date', key: 'date' },
-      { header: 'Employee', key: 'employee' },
-      { header: 'Clock In', key: 'clockIn' },
-      { header: 'Clock Out', key: 'clockOut' },
-      { header: 'Status', key: 'status' },
+      { header: "Date", key: "date" },
+      { header: "Employee", key: "employee" },
+      { header: "Clock In", key: "clockIn" },
+      { header: "Clock Out", key: "clockOut" },
+      { header: "Status", key: "status" },
     ];
     for (const row of report.data) {
       sheet.addRow({
@@ -221,17 +227,19 @@ export class ReportService {
   ) {
     const report = await this.leaveReport(companyId, userRole, query);
     const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet('Leave');
+    const sheet = workbook.addWorksheet("Leave");
     sheet.columns = [
-      { header: 'Employee', key: 'employee' },
-      { header: 'Leave Type', key: 'type' },
-      { header: 'Start', key: 'start' },
-      { header: 'End', key: 'end' },
-      { header: 'Status', key: 'status' },
+      { header: "Employee", key: "employee" },
+      { header: "Leave Type", key: "type" },
+      { header: "Start", key: "start" },
+      { header: "End", key: "end" },
+      { header: "Status", key: "status" },
     ];
     for (const row of report.data) {
       sheet.addRow({
-        employee: row.ms_employees_tr_leave_requests_employee_idToms_employees?.full_name,
+        employee:
+          row.ms_employees_tr_leave_requests_employee_idToms_employees
+            ?.full_name,
         type: row.ms_leave_types?.name,
         start: row.start_date,
         end: row.end_date,
@@ -249,12 +257,12 @@ export class ReportService {
   ) {
     const report = await this.payrollReport(companyId, userRole, query);
     const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet('Payroll');
+    const sheet = workbook.addWorksheet("Payroll");
     sheet.columns = [
-      { header: 'Employee', key: 'employee' },
-      { header: 'Gross Income', key: 'gross' },
-      { header: 'Deductions', key: 'deductions' },
-      { header: 'Net Income', key: 'net' },
+      { header: "Employee", key: "employee" },
+      { header: "Gross Income", key: "gross" },
+      { header: "Deductions", key: "deductions" },
+      { header: "Net Income", key: "net" },
     ];
     for (const row of report.data) {
       sheet.addRow({
@@ -275,17 +283,19 @@ export class ReportService {
   ) {
     const report = await this.overtimeReport(companyId, userRole, query);
     const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet('Overtime');
+    const sheet = workbook.addWorksheet("Overtime");
     sheet.columns = [
-      { header: 'Employee', key: 'employee' },
-      { header: 'Date', key: 'date' },
-      { header: 'Hours', key: 'hours' },
-      { header: 'Pay', key: 'pay' },
-      { header: 'Status', key: 'status' },
+      { header: "Employee", key: "employee" },
+      { header: "Date", key: "date" },
+      { header: "Hours", key: "hours" },
+      { header: "Pay", key: "pay" },
+      { header: "Status", key: "status" },
     ];
     for (const row of report.data) {
       sheet.addRow({
-        employee: row.ms_employees_tr_overtime_requests_employee_idToms_employees?.full_name,
+        employee:
+          row.ms_employees_tr_overtime_requests_employee_idToms_employees
+            ?.full_name,
         date: row.date,
         hours: row.total_hours,
         pay: row.total_overtime_pay,
@@ -302,13 +312,13 @@ export class ReportService {
     query: OvertimeReportDto,
   ) {
     if (!this.isAdminOrHRD(userRole)) {
-      throw new ForbiddenException('Only Admin/HRD can access reports');
+      throw new ForbiddenException("Only Admin/HRD can access reports");
     }
 
-    const where: any = { company_id: companyId, status: 'processed' };
+    const where: any = { company_id: companyId, status: "processed" };
 
     if (query.month) {
-      const [year, month] = query.month.split('-').map(Number);
+      const [year, month] = query.month.split("-").map(Number);
       const startDate = new Date(year, month - 1, 1);
       const endDate = new Date(year, month, 0);
       where.date = { gte: startDate, lte: endDate };
@@ -320,11 +330,13 @@ export class ReportService {
 
     const data = await this.prisma.tr_overtime_requests.findMany({
       where,
-      orderBy: { date: 'desc' },
+      orderBy: { date: "desc" },
       include: {
         ms_employees_tr_overtime_requests_employee_idToms_employees: {
           include: {
-            ms_departments_ms_employees_department_idToms_departments: { select: { id: true, name: true } },
+            ms_departments_ms_employees_department_idToms_departments: {
+              select: { id: true, name: true },
+            },
           },
         },
       },

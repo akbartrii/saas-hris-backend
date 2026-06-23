@@ -1,38 +1,38 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsString, IsNotEmpty, IsOptional, IsBoolean } from 'class-validator';
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
+import { IsString, IsNotEmpty, IsOptional, IsBoolean } from "class-validator";
 
 export class CreateCompanyDto {
-  @ApiProperty({ description: 'Company name' })
+  @ApiProperty({ description: "Company name" })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @ApiPropertyOptional({ description: 'Company code' })
+  @ApiPropertyOptional({ description: "Company code" })
   @IsString()
   @IsOptional()
   code?: string;
 
-  @ApiPropertyOptional({ description: 'Address' })
+  @ApiPropertyOptional({ description: "Address" })
   @IsString()
   @IsOptional()
   address?: string;
 
-  @ApiPropertyOptional({ description: 'Phone number' })
+  @ApiPropertyOptional({ description: "Phone number" })
   @IsString()
   @IsOptional()
   phone?: string;
 
-  @ApiPropertyOptional({ description: 'Email' })
+  @ApiPropertyOptional({ description: "Email" })
   @IsString()
   @IsOptional()
   email?: string;
 
-  @ApiPropertyOptional({ description: 'NPWP' })
+  @ApiPropertyOptional({ description: "NPWP" })
   @IsString()
   @IsOptional()
   npwp?: string;
 
-  @ApiPropertyOptional({ description: 'Is active', default: true })
+  @ApiPropertyOptional({ description: "Is active", default: true })
   @IsBoolean()
   @IsOptional()
   is_active?: boolean;

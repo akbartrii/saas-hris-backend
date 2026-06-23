@@ -2,12 +2,11 @@ import {
   Injectable,
   BadRequestException,
   NotFoundException,
-  ForbiddenException,
-} from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { CreateTimeOffDto } from './dto/create-time-off.dto';
-import { ApproveTimeOffDto } from './dto/approve-time-off.dto';
-import { ListTimeOffDto } from './dto/list-time-off.dto';
+} from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { CreateTimeOffDto } from "./dto/create-time-off.dto";
+import { ApproveTimeOffDto } from "./dto/approve-time-off.dto";
+import { ListTimeOffDto } from "./dto/list-time-off.dto";
 
 @Injectable()
 export class TimeOffService {
@@ -23,21 +22,23 @@ export class TimeOffService {
       where: { id: userId, company_id: companyId },
     });
     if (!employee) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const timeOffType = await this.prisma.ms_time_off_types.findUnique({
       where: { id: dto.time_off_type_id, company_id: companyId },
     });
     if (!timeOffType) {
-      throw new NotFoundException('Time off type not found');
+      throw new NotFoundException("Time off type not found");
     }
 
     const startDate = new Date(dto.start_date);
     const endDate = new Date(dto.end_date);
 
     if (startDate > endDate) {
-      throw new BadRequestException('Start date must be before or equal to end date');
+      throw new BadRequestException(
+        "Start date must be before or equal to end date",
+      );
     }
 
     const timeOff = await this.prisma.tr_time_off_requests.create({
@@ -46,12 +47,14 @@ export class TimeOffService {
         time_off_type_id: dto.time_off_type_id,
         start_date: startDate,
         end_date: endDate,
-        start_time: dto.start_time ? new Date(`1970-01-01T${dto.start_time}`) : null,
+        start_time: dto.start_time
+          ? new Date(`1970-01-01T${dto.start_time}`)
+          : null,
         end_time: dto.end_time ? new Date(`1970-01-01T${dto.end_time}`) : null,
         reason: dto.reason,
         work_handover_to: dto.work_handover_to || null,
         attachment_url: dto.attachment_url,
-        status: 'pending',
+        status: "pending",
         company_id: companyId,
       },
     });
@@ -64,25 +67,25 @@ export class TimeOffService {
     companyId: string,
     timeOffId: string,
     dto: ApproveTimeOffDto,
-    approverRole: string,
+    _approverRole: string,
   ) {
     const timeOff = await this.prisma.tr_time_off_requests.findUnique({
       where: { id: timeOffId, company_id: companyId },
     });
-    if (!timeOff) throw new NotFoundException('Time off request not found');
+    if (!timeOff) throw new NotFoundException("Time off request not found");
 
-    if (dto.action === 'approve') {
+    if (dto.action === "approve") {
       return this.prisma.tr_time_off_requests.update({
         where: { id: timeOffId },
-        data: { status: 'approved' },
+        data: { status: "approved" },
       });
     }
 
     return this.prisma.tr_time_off_requests.update({
       where: { id: timeOffId },
       data: {
-        status: 'rejected',
-        rejection_reason: dto.rejection_reason || 'Rejected',
+        status: "rejected",
+        rejection_reason: dto.rejection_reason || "Rejected",
       },
     });
   }
@@ -91,22 +94,18 @@ export class TimeOffService {
     const timeOff = await this.prisma.tr_time_off_requests.findUnique({
       where: { id: timeOffId, company_id: companyId },
     });
-    if (!timeOff) throw new NotFoundException('Time off request not found');
-    if (timeOff.status !== 'pending') {
-      throw new BadRequestException('Only pending time off can be cancelled');
+    if (!timeOff) throw new NotFoundException("Time off request not found");
+    if (timeOff.status !== "pending") {
+      throw new BadRequestException("Only pending time off can be cancelled");
     }
 
     return this.prisma.tr_time_off_requests.update({
       where: { id: timeOffId },
-      data: { status: 'cancelled' },
+      data: { status: "cancelled" },
     });
   }
 
-  async listTimeOffs(
-    userId: string,
-    companyId: string,
-    query: ListTimeOffDto,
-  ) {
+  async listTimeOffs(userId: string, companyId: string, query: ListTimeOffDto) {
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 10;
     const skip = (page - 1) * limit;
@@ -125,7 +124,7 @@ export class TimeOffService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
         include: {
           ms_time_off_types: true,
           ms_employees_tr_time_off_requests_employee_idToms_employees: {

@@ -1,7 +1,7 @@
-import { Module } from '@nestjs/common';
-import { PrismaModule } from '../../prisma/prisma.module';
-import { LeaveTypeController } from './leave-type.controller';
-import { LeaveTypeService } from './leave-type.service';
+import { Module } from "@nestjs/common";
+import { PrismaModule } from "../../prisma/prisma.module";
+import { LeaveTypeController } from "./leave-type.controller";
+import { LeaveTypeService } from "./leave-type.service";
 
 @Module({
   imports: [PrismaModule],

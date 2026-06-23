@@ -1,5 +1,5 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { Cron, CronExpression } from '@nestjs/schedule';
+import { Injectable, Logger } from "@nestjs/common";
+import { Cron, CronExpression } from "@nestjs/schedule";
 
 @Injectable()
 export class KeepAliveService {
@@ -10,6 +10,6 @@ export class KeepAliveService {
   // to hit /api/health every 10 minutes instead.
   @Cron(CronExpression.EVERY_10_MINUTES)
   async handleCron() {
-    this.logger.log('Keep-alive cron job executed');
+    this.logger.log("Keep-alive cron job executed");
   }
 }

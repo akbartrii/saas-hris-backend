@@ -3,10 +3,10 @@ import {
   CanActivate,
   ExecutionContext,
   ForbiddenException,
-} from '@nestjs/common';
-import { Reflector } from '@nestjs/core';
-import { PrismaService } from '../../prisma/prisma.service';
-import { PERMISSION_KEY } from '../decorators/permission.decorator';
+} from "@nestjs/common";
+import { Reflector } from "@nestjs/core";
+import { PrismaService } from "../../prisma/prisma.service";
+import { PERMISSION_KEY } from "../decorators/permission.decorator";
 
 @Injectable()
 export class PermissionGuard implements CanActivate {
@@ -16,10 +16,10 @@ export class PermissionGuard implements CanActivate {
   ) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
-    const required = this.reflector.getAllAndOverride<{ menu: string; action: string }>(
-      PERMISSION_KEY,
-      [context.getHandler(), context.getClass()],
-    );
+    const required = this.reflector.getAllAndOverride<{
+      menu: string;
+      action: string;
+    }>(PERMISSION_KEY, [context.getHandler(), context.getClass()]);
 
     if (!required) {
       return true;
@@ -28,14 +28,14 @@ export class PermissionGuard implements CanActivate {
     const { user } = context.switchToHttp().getRequest();
 
     if (!user) {
-      throw new ForbiddenException('User not authenticated');
+      throw new ForbiddenException("User not authenticated");
     }
 
     if (!user.role_id) {
-      throw new ForbiddenException('User role not found');
+      throw new ForbiddenException("User role not found");
     }
 
-    if (user.role === 'super_admin') {
+    if (user.role === "super_admin") {
       return true;
     }
 

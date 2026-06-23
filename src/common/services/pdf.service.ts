@@ -1,6 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
-import * as puppeteer from 'puppeteer';
-import { encryptPDF } from '@pdfsmaller/pdf-encrypt-lite';
+import { Injectable, Logger } from "@nestjs/common";
+import * as puppeteer from "puppeteer";
+import { encryptPDF } from "@pdfsmaller/pdf-encrypt-lite";
 
 @Injectable()
 export class PdfService {
@@ -96,11 +96,11 @@ export class PdfService {
 
     const browser = await puppeteer.launch({
       headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
+      args: ["--no-sandbox", "--disable-setuid-sandbox"],
     });
     const page = await browser.newPage();
-    await page.setContent(html, { waitUntil: 'load' });
-    const pdfBuffer = await page.pdf({ format: 'A4', printBackground: true });
+    await page.setContent(html, { waitUntil: "load" });
+    const pdfBuffer = await page.pdf({ format: "A4", printBackground: true });
     await browser.close();
 
     const buffer = Buffer.from(pdfBuffer);
@@ -118,6 +118,6 @@ export class PdfService {
   }
 
   private formatNumber(n: number): string {
-    return new Intl.NumberFormat('id-ID').format(n);
+    return new Intl.NumberFormat("id-ID").format(n);
   }
 }

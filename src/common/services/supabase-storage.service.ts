@@ -1,6 +1,6 @@
-import { Injectable } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { createClient, SupabaseClient } from '@supabase/supabase-js';
+import { Injectable } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { createClient, SupabaseClient } from "@supabase/supabase-js";
 
 @Injectable()
 export class SupabaseStorageService {
@@ -8,8 +8,8 @@ export class SupabaseStorageService {
 
   constructor(private configService: ConfigService) {
     this.supabase = createClient(
-      this.configService.get<string>('SUPABASE_URL'),
-      this.configService.get<string>('SUPABASE_SERVICE_ROLE_KEY'),
+      this.configService.get<string>("SUPABASE_URL"),
+      this.configService.get<string>("SUPABASE_SERVICE_ROLE_KEY"),
     );
   }
 
@@ -19,7 +19,7 @@ export class SupabaseStorageService {
     fileBuffer: Buffer,
     contentType: string,
   ): Promise<string> {
-    const { data, error } = await this.supabase.storage
+    const { error } = await this.supabase.storage
       .from(bucket)
       .upload(path, fileBuffer, {
         contentType,

@@ -10,7 +10,12 @@ import {
   ParseUUIDPipe,
   Headers,
 } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+} from "@nestjs/swagger";
 import { EmployeeService } from "./employee.service";
 import { ListEmployeeDto } from "./dto/list-employee.dto";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
@@ -30,8 +35,8 @@ export class EmployeeController {
 
   @Post()
   @Roles("hrd", "admin", "super_admin")
-  @ApiOperation({ summary: 'Create a new employee' })
-  @ApiResponse({ status: 201, description: 'Employee created successfully' })
+  @ApiOperation({ summary: "Create a new employee" })
+  @ApiResponse({ status: 201, description: "Employee created successfully" })
   async createEmployee(
     @CurrentUser("userId") userId: string,
     @CurrentUser("role") role: string,
@@ -44,8 +49,8 @@ export class EmployeeController {
 
   @Get()
   @Roles("hrd", "admin", "super_admin")
-  @ApiOperation({ summary: 'List employees with pagination and filters' })
-  @ApiResponse({ status: 200, description: 'Employee list retrieved' })
+  @ApiOperation({ summary: "List employees with pagination and filters" })
+  @ApiResponse({ status: 200, description: "Employee list retrieved" })
   async listEmployees(
     @CurrentUser("userId") userId: string,
     @CurrentUser("role") role: string,
@@ -56,8 +61,8 @@ export class EmployeeController {
   }
 
   @Get("team-mates")
-  @ApiOperation({ summary: 'Get team mates of current user' })
-  @ApiResponse({ status: 200, description: 'Team mates retrieved' })
+  @ApiOperation({ summary: "Get team mates of current user" })
+  @ApiResponse({ status: 200, description: "Team mates retrieved" })
   async getTeamMates(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,
@@ -66,8 +71,8 @@ export class EmployeeController {
   }
 
   @Get("subordinates")
-  @ApiOperation({ summary: 'Get subordinates of current user' })
-  @ApiResponse({ status: 200, description: 'Subordinates retrieved' })
+  @ApiOperation({ summary: "Get subordinates of current user" })
+  @ApiResponse({ status: 200, description: "Subordinates retrieved" })
   async getSubordinates(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,
@@ -76,8 +81,8 @@ export class EmployeeController {
   }
 
   @Get(":id")
-  @ApiOperation({ summary: 'Get employee detail by ID' })
-  @ApiResponse({ status: 200, description: 'Employee detail retrieved' })
+  @ApiOperation({ summary: "Get employee detail by ID" })
+  @ApiResponse({ status: 200, description: "Employee detail retrieved" })
   async getEmployeeDetail(
     @CurrentUser("userId") userId: string,
     @CurrentUser("role") role: string,
@@ -89,8 +94,8 @@ export class EmployeeController {
 
   @Patch(":id")
   @Roles("hrd", "admin", "super_admin")
-  @ApiOperation({ summary: 'Update employee data' })
-  @ApiResponse({ status: 200, description: 'Employee updated successfully' })
+  @ApiOperation({ summary: "Update employee data" })
+  @ApiResponse({ status: 200, description: "Employee updated successfully" })
   async updateEmployee(
     @CurrentUser("userId") userId: string,
     @CurrentUser("role") role: string,
@@ -102,8 +107,8 @@ export class EmployeeController {
   }
 
   @Get(":id/schedules")
-  @ApiOperation({ summary: 'Get work schedules for an employee' })
-  @ApiResponse({ status: 200, description: 'Employee schedules retrieved' })
+  @ApiOperation({ summary: "Get work schedules for an employee" })
+  @ApiResponse({ status: 200, description: "Employee schedules retrieved" })
   async getEmployeeSchedules(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,
@@ -113,8 +118,8 @@ export class EmployeeController {
   }
 
   @Patch(":id/location")
-  @ApiOperation({ summary: 'Assign location to employee' })
-  @ApiResponse({ status: 200, description: 'Location assigned successfully' })
+  @ApiOperation({ summary: "Assign location to employee" })
+  @ApiResponse({ status: 200, description: "Location assigned successfully" })
   async assignLocation(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,

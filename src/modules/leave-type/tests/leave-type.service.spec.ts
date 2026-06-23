@@ -1,12 +1,11 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { ForbiddenException } from '@nestjs/common';
-import { LeaveTypeService } from '../leave-type.service';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { Test, TestingModule } from "@nestjs/testing";
+import { ForbiddenException } from "@nestjs/common";
+import { LeaveTypeService } from "../leave-type.service";
+import { PrismaService } from "../../../prisma/prisma.service";
 
-describe('LeaveTypeService', () => {
+describe("LeaveTypeService", () => {
   let service: LeaveTypeService;
-
-  let prisma: any;
+  let _prisma: any;
   const mockPrisma = {
     ms_leave_types: {
       findMany: jest.fn(),
@@ -27,45 +26,62 @@ describe('LeaveTypeService', () => {
     }).compile();
 
     service = module.get<LeaveTypeService>(LeaveTypeService);
-    prisma = module.get(PrismaService);
+    _prisma = module.get(PrismaService);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  describe('list', () => {
-    it('should return leave types', async () => {
-      mockPrisma.ms_leave_types.findMany.mockResolvedValue([{ id: 'lt1', name: 'Annual Leave' }]);
+  describe("list", () => {
+    it("should return leave types", async () => {
+      mockPrisma.ms_leave_types.findMany.mockResolvedValue([
+        { id: "lt1", name: "Annual Leave" },
+      ]);
 
-      const result = await service.list('c1');
+      const result = await service.list("c1");
 
       expect(result).toHaveLength(1);
     });
   });
 
-  describe('create', () => {
-    it('should create for admin', async () => {
-      mockPrisma.ms_leave_types.create.mockResolvedValue({ id: 'lt1', name: 'Annual Leave' });
+  describe("create", () => {
+    it("should create for admin", async () => {
+      mockPrisma.ms_leave_types.create.mockResolvedValue({
+        id: "lt1",
+        name: "Annual Leave",
+      });
 
-      const result = await service.create('c1', 'admin', { name: 'Annual Leave' } as any);
+      const result = await service.create("c1", "admin", {
+        name: "Annual Leave",
+      } as any);
 
-      expect(result.name).toBe('Annual Leave');
+      expect(result.name).toBe("Annual Leave");
     });
 
-    it('should throw ForbiddenException for non-admin', async () => {
-      await expect(service.create('c1', 'karyawan', {} as any)).rejects.toThrow(ForbiddenException);
+    it("should throw ForbiddenException for non-admin", async () => {
+      await expect(service.create("c1", "karyawan", {} as any)).rejects.toThrow(
+        ForbiddenException,
+      );
     });
   });
 
-  describe('update', () => {
-    it('should update a leave type', async () => {
-      mockPrisma.ms_leave_types.findUnique.mockResolvedValue({ id: 'lt1', company_id: 'c1' });
-      mockPrisma.ms_leave_types.update.mockResolvedValue({ id: 'lt1', name: 'Updated Leave' });
+  describe("update", () => {
+    it("should update a leave type", async () => {
+      mockPrisma.ms_leave_types.findUnique.mockResolvedValue({
+        id: "lt1",
+        company_id: "c1",
+      });
+      mockPrisma.ms_leave_types.update.mockResolvedValue({
+        id: "lt1",
+        name: "Updated Leave",
+      });
 
-      const result = await service.update('c1', 'admin', 'lt1', { name: 'Updated Leave' } as any);
+      const result = await service.update("c1", "admin", "lt1", {
+        name: "Updated Leave",
+      } as any);
 
-      expect(result.name).toBe('Updated Leave');
+      expect(result.name).toBe("Updated Leave");
     });
   });
 });

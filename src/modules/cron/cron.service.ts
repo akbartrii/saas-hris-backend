@@ -1,7 +1,7 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { AttendanceService } from '../attendance/attendance.service';
-import { PayrollService } from '../payroll/payroll.service';
-import { PrismaService } from '../../prisma/prisma.service';
+import { Injectable, Logger } from "@nestjs/common";
+import { AttendanceService } from "../attendance/attendance.service";
+import { PayrollService } from "../payroll/payroll.service";
+import { PrismaService } from "../../prisma/prisma.service";
 
 @Injectable()
 export class CronService {
@@ -15,7 +15,7 @@ export class CronService {
 
   async markAbsent() {
     await this.attendanceService.markAbsentEmployees();
-    return { status: 'ok', task: 'mark-absent' };
+    return { status: "ok", task: "mark-absent" };
   }
 
   async generatePayroll() {
@@ -30,9 +30,9 @@ export class CronService {
       const latestOpenPeriod = await this.prisma.tr_payroll_periods.findFirst({
         where: {
           company_id: company.id,
-          status: { not: 'closed' },
+          status: { not: "closed" },
         },
-        orderBy: { period_name: 'desc' },
+        orderBy: { period_name: "desc" },
       });
 
       if (!latestOpenPeriod) {
@@ -51,7 +51,9 @@ export class CronService {
         },
         select: { employee_id: true },
       });
-      const existingEmployeeIds = new Set(existingPayslips.map((p) => p.employee_id));
+      const existingEmployeeIds = new Set(
+        existingPayslips.map((p) => p.employee_id),
+      );
 
       let payslipCount = 0;
       for (const employee of employees) {
@@ -67,7 +69,7 @@ export class CronService {
             gross_income: 0,
             total_deductions: 0,
             net_income: 0,
-            status: 'draft',
+            status: "draft",
           },
         });
         payslipCount++;
@@ -76,7 +78,7 @@ export class CronService {
       results.push({ companyId: company.id, payslipsGenerated: payslipCount });
     }
 
-    return { status: 'ok', task: 'generate-payroll', results };
+    return { status: "ok", task: "generate-payroll", results };
   }
 
   async cleanupNotifications() {
@@ -88,6 +90,10 @@ export class CronService {
     });
 
     this.logger.log(`Cleaned up ${result.count} old notifications`);
-    return { status: 'ok', task: 'cleanup-notifications', deletedCount: result.count };
+    return {
+      status: "ok",
+      task: "cleanup-notifications",
+      deletedCount: result.count,
+    };
   }
 }

@@ -3,14 +3,14 @@ import {
   UnauthorizedException,
   InternalServerErrorException,
   Logger,
-} from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import { PrismaService } from '../../prisma/prisma.service';
-import { LoginDto } from './dto/login.dto';
-import { SaveFcmTokenDto } from './dto/save-fcm-token.dto';
-import { RevokeFcmTokenDto } from './dto/revoke-fcm-token.dto';
-import * as bcrypt from 'bcryptjs';
-import * as jwt from 'jsonwebtoken';
+} from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import { PrismaService } from "../../prisma/prisma.service";
+import { LoginDto } from "./dto/login.dto";
+import { SaveFcmTokenDto } from "./dto/save-fcm-token.dto";
+import { RevokeFcmTokenDto } from "./dto/revoke-fcm-token.dto";
+import * as bcrypt from "bcryptjs";
+import * as jwt from "jsonwebtoken";
 
 @Injectable()
 export class AuthService {
@@ -40,7 +40,7 @@ export class AuthService {
       });
 
       if (!user) {
-        throw new UnauthorizedException('Invalid email or password');
+        throw new UnauthorizedException("Invalid email or password");
       }
 
       const isPasswordValid = await bcrypt.compare(
@@ -49,15 +49,15 @@ export class AuthService {
       );
 
       if (!isPasswordValid) {
-        throw new UnauthorizedException('Invalid email or password');
+        throw new UnauthorizedException("Invalid email or password");
       }
 
-      const jwtSecret = this.configService.get<string>('JWT_SECRET');
+      const jwtSecret = this.configService.get<string>("JWT_SECRET");
       if (!jwtSecret) {
-        throw new InternalServerErrorException('JWT_SECRET not configured');
+        throw new InternalServerErrorException("JWT_SECRET not configured");
       }
       const roleId = user.ms_roles?.id || null;
-      const roleName = user.ms_roles?.name || 'karyawan';
+      const roleName = user.ms_roles?.name || "karyawan";
 
       const permissions = await this.getUserPermissions(roleId, roleName);
 
@@ -75,12 +75,16 @@ export class AuthService {
           position_id: user.ms_employees?.position_id || null,
           manager_id: user.ms_employees?.manager_id || null,
           supervisor_id: user.ms_employees?.supervisor_id || null,
-          department_head: user.ms_employees?.ms_departments_ms_employees_department_idToms_departments?.head_employee_id || null,
+          department_head:
+            user.ms_employees
+              ?.ms_departments_ms_employees_department_idToms_departments
+              ?.head_employee_id || null,
           location_id: user.ms_employees?.location_id || null,
-          current_remote_work_id: user.ms_employees?.current_remote_work_id || null,
+          current_remote_work_id:
+            user.ms_employees?.current_remote_work_id || null,
         },
         jwtSecret,
-        { expiresIn: '30d' },
+        { expiresIn: "30d" },
       );
 
       return {
@@ -97,7 +101,7 @@ export class AuthService {
         permissions,
       };
     } catch (error) {
-      this.logger.error('Login failed', error.stack);
+      this.logger.error("Login failed", error.stack);
       throw error;
     }
   }
@@ -120,7 +124,7 @@ export class AuthService {
       });
 
       if (!user) {
-        throw new UnauthorizedException('User not found');
+        throw new UnauthorizedException("User not found");
       }
 
       const roleId = user.ms_roles?.id || null;
@@ -132,13 +136,16 @@ export class AuthService {
         email: user.email,
         full_name: user.full_name,
         phone: user.phone,
-        role: user.ms_roles?.name || 'karyawan',
+        role: user.ms_roles?.name || "karyawan",
         role_id: roleId,
         employee: user.ms_employees,
         permissions,
       };
     } catch (error) {
-      this.logger.error(`getProfile failed for user ${userId}: ${(error as Error).message}`, (error as Error).stack);
+      this.logger.error(
+        `getProfile failed for user ${userId}: ${(error as Error).message}`,
+        (error as Error).stack,
+      );
       throw error;
     }
   }
@@ -181,7 +188,7 @@ export class AuthService {
   async getAllPermissions() {
     const permissions = await this.prisma.ms_permissions.findMany({
       include: { menu: true },
-      orderBy: [{ menu: { sort_order: 'asc' } }, { action: 'asc' }],
+      orderBy: [{ menu: { sort_order: "asc" } }, { action: "asc" }],
     });
 
     const grouped = new Map<string, string[]>();
@@ -204,7 +211,7 @@ export class AuthService {
   async getUserPermissions(roleId: string | null, roleName?: string | null) {
     if (!roleId) return [];
 
-    if (roleName === 'super_admin') {
+    if (roleName === "super_admin") {
       return this.getAllPermissions();
     }
 
@@ -244,7 +251,12 @@ export class AuthService {
   }
 
   async verifyToken(userId: string) {
-    const user = await this.prisma.ms_users.findUnique({ where: { id: userId } });
-    return { message: 'Token is valid', user: user ? { id: user.id, email: user.email } : null };
+    const user = await this.prisma.ms_users.findUnique({
+      where: { id: userId },
+    });
+    return {
+      message: "Token is valid",
+      user: user ? { id: user.id, email: user.email } : null,
+    };
   }
 }

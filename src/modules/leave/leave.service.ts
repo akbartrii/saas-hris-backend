@@ -2,15 +2,13 @@ import {
   Injectable,
   BadRequestException,
   NotFoundException,
-  ForbiddenException,
-} from '@nestjs/common';
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { PrismaService } from '../../prisma/prisma.service';
-import { ParameterService } from '../parameter/parameter.service';
-import { HrisRequestEvent } from '../notification/events/hris-request.event';
-import { CreateLeaveDto } from './dto/create-leave.dto';
-import { ApproveLeaveDto } from './dto/approve-leave.dto';
-import { ListLeaveDto } from './dto/list-leave.dto';
+} from "@nestjs/common";
+import { EventEmitter2 } from "@nestjs/event-emitter";
+import { PrismaService } from "../../prisma/prisma.service";
+import { ParameterService } from "../parameter/parameter.service";
+import { CreateLeaveDto } from "./dto/create-leave.dto";
+import { ApproveLeaveDto } from "./dto/approve-leave.dto";
+import { ListLeaveDto } from "./dto/list-leave.dto";
 
 @Injectable()
 export class LeaveService {
@@ -31,30 +29,33 @@ export class LeaveService {
       include: { ms_users: true },
     });
     if (!employee) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const leaveType = await this.prisma.ms_leave_types.findUnique({
       where: { id: dto.leave_type_id, company_id: companyId },
     });
     if (!leaveType) {
-      throw new NotFoundException('Leave type not found');
+      throw new NotFoundException("Leave type not found");
     }
 
     const startDate = new Date(dto.start_date);
     const endDate = new Date(dto.end_date);
 
     if (startDate > endDate) {
-      throw new BadRequestException('Start date must be before or equal to end date');
+      throw new BadRequestException(
+        "Start date must be before or equal to end date",
+      );
     }
 
-    const dateRangeDays = Math.floor(
-      (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24)
-    ) + 1;
+    const dateRangeDays =
+      Math.floor(
+        (endDate.getTime() - startDate.getTime()) / (1000 * 60 * 60 * 24),
+      ) + 1;
 
     if (dateRangeDays > dto.total_days) {
       throw new BadRequestException(
-        `Total days (${dto.total_days}) exceeds the date range of ${dateRangeDays} calendar day(s)`
+        `Total days (${dto.total_days}) exceeds the date range of ${dateRangeDays} calendar day(s)`,
       );
     }
 
@@ -67,7 +68,7 @@ export class LeaveService {
         total_days: dto.total_days,
         reason: dto.reason,
         attachment_url: dto.attachment_url,
-        status: 'pending',
+        status: "pending",
         company_id: companyId,
       },
     });
@@ -79,14 +80,16 @@ export class LeaveService {
     const employee = await this.prisma.ms_employees.findUnique({
       where: { id: userId, company_id: companyId },
     });
-    if (!employee) throw new NotFoundException('Employee not found');
+    if (!employee) throw new NotFoundException("Employee not found");
 
     const leaveTypes = await this.prisma.ms_leave_types.findMany({
       where: { company_id: companyId },
     });
 
     const currentYear = new Date().getFullYear();
-    const usedDaysRaw = await this.prisma.$queryRaw<Array<{ leave_type_id: string; total: bigint | null }>>`
+    const usedDaysRaw = await this.prisma.$queryRaw<
+      Array<{ leave_type_id: string; total: bigint | null }>
+    >`
       SELECT leave_type_id, COALESCE(SUM(total_days), 0) as total
       FROM tr_leave_requests
       WHERE employee_id = ${employee.id}
@@ -145,7 +148,7 @@ export class LeaveService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
         include: {
           ms_leave_types: true,
           ms_employees_tr_leave_requests_employee_idToms_employees: {
@@ -164,25 +167,25 @@ export class LeaveService {
     companyId: string,
     leaveId: string,
     dto: ApproveLeaveDto,
-    approverRole: string,
+    _approverRole: string,
   ) {
     const leave = await this.prisma.tr_leave_requests.findUnique({
       where: { id: leaveId, company_id: companyId },
     });
-    if (!leave) throw new NotFoundException('Leave request not found');
+    if (!leave) throw new NotFoundException("Leave request not found");
 
-    if (dto.action === 'approve') {
+    if (dto.action === "approve") {
       return this.prisma.tr_leave_requests.update({
         where: { id: leaveId },
-        data: { status: 'approved', supervisor_id: userId },
+        data: { status: "approved", supervisor_id: userId },
       });
     }
 
     return this.prisma.tr_leave_requests.update({
       where: { id: leaveId },
       data: {
-        status: 'rejected',
-        rejection_reason: dto.rejection_reason || 'Rejected',
+        status: "rejected",
+        rejection_reason: dto.rejection_reason || "Rejected",
       },
     });
   }
@@ -191,22 +194,18 @@ export class LeaveService {
     const leave = await this.prisma.tr_leave_requests.findUnique({
       where: { id: leaveId, company_id: companyId },
     });
-    if (!leave) throw new NotFoundException('Leave request not found');
-    if (leave.status !== 'pending') {
-      throw new BadRequestException('Only pending leave can be cancelled');
+    if (!leave) throw new NotFoundException("Leave request not found");
+    if (leave.status !== "pending") {
+      throw new BadRequestException("Only pending leave can be cancelled");
     }
 
     return this.prisma.tr_leave_requests.update({
       where: { id: leaveId },
-      data: { status: 'cancelled' },
+      data: { status: "cancelled" },
     });
   }
 
-  async listLeaves(
-    userId: string,
-    companyId: string,
-    query: ListLeaveDto,
-  ) {
+  async listLeaves(userId: string, companyId: string, query: ListLeaveDto) {
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 10;
     const skip = (page - 1) * limit;
@@ -225,7 +224,7 @@ export class LeaveService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
         include: {
           ms_leave_types: true,
           ms_employees_tr_leave_requests_employee_idToms_employees: {

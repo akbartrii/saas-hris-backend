@@ -1,45 +1,45 @@
-import { Prisma } from '@prisma/client';
+import { Prisma } from "@prisma/client";
 
 const MODELS_WITHOUT_COMPANY_ID = new Set([
-  'ms_roles',
-  'ms_role_permissions',
-  'ms_permissions',
-  'ms_menus',
-  'ms_ter',
-  'ms_ter_fee',
-  'ms_salary_keys',
-  'ms_companies',
+  "ms_roles",
+  "ms_role_permissions",
+  "ms_permissions",
+  "ms_menus",
+  "ms_ter",
+  "ms_ter_fee",
+  "ms_salary_keys",
+  "ms_companies",
 ]);
 
 type PrismaAction =
-  | 'create'
-  | 'createMany'
-  | 'findUnique'
-  | 'findFirst'
-  | 'findMany'
-  | 'update'
-  | 'updateMany'
-  | 'upsert'
-  | 'delete'
-  | 'deleteMany'
-  | 'aggregate'
-  | 'count';
+  | "create"
+  | "createMany"
+  | "findUnique"
+  | "findFirst"
+  | "findMany"
+  | "update"
+  | "updateMany"
+  | "upsert"
+  | "delete"
+  | "deleteMany"
+  | "aggregate"
+  | "count";
 
 const WRITE_ACTIONS = new Set<PrismaAction>([
-  'create',
-  'createMany',
-  'update',
-  'updateMany',
-  'upsert',
-  'delete',
-  'deleteMany',
+  "create",
+  "createMany",
+  "update",
+  "updateMany",
+  "upsert",
+  "delete",
+  "deleteMany",
 ]);
 
 const READ_ACTIONS = new Set<PrismaAction>([
-  'findFirst',
-  'findMany',
-  'aggregate',
-  'count',
+  "findFirst",
+  "findMany",
+  "aggregate",
+  "count",
 ]);
 
 type MiddlewareFn = (
@@ -88,7 +88,7 @@ export function createTenantMiddleware(
       }
     }
 
-    if (action === 'update' || action === 'delete') {
+    if (action === "update" || action === "delete") {
       if (!params.args?.where?.company_id && !params.args?.where?.companyId) {
         params.args = {
           ...params.args,

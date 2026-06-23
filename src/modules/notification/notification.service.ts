@@ -2,11 +2,11 @@ import {
   Injectable,
   NotFoundException,
   ForbiddenException,
-} from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { ListNotificationDto } from './dto/list-notification.dto';
-import { CreateNotificationDto } from './dto/create-notification.dto';
-import { FcmService } from '../../common/services/fcm.service';
+} from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { ListNotificationDto } from "./dto/list-notification.dto";
+import { CreateNotificationDto } from "./dto/create-notification.dto";
+import { FcmService } from "../../common/services/fcm.service";
 
 @Injectable()
 export class NotificationService {
@@ -16,10 +16,14 @@ export class NotificationService {
   ) {}
 
   private canManageNotifications(role: string): boolean {
-    return ['manager_hrga', 'hrd', 'admin', 'super_admin'].includes(role);
+    return ["manager_hrga", "hrd", "admin", "super_admin"].includes(role);
   }
 
-  async listNotifications(userId: string, companyId: string, query: ListNotificationDto) {
+  async listNotifications(
+    userId: string,
+    companyId: string,
+    query: ListNotificationDto,
+  ) {
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 10;
     const skip = (page - 1) * limit;
@@ -35,7 +39,7 @@ export class NotificationService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
       }),
       this.prisma.tr_notifications.count({ where }),
     ]);
@@ -49,12 +53,12 @@ export class NotificationService {
     });
 
     if (!notification) {
-      throw new NotFoundException('Notification not found');
+      throw new NotFoundException("Notification not found");
     }
 
     if (notification.user_id !== userId) {
       throw new ForbiddenException(
-        'You can only mark your own notifications as read',
+        "You can only mark your own notifications as read",
       );
     }
 
@@ -78,7 +82,7 @@ export class NotificationService {
       },
     });
 
-    return { message: 'All notifications marked as read' };
+    return { message: "All notifications marked as read" };
   }
 
   async createNotification(
@@ -89,7 +93,7 @@ export class NotificationService {
   ) {
     if (!this.canManageNotifications(userRole)) {
       throw new ForbiddenException(
-        'Only manager HRGA, HRD, or admin can create notifications',
+        "Only manager HRGA, HRD, or admin can create notifications",
       );
     }
 
@@ -105,12 +109,16 @@ export class NotificationService {
       },
     });
 
-    await this.fcmService.sendPushNotification(dto.user_id, dto.title, dto.message);
+    await this.fcmService.sendPushNotification(
+      dto.user_id,
+      dto.title,
+      dto.message,
+    );
 
     return notification;
   }
 
-  async getUnreadCount(userId: string, companyId: string) {
+  async getUnreadCount(userId: string, _companyId: string) {
     return this.prisma.tr_notifications.count({
       where: { user_id: userId, is_read: false },
     });

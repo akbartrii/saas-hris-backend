@@ -1,8 +1,8 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { OnEvent } from '@nestjs/event-emitter';
-import { PrismaService } from '../../../prisma/prisma.service';
-import { NotificationService } from '../notification.service';
-import { HrisRequestEvent, HrisModuleType, HrisActionType } from '../events/hris-request.event';
+import { Injectable, Logger } from "@nestjs/common";
+import { OnEvent } from "@nestjs/event-emitter";
+import { PrismaService } from "../../../prisma/prisma.service";
+import { NotificationService } from "../notification.service";
+import { HrisRequestEvent, HrisModuleType } from "../events/hris-request.event";
 
 @Injectable()
 export class NotificationListener {
@@ -15,22 +15,22 @@ export class NotificationListener {
 
   private getModuleLabel(module: HrisModuleType): string {
     switch (module) {
-      case 'remote_work':
-        return 'WFH';
-      case 'reimbursement':
-        return 'Reimbursement';
-      case 'leave':
-        return 'Cuti';
-      case 'time_off':
-        return 'Izin';
-      case 'overtime':
-        return 'Lembur';
+      case "remote_work":
+        return "WFH";
+      case "reimbursement":
+        return "Reimbursement";
+      case "leave":
+        return "Cuti";
+      case "time_off":
+        return "Izin";
+      case "overtime":
+        return "Lembur";
       default:
-        return 'Permohonan';
+        return "Permohonan";
     }
   }
 
-  @OnEvent('hris.request')
+  @OnEvent("hris.request")
   async handleHrisRequest(event: HrisRequestEvent) {
     this.logger.log(
       `[Event Captured] module=${event.module}, action=${event.action}, requestId=${event.requestId}, requesterId=${event.requesterId}`,
@@ -43,7 +43,9 @@ export class NotificationListener {
       });
 
       if (!requester) {
-        this.logger.error(`Requester employee with ID ${event.requesterId} not found`);
+        this.logger.error(
+          `Requester employee with ID ${event.requesterId} not found`,
+        );
         return;
       }
 
@@ -52,8 +54,8 @@ export class NotificationListener {
 
       // Determine targets and notify based on action type
       switch (event.action) {
-        case 'submitted':
-        case 'cancelled':
+        case "submitted":
+        case "cancelled":
           // Notify requester's direct supervisor
           if (requester.supervisor_id) {
             const supervisor = await this.prisma.ms_employees.findUnique({
@@ -62,13 +64,15 @@ export class NotificationListener {
             });
 
             if (supervisor?.ms_users) {
-              const title = event.action === 'submitted'
-                ? `Permintaan ${moduleLabel} Baru`
-                : `${moduleLabel} Dibatalkan`;
+              const title =
+                event.action === "submitted"
+                  ? `Permintaan ${moduleLabel} Baru`
+                  : `${moduleLabel} Dibatalkan`;
 
-              const message = event.action === 'submitted'
-                ? `${requesterName} mengajukan ${moduleLabel} baru.${event.metadata?.details ? ' ' + event.metadata.details : ''}`
-                : `${requesterName} membatalkan permintaan ${moduleLabel}.${event.metadata?.rejectionReason ? ' Alasan: ' + event.metadata.rejectionReason : ''}`;
+              const message =
+                event.action === "submitted"
+                  ? `${requesterName} mengajukan ${moduleLabel} baru.${event.metadata?.details ? " " + event.metadata.details : ""}`
+                  : `${requesterName} membatalkan permintaan ${moduleLabel}.${event.metadata?.rejectionReason ? " Alasan: " + event.metadata.rejectionReason : ""}`;
 
               this.logger.log(
                 `Notifying supervisor ${supervisor.full_name} for ${event.action} ${event.module}`,
@@ -88,17 +92,19 @@ export class NotificationListener {
               );
             }
           } else {
-            this.logger.warn(`Requester employee ${requesterName} has no supervisor_id set`);
+            this.logger.warn(
+              `Requester employee ${requesterName} has no supervisor_id set`,
+            );
           }
           break;
 
-        case 'supervisor_approved':
+        case "supervisor_approved":
           // Notify HR / Admin users for second-layer approval
           const hrUsers = await this.prisma.ms_users.findMany({
             where: {
               ms_roles: {
                 name: {
-                  in: ['manager_hrga', 'hrd', 'admin', 'super_admin'],
+                  in: ["manager_hrga", "hrd", "admin", "super_admin"],
                 },
               },
             },
@@ -108,7 +114,9 @@ export class NotificationListener {
             const title = `${moduleLabel} Disetujui Atasan`;
             const message = `Permintaan ${moduleLabel} dari ${requesterName} telah disetujui oleh atasan dan memerlukan persetujuan akhir HR.`;
 
-            this.logger.log(`Notifying ${hrUsers.length} HR users for supervisor approved leave`);
+            this.logger.log(
+              `Notifying ${hrUsers.length} HR users for supervisor approved leave`,
+            );
             for (const hr of hrUsers) {
               await this.notificationService.createNotificationInternal(
                 hr.id,
@@ -121,21 +129,25 @@ export class NotificationListener {
               );
             }
           } else {
-            this.logger.warn('No active HR/Admin users found to notify for second-layer approval');
+            this.logger.warn(
+              "No active HR/Admin users found to notify for second-layer approval",
+            );
           }
           break;
 
-        case 'approved':
-        case 'rejected':
+        case "approved":
+        case "rejected":
           // Notify the requester employee of the final outcome
           if (requester.ms_users) {
-            const title = event.action === 'approved'
-              ? `${moduleLabel} Disetujui`
-              : `${moduleLabel} Ditolak`;
+            const title =
+              event.action === "approved"
+                ? `${moduleLabel} Disetujui`
+                : `${moduleLabel} Ditolak`;
 
-            const message = event.action === 'approved'
-              ? `Permintaan ${moduleLabel} kamu telah disetujui.${event.metadata?.details ? ' ' + event.metadata.details : ''}`
-              : `Permintaan ${moduleLabel} kamu ditolak.${event.metadata?.rejectionReason ? ' Alasan: ' + event.metadata.rejectionReason : ' Rejected by supervisor/HR'}`;
+            const message =
+              event.action === "approved"
+                ? `Permintaan ${moduleLabel} kamu telah disetujui.${event.metadata?.details ? " " + event.metadata.details : ""}`
+                : `Permintaan ${moduleLabel} kamu ditolak.${event.metadata?.rejectionReason ? " Alasan: " + event.metadata.rejectionReason : " Rejected by supervisor/HR"}`;
 
             this.logger.log(
               `Notifying requester ${requesterName} that request was ${event.action}`,

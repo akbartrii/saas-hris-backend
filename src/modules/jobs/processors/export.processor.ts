@@ -1,9 +1,9 @@
-import { Processor, WorkerHost } from '@nestjs/bullmq';
-import { Job } from 'bullmq';
-import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { Processor, WorkerHost } from "@nestjs/bullmq";
+import { Job } from "bullmq";
+import { Injectable, Logger } from "@nestjs/common";
+import { PrismaService } from "../../../prisma/prisma.service";
 
-@Processor('export')
+@Processor("export")
 @Injectable()
 export class ExportProcessor extends WorkerHost {
   private readonly logger = new Logger(ExportProcessor.name);
@@ -12,31 +12,39 @@ export class ExportProcessor extends WorkerHost {
     super();
   }
 
-  async process(job: Job<{
-    type: string;
-    format: string;
-    companyId: string;
-    filters?: Record<string, any>;
-  }>): Promise<any> {
-    this.logger.log(`Processing export job ${job.id}: type=${job.data.type}, format=${job.data.format}`);
+  async process(
+    job: Job<{
+      type: string;
+      format: string;
+      companyId: string;
+      filters?: Record<string, any>;
+    }>,
+  ): Promise<any> {
+    this.logger.log(
+      `Processing export job ${job.id}: type=${job.data.type}, format=${job.data.format}`,
+    );
 
     const { type, format, companyId, filters } = job.data;
 
     switch (type) {
-      case 'payroll':
+      case "payroll":
         return this.exportPayroll(companyId, format, filters);
-      case 'attendance':
+      case "attendance":
         return this.exportAttendance(companyId, format, filters);
-      case 'leave':
+      case "leave":
         return this.exportLeave(companyId, format, filters);
-      case 'overtime':
+      case "overtime":
         return this.exportOvertime(companyId, format, filters);
       default:
         throw new Error(`Unknown export type: ${type}`);
     }
   }
 
-  private async exportPayroll(companyId: string, format: string, filters?: Record<string, any>) {
+  private async exportPayroll(
+    companyId: string,
+    format: string,
+    filters?: Record<string, any>,
+  ) {
     const payslips = await this.prisma.tr_payslips.findMany({
       where: {
         company_id: companyId,
@@ -48,7 +56,9 @@ export class ExportProcessor extends WorkerHost {
       },
     });
 
-    this.logger.log(`Exporting ${payslips.length} payslips for company ${companyId} as ${format}`);
+    this.logger.log(
+      `Exporting ${payslips.length} payslips for company ${companyId} as ${format}`,
+    );
 
     return {
       records: payslips.length,
@@ -57,14 +67,24 @@ export class ExportProcessor extends WorkerHost {
     };
   }
 
-  private async exportAttendance(companyId: string, format: string, filters?: Record<string, any>) {
+  private async exportAttendance(
+    companyId: string,
+    format: string,
+    filters?: Record<string, any>,
+  ) {
     const where: any = { company_id: companyId };
 
     if (filters?.startDate) {
-      where.attendance_date = { ...where.attendance_date, gte: new Date(filters.startDate) };
+      where.attendance_date = {
+        ...where.attendance_date,
+        gte: new Date(filters.startDate),
+      };
     }
     if (filters?.endDate) {
-      where.attendance_date = { ...where.attendance_date, lte: new Date(filters.endDate) };
+      where.attendance_date = {
+        ...where.attendance_date,
+        lte: new Date(filters.endDate),
+      };
     }
     if (filters?.employeeId) {
       where.employee_id = filters.employeeId;
@@ -77,15 +97,24 @@ export class ExportProcessor extends WorkerHost {
       },
     });
 
-    this.logger.log(`Exporting ${records.length} attendance records for company ${companyId} as ${format}`);
+    this.logger.log(
+      `Exporting ${records.length} attendance records for company ${companyId} as ${format}`,
+    );
     return { records: records.length, format };
   }
 
-  private async exportLeave(companyId: string, format: string, filters?: Record<string, any>) {
+  private async exportLeave(
+    companyId: string,
+    format: string,
+    filters?: Record<string, any>,
+  ) {
     const where: any = { company_id: companyId };
 
     if (filters?.startDate) {
-      where.start_date = { ...where.start_date, gte: new Date(filters.startDate) };
+      where.start_date = {
+        ...where.start_date,
+        gte: new Date(filters.startDate),
+      };
     }
     if (filters?.endDate) {
       where.end_date = { ...where.end_date, lte: new Date(filters.endDate) };
@@ -100,11 +129,17 @@ export class ExportProcessor extends WorkerHost {
       },
     });
 
-    this.logger.log(`Exporting ${records.length} leave records for company ${companyId} as ${format}`);
+    this.logger.log(
+      `Exporting ${records.length} leave records for company ${companyId} as ${format}`,
+    );
     return { records: records.length, format };
   }
 
-  private async exportOvertime(companyId: string, format: string, filters?: Record<string, any>) {
+  private async exportOvertime(
+    companyId: string,
+    format: string,
+    filters?: Record<string, any>,
+  ) {
     const where: any = { company_id: companyId };
 
     if (filters?.startDate) {
@@ -123,7 +158,9 @@ export class ExportProcessor extends WorkerHost {
       },
     });
 
-    this.logger.log(`Exporting ${records.length} overtime records for company ${companyId} as ${format}`);
+    this.logger.log(
+      `Exporting ${records.length} overtime records for company ${companyId} as ${format}`,
+    );
     return { records: records.length, format };
   }
 }

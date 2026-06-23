@@ -1,19 +1,19 @@
-import { IsString, IsOptional, IsArray, IsUUID } from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { IsString, IsOptional, IsArray, IsUUID } from "class-validator";
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 
 export class CreateRoleDto {
-  @ApiProperty({ example: 'hrd' })
+  @ApiProperty({ example: "hrd" })
   @IsString()
   name: string;
 
-  @ApiPropertyOptional({ example: 'Human Resource Department' })
+  @ApiPropertyOptional({ example: "Human Resource Department" })
   @IsOptional()
   @IsString()
   display_name?: string;
 
-  @ApiPropertyOptional({ example: ['uuid1', 'uuid2'] })
+  @ApiPropertyOptional({ example: ["uuid1", "uuid2"] })
   @IsOptional()
   @IsArray()
-  @IsUUID('4', { each: true })
+  @IsUUID("4", { each: true })
   permission_ids?: string[];
 }

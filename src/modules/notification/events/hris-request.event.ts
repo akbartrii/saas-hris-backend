@@ -1,5 +1,15 @@
-export type HrisModuleType = 'remote_work' | 'reimbursement' | 'leave' | 'time_off' | 'overtime';
-export type HrisActionType = 'submitted' | 'supervisor_approved' | 'approved' | 'rejected' | 'cancelled';
+export type HrisModuleType =
+  | "remote_work"
+  | "reimbursement"
+  | "leave"
+  | "time_off"
+  | "overtime";
+export type HrisActionType =
+  | "submitted"
+  | "supervisor_approved"
+  | "approved"
+  | "rejected"
+  | "cancelled";
 
 export class HrisRequestEvent {
   constructor(

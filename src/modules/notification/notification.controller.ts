@@ -55,7 +55,7 @@ export class NotificationController {
   @Patch("read-all")
   async markAllAsRead(
     @CurrentUser("userId") userId: string,
-    @CompanyContext("id") companyId: string,
+    @CompanyContext("id") _companyId: string,
   ) {
     return this.notificationService.markAllAsRead(userId);
   }

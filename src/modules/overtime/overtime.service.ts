@@ -4,15 +4,15 @@ import {
   NotFoundException,
   ForbiddenException,
   Logger,
-} from '@nestjs/common';
-import { EventEmitter2 } from '@nestjs/event-emitter';
-import { PrismaService } from '../../prisma/prisma.service';
-import { ParameterService } from '../parameter/parameter.service';
-import { CreateOvertimeDto } from './dto/create-overtime.dto';
-import { ApproveOvertimeDto } from './dto/approve-overtime.dto';
-import { ListOvertimeDto } from './dto/list-overtime.dto';
-import { EncryptionService } from '../encryption/encryption.service';
-import { HrisRequestEvent } from '../notification/events/hris-request.event';
+} from "@nestjs/common";
+import { EventEmitter2 } from "@nestjs/event-emitter";
+import { PrismaService } from "../../prisma/prisma.service";
+import { ParameterService } from "../parameter/parameter.service";
+import { CreateOvertimeDto } from "./dto/create-overtime.dto";
+import { ApproveOvertimeDto } from "./dto/approve-overtime.dto";
+import { ListOvertimeDto } from "./dto/list-overtime.dto";
+import { EncryptionService } from "../encryption/encryption.service";
+import { HrisRequestEvent } from "../notification/events/hris-request.event";
 
 @Injectable()
 export class OvertimeService {
@@ -31,13 +31,13 @@ export class OvertimeService {
       include: { ms_employees: true },
     });
     if (!user || !user.ms_employees) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
     return user.ms_employees;
   }
 
   private timeToMinutes(timeStr: string): number {
-    const [hours, minutes] = timeStr.split(':').map(Number);
+    const [hours, minutes] = timeStr.split(":").map(Number);
     return hours * 60 + minutes;
   }
 
@@ -81,11 +81,11 @@ export class OvertimeService {
     });
 
     if (holiday) {
-      return 'holiday';
+      return "holiday";
     }
 
     const dayOfWeek = dateOnly.getDay();
-    return dayOfWeek === 0 || dayOfWeek === 6 ? 'weekend' : 'weekday';
+    return dayOfWeek === 0 || dayOfWeek === 6 ? "weekend" : "weekday";
   }
 
   private calculateCrossMidnightMinutes(
@@ -106,15 +106,15 @@ export class OvertimeService {
   ): Promise<number> {
     const totalHours = rawMinutes / 60;
 
-    if (dayType === 'weekday') {
+    if (dayType === "weekday") {
       let pay = 0;
       const firstMultiplier = await this.parameterService.getNumber(
-        'overtime_weekday_first_hour_multiplier',
+        "overtime_weekday_first_hour_multiplier",
         companyId,
         1.5,
       );
       const subsequentMultiplier = await this.parameterService.getNumber(
-        'overtime_weekday_subsequent_multiplier',
+        "overtime_weekday_subsequent_multiplier",
         companyId,
         2,
       );
@@ -128,17 +128,17 @@ export class OvertimeService {
 
     let pay = 0;
     const weekend8h = await this.parameterService.getNumber(
-      'overtime_weekend_first_8h_multiplier',
+      "overtime_weekend_first_8h_multiplier",
       companyId,
       2,
     );
     const weekend9_10h = await this.parameterService.getNumber(
-      'overtime_weekend_9_10h_multiplier',
+      "overtime_weekend_9_10h_multiplier",
       companyId,
       3,
     );
     const weekendBeyond10h = await this.parameterService.getNumber(
-      'overtime_weekend_beyond_10h_multiplier',
+      "overtime_weekend_beyond_10h_multiplier",
       companyId,
       4,
     );
@@ -184,11 +184,11 @@ export class OvertimeService {
 
   private canSubmitOvertime(role: string): boolean {
     return [
-      'karyawan',
-      'atasan',
-      'manager_hrga',
-      'admin',
-      'super_admin',
+      "karyawan",
+      "atasan",
+      "manager_hrga",
+      "admin",
+      "super_admin",
     ].includes(role);
   }
 
@@ -201,14 +201,14 @@ export class OvertimeService {
   ) {
     if (!this.canSubmitOvertime(requesterRole)) {
       throw new ForbiddenException(
-        'Only supervisor or above can submit overtime requests',
+        "Only supervisor or above can submit overtime requests",
       );
     }
 
     const requester = await this.getEmployeeFromUser(userId);
 
-    if (requesterRole === 'karyawan' && dto.employee_id !== requester.id) {
-      throw new ForbiddenException('You can only submit overtime for yourself');
+    if (requesterRole === "karyawan" && dto.employee_id !== requester.id) {
+      throw new ForbiddenException("You can only submit overtime for yourself");
     }
 
     const targetEmployee = await this.prisma.ms_employees.findUnique({
@@ -216,16 +216,16 @@ export class OvertimeService {
     });
 
     if (!targetEmployee) {
-      throw new NotFoundException('Target employee not found');
+      throw new NotFoundException("Target employee not found");
     }
 
-    if (!['admin', 'super_admin'].includes(requesterRole)) {
+    if (!["admin", "super_admin"].includes(requesterRole)) {
       if (
         targetEmployee.supervisor_id !== requester.id &&
         targetEmployee.manager_id !== requester.id
       ) {
         throw new ForbiddenException(
-          'You can only submit overtime for your subordinates',
+          "You can only submit overtime for your subordinates",
         );
       }
     }
@@ -236,19 +236,19 @@ export class OvertimeService {
       where: {
         employee_id: dto.employee_id,
         date: overtimeDate,
-        status: { notIn: ['rejected', 'cancelled'] },
+        status: { notIn: ["rejected", "cancelled"] },
       },
     });
 
     if (existingOvertime) {
       throw new BadRequestException(
-        'Employee already has an active overtime request for this date',
+        "Employee already has an active overtime request for this date",
       );
     }
 
     if (!targetEmployee.user_id) {
       throw new BadRequestException(
-        'Employee does not have an associated user account',
+        "Employee does not have an associated user account",
       );
     }
 
@@ -258,7 +258,7 @@ export class OvertimeService {
     const endMinutes = this.timeToMinutes(dto.end_time);
 
     if (startMinutes === endMinutes) {
-      throw new BadRequestException('End time must differ from start time');
+      throw new BadRequestException("End time must differ from start time");
     }
 
     const rawMinutes = this.calculateCrossMidnightMinutes(
@@ -297,27 +297,31 @@ export class OvertimeService {
     }
 
     const divisor = await this.parameterService.getNumber(
-      'overtime_divisor',
+      "overtime_divisor",
       companyId,
       173,
     );
     if (divisor <= 0) {
-      throw new BadRequestException('Invalid overtime_divisor parameter');
+      throw new BadRequestException("Invalid overtime_divisor parameter");
     }
 
-    const ratePerHour = isCalculated ? ((baseSalary + fixedAllowance) / divisor) : 0;
+    const ratePerHour = isCalculated
+      ? (baseSalary + fixedAllowance) / divisor
+      : 0;
     if (!Number.isFinite(ratePerHour)) {
-      throw new BadRequestException('Invalid overtime rate calculation');
+      throw new BadRequestException("Invalid overtime rate calculation");
     }
 
-    const totalOvertimePay = isCalculated ? await this.calculateOvertimePay(
-      rawMinutes,
-      dayType,
-      ratePerHour,
-      companyId,
-    ) : 0;
+    const totalOvertimePay = isCalculated
+      ? await this.calculateOvertimePay(
+          rawMinutes,
+          dayType,
+          ratePerHour,
+          companyId,
+        )
+      : 0;
     if (!Number.isFinite(totalOvertimePay)) {
-      throw new BadRequestException('Invalid overtime pay calculation');
+      throw new BadRequestException("Invalid overtime pay calculation");
     }
 
     const mealStartMinutes = startMinutes;
@@ -348,20 +352,26 @@ export class OvertimeService {
           rate_per_hour: ratePerHour,
           total_overtime_pay: totalOvertimePay,
           total_meal_allowance: totalMealAllowance,
-          status: 'pending',
+          status: "pending",
         },
       });
 
       await this.eventEmitter.emitAsync(
-        'hris.request',
-        new HrisRequestEvent(overtime.id, dto.employee_id, 'overtime', 'submitted', {
-          details: `mengajukan lembur selama ${totalHours} jam pada tanggal ${dto.date}`,
-        }),
+        "hris.request",
+        new HrisRequestEvent(
+          overtime.id,
+          dto.employee_id,
+          "overtime",
+          "submitted",
+          {
+            details: `mengajukan lembur selama ${totalHours} jam pada tanggal ${dto.date}`,
+          },
+        ),
       );
 
       return overtime;
     } catch (error) {
-      this.logger.error('Failed to create overtime request', {
+      this.logger.error("Failed to create overtime request", {
         error: error instanceof Error ? error.message : String(error),
         stack: error instanceof Error ? error.stack : undefined,
         payload: dto,
@@ -378,7 +388,7 @@ export class OvertimeService {
         },
       });
       throw new BadRequestException(
-        'Failed to create overtime request: ' +
+        "Failed to create overtime request: " +
           (error instanceof Error ? error.message : String(error)),
       );
     }
@@ -392,12 +402,12 @@ export class OvertimeService {
     });
 
     if (!overtime) {
-      throw new NotFoundException('Overtime request not found');
+      throw new NotFoundException("Overtime request not found");
     }
 
-    if (overtime.status !== 'pending') {
+    if (overtime.status !== "pending") {
       throw new BadRequestException(
-        'Only pending overtime requests can be cancelled',
+        "Only pending overtime requests can be cancelled",
       );
     }
 
@@ -406,34 +416,39 @@ export class OvertimeService {
       overtime.employee_id !== employee.id
     ) {
       throw new ForbiddenException(
-        'You can only cancel your own overtime requests',
+        "You can only cancel your own overtime requests",
       );
     }
 
     await this.prisma.tr_overtime_requests.update({
       where: { id: overtimeId },
       data: {
-        status: 'cancelled',
-        rejection_reason: 'Cancelled by requester',
+        status: "cancelled",
+        rejection_reason: "Cancelled by requester",
       },
     });
 
     await this.eventEmitter.emitAsync(
-      'hris.request',
+      "hris.request",
       new HrisRequestEvent(
         overtimeId,
         overtime.employee_id,
-        'overtime',
-        'cancelled',
+        "overtime",
+        "cancelled",
       ),
     );
 
-    return { message: 'Overtime request cancelled' };
+    return { message: "Overtime request cancelled" };
   }
 
-  async deleteOvertime(userId: string, companyId: string, overtimeId: string, userRole: string) {
-    if (!['admin', 'super_admin'].includes(userRole)) {
-      throw new ForbiddenException('Only admin can delete overtime requests');
+  async deleteOvertime(
+    userId: string,
+    companyId: string,
+    overtimeId: string,
+    userRole: string,
+  ) {
+    if (!["admin", "super_admin"].includes(userRole)) {
+      throw new ForbiddenException("Only admin can delete overtime requests");
     }
 
     const overtime = await this.prisma.tr_overtime_requests.findUnique({
@@ -441,16 +456,16 @@ export class OvertimeService {
     });
 
     if (!overtime) {
-      throw new NotFoundException('Overtime request not found');
+      throw new NotFoundException("Overtime request not found");
     }
 
     if (
-      overtime.status !== 'pending' &&
-      overtime.status !== 'rejected' &&
-      overtime.status !== 'cancelled'
+      overtime.status !== "pending" &&
+      overtime.status !== "rejected" &&
+      overtime.status !== "cancelled"
     ) {
       throw new BadRequestException(
-        'Can only delete pending, rejected, or cancelled overtime requests',
+        "Can only delete pending, rejected, or cancelled overtime requests",
       );
     }
 
@@ -458,10 +473,14 @@ export class OvertimeService {
       where: { id: overtimeId },
     });
 
-    return { message: 'Overtime request deleted' };
+    return { message: "Overtime request deleted" };
   }
 
-  async listOvertimes(userId: string, companyId: string, query: ListOvertimeDto) {
+  async listOvertimes(
+    userId: string,
+    companyId: string,
+    query: ListOvertimeDto,
+  ) {
     try {
       const user = await this.prisma.ms_users.findUnique({
         where: { id: userId },
@@ -469,7 +488,7 @@ export class OvertimeService {
       });
 
       if (!user || !user.ms_employees) {
-        throw new NotFoundException('Employee not found');
+        throw new NotFoundException("Employee not found");
       }
 
       const page = query.page ?? 1;
@@ -480,13 +499,13 @@ export class OvertimeService {
         company_id: companyId,
         ...(user.ms_employees.id ? { employee_id: user.ms_employees.id } : {}),
       };
-      const userRole = user.ms_roles?.name || 'karyawan';
+      const userRole = user.ms_roles?.name || "karyawan";
 
       if (query.status) {
         where.status = query.status;
       }
 
-      if (['admin', 'super_admin'].includes(userRole)) {
+      if (["admin", "super_admin"].includes(userRole)) {
         if (query.employee_id) {
           where.employee_id = query.employee_id;
         }
@@ -495,7 +514,7 @@ export class OvertimeService {
       }
 
       if (query.month) {
-        const [year, month] = query.month.split('-').map(Number);
+        const [year, month] = query.month.split("-").map(Number);
         const startDate = new Date(year, month - 1, 1);
         const endDate = new Date(year, month, 0);
         where.date = { gte: startDate, lte: endDate };
@@ -506,7 +525,7 @@ export class OvertimeService {
           where,
           skip,
           take: limit,
-          orderBy: { created_at: 'desc' },
+          orderBy: { created_at: "desc" },
           include: {
             ms_employees_tr_overtime_requests_employee_idToms_employees: {
               select: { id: true, full_name: true, nik: true },
@@ -524,13 +543,17 @@ export class OvertimeService {
     }
   }
 
-  async listSubordinateOvertimes(userId: string, companyId: string, query: ListOvertimeDto) {
+  async listSubordinateOvertimes(
+    userId: string,
+    companyId: string,
+    query: ListOvertimeDto,
+  ) {
     const user = await this.prisma.ms_users.findUnique({
       where: { id: userId },
       include: { ms_employees: true },
     });
     if (!user || !user.ms_employees) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const page = query.page ?? 1;
@@ -562,7 +585,7 @@ export class OvertimeService {
     }
 
     if (query.month) {
-      const [year, month] = query.month.split('-').map(Number);
+      const [year, month] = query.month.split("-").map(Number);
       const startDate = new Date(year, month - 1, 1);
       const endDate = new Date(year, month, 0);
       where.date = { gte: startDate, lte: endDate };
@@ -573,7 +596,7 @@ export class OvertimeService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
         include: {
           ms_employees_tr_overtime_requests_employee_idToms_employees: {
             select: { id: true, full_name: true, nik: true },
@@ -594,17 +617,17 @@ export class OvertimeService {
     });
 
     if (!user || !user.ms_employees) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
-    const userRole = user.ms_roles?.name || 'karyawan';
-    if (!['admin', 'hrd', 'manager_hrga', 'super_admin'].includes(userRole)) {
-      throw new ForbiddenException('Insufficient permissions');
+    const userRole = user.ms_roles?.name || "karyawan";
+    if (!["admin", "hrd", "manager_hrga", "super_admin"].includes(userRole)) {
+      throw new ForbiddenException("Insufficient permissions");
     }
 
     let dateFilter: any = {};
     if (month) {
-      const [year, m] = month.split('-').map(Number);
+      const [year, m] = month.split("-").map(Number);
       const startDate = new Date(year, m - 1, 1);
       const endDate = new Date(year, m, 0);
       dateFilter = { gte: startDate, lte: endDate };
@@ -615,8 +638,8 @@ export class OvertimeService {
       dateFilter = { gte: startDate, lte: endDate };
     }
 
-      const requests = await this.prisma.tr_overtime_requests.findMany({
-        where: { date: dateFilter, company_id: companyId },
+    const requests = await this.prisma.tr_overtime_requests.findMany({
+      where: { date: dateFilter, company_id: companyId },
       include: {
         ms_employees_tr_overtime_requests_employee_idToms_employees: {
           select: { id: true, full_name: true, nik: true },
@@ -665,40 +688,40 @@ export class OvertimeService {
     });
 
     if (!overtime) {
-      throw new NotFoundException('Overtime request not found');
+      throw new NotFoundException("Overtime request not found");
     }
 
-    if (dto.action === 'reject') {
+    if (dto.action === "reject") {
       await this.prisma.tr_overtime_requests.update({
         where: { id: overtimeId },
         data: {
-          status: 'rejected',
-          rejection_reason: dto.rejection_reason || 'Rejected',
+          status: "rejected",
+          rejection_reason: dto.rejection_reason || "Rejected",
         },
       });
 
       await this.eventEmitter.emitAsync(
-        'hris.request',
+        "hris.request",
         new HrisRequestEvent(
           overtimeId,
           overtime.employee_id,
-          'overtime',
-          'rejected',
+          "overtime",
+          "rejected",
           {
-            rejectionReason: dto.rejection_reason || 'Rejected',
+            rejectionReason: dto.rejection_reason || "Rejected",
           },
         ),
       );
 
-      return { message: 'Overtime request rejected' };
+      return { message: "Overtime request rejected" };
     }
 
-    if (dto.action !== 'approve') {
-      throw new BadRequestException('Invalid action');
+    if (dto.action !== "approve") {
+      throw new BadRequestException("Invalid action");
     }
 
     // Step 1: Supervisor approval
-    if (approverRole === 'atasan' && overtime.status === 'pending') {
+    if (approverRole === "atasan" && overtime.status === "pending") {
       const targetEmployee = await this.prisma.ms_employees.findUnique({
         where: { id: overtime.employee_id },
       });
@@ -708,62 +731,62 @@ export class OvertimeService {
           targetEmployee.manager_id !== approver.id)
       ) {
         throw new ForbiddenException(
-          'You can only approve overtime for your subordinates',
+          "You can only approve overtime for your subordinates",
         );
       }
 
       await this.prisma.tr_overtime_requests.update({
         where: { id: overtimeId },
         data: {
-          status: 'supervisor_approved',
+          status: "supervisor_approved",
         },
       });
 
       await this.eventEmitter.emitAsync(
-        'hris.request',
+        "hris.request",
         new HrisRequestEvent(
           overtimeId,
           overtime.employee_id,
-          'overtime',
-          'supervisor_approved',
+          "overtime",
+          "supervisor_approved",
         ),
       );
 
-      return { message: 'Overtime request approved by supervisor' };
+      return { message: "Overtime request approved by supervisor" };
     }
 
     // Step 2: Manager/HR approval
     if (
-      ['manager_hrga', 'hrd', 'admin', 'super_admin'].includes(approverRole) &&
-      overtime.status === 'supervisor_approved'
+      ["manager_hrga", "hrd", "admin", "super_admin"].includes(approverRole) &&
+      overtime.status === "supervisor_approved"
     ) {
       await this.prisma.tr_overtime_requests.update({
         where: { id: overtimeId },
         data: {
           manager_approved_at: new Date(),
           manager_id: approver.id,
-          status: 'approved',
+          status: "approved",
         },
       });
 
       await this.eventEmitter.emitAsync(
-        'hris.request',
+        "hris.request",
         new HrisRequestEvent(
           overtimeId,
           overtime.employee_id,
-          'overtime',
-          'approved',
+          "overtime",
+          "approved",
           {
             details: `telah disetujui oleh atasan/manager dan menunggu pemrosesan HRD`,
           },
         ),
       );
 
-      return { message: 'Overtime request approved by manager' };
+      return { message: "Overtime request approved by manager" };
     }
 
     throw new ForbiddenException(
-      'You are not authorized to approve this overtime request at this stage',
+      "You are not authorized to approve this overtime request at this stage",
     );
   }
 
@@ -776,9 +799,9 @@ export class OvertimeService {
     keycode?: string,
   ) {
     if (
-      !['manager_hrga', 'hrd', 'admin', 'super_admin'].includes(processorRole)
+      !["manager_hrga", "hrd", "admin", "super_admin"].includes(processorRole)
     ) {
-      throw new ForbiddenException('Only HRD or above can process overtime');
+      throw new ForbiddenException("Only HRD or above can process overtime");
     }
 
     const processor = await this.getEmployeeFromUser(userId);
@@ -788,29 +811,31 @@ export class OvertimeService {
     });
 
     if (!overtime) {
-      throw new NotFoundException('Overtime request not found');
+      throw new NotFoundException("Overtime request not found");
     }
 
-    if (overtime.status !== 'approved') {
+    if (overtime.status !== "approved") {
       throw new BadRequestException(
-        'Overtime must be approved by manager first',
+        "Overtime must be approved by manager first",
       );
     }
 
-    if (dto.action === 'approve') {
+    if (dto.action === "approve") {
       if (!keycode) {
-        throw new BadRequestException('x-salary-keycode header is required to process and approve overtime.');
+        throw new BadRequestException(
+          "x-salary-keycode header is required to process and approve overtime.",
+        );
       }
       const isValid = await this.encryptionService.validateKeycode(keycode);
       if (!isValid) {
-        throw new BadRequestException('Invalid or expired salary keycode.');
+        throw new BadRequestException("Invalid or expired salary keycode.");
       }
 
       const targetEmployee = await this.prisma.ms_employees.findUnique({
         where: { id: overtime.employee_id },
       });
       if (!targetEmployee) {
-        throw new NotFoundException('Target employee not found');
+        throw new NotFoundException("Target employee not found");
       }
 
       const decryptVal = (val: string | null) => {
@@ -828,12 +853,12 @@ export class OvertimeService {
       const fixedAllowance = decryptVal(targetEmployee.fixed_allowance);
 
       const divisor = await this.parameterService.getNumber(
-        'overtime_divisor',
+        "overtime_divisor",
         companyId,
         173,
       );
       if (divisor <= 0) {
-        throw new BadRequestException('Invalid overtime_divisor parameter');
+        throw new BadRequestException("Invalid overtime_divisor parameter");
       }
 
       const ratePerHour = (baseSalary + fixedAllowance) / divisor;
@@ -849,19 +874,19 @@ export class OvertimeService {
         data: {
           hrd_processed_at: new Date(),
           hrd_id: processor.id,
-          status: 'processed',
+          status: "processed",
           rate_per_hour: ratePerHour,
           total_overtime_pay: totalOvertimePay,
         },
       });
 
       await this.eventEmitter.emitAsync(
-        'hris.request',
+        "hris.request",
         new HrisRequestEvent(
           overtimeId,
           overtime.employee_id,
-          'overtime',
-          'approved',
+          "overtime",
+          "approved",
           {
             details: `telah selesai diproses oleh HRD`,
           },
@@ -872,20 +897,20 @@ export class OvertimeService {
         where: { id: overtimeId },
         data: {
           hrd_id: processor.id,
-          status: 'rejected',
-          rejection_reason: dto.rejection_reason || 'Rejected by HRD',
+          status: "rejected",
+          rejection_reason: dto.rejection_reason || "Rejected by HRD",
         },
       });
 
       await this.eventEmitter.emitAsync(
-        'hris.request',
+        "hris.request",
         new HrisRequestEvent(
           overtimeId,
           overtime.employee_id,
-          'overtime',
-          'rejected',
+          "overtime",
+          "rejected",
           {
-            rejectionReason: dto.rejection_reason || 'Rejected by HRD',
+            rejectionReason: dto.rejection_reason || "Rejected by HRD",
           },
         ),
       );
@@ -894,13 +919,17 @@ export class OvertimeService {
     return { message: `Overtime request ${dto.action}d by HRD` };
   }
 
-  async getOvertimeDetail(userId: string, companyId: string, overtimeId: string) {
+  async getOvertimeDetail(
+    userId: string,
+    companyId: string,
+    overtimeId: string,
+  ) {
     const requester = await this.getEmployeeFromUser(userId);
     const user = await this.prisma.ms_users.findUnique({
       where: { id: userId },
       include: { ms_roles: true },
     });
-    const roleName = user?.ms_roles?.name || '';
+    const roleName = user?.ms_roles?.name || "";
 
     const overtime = await this.prisma.tr_overtime_requests.findUnique({
       where: { id: overtimeId, company_id: companyId },
@@ -910,76 +939,88 @@ export class OvertimeService {
     });
 
     if (!overtime) {
-      throw new NotFoundException('Overtime request not found');
+      throw new NotFoundException("Overtime request not found");
     }
 
     // Check permissions
-    const isOwner = overtime.employee_id === requester.id || overtime.requested_by === requester.id;
-    const isHrOrAdmin = ['hrd', 'admin', 'super_admin', 'manager_hrga'].includes(roleName);
-    
+    const isOwner =
+      overtime.employee_id === requester.id ||
+      overtime.requested_by === requester.id;
+    const isHrOrAdmin = [
+      "hrd",
+      "admin",
+      "super_admin",
+      "manager_hrga",
+    ].includes(roleName);
+
     // Check if requester is the supervisor or manager of the target employee
-    const targetEmployee = overtime.ms_employees_tr_overtime_requests_employee_idToms_employees;
-    const isAtasan = targetEmployee && (targetEmployee.supervisor_id === requester.id || targetEmployee.manager_id === requester.id);
+    const targetEmployee =
+      overtime.ms_employees_tr_overtime_requests_employee_idToms_employees;
+    const isAtasan =
+      targetEmployee &&
+      (targetEmployee.supervisor_id === requester.id ||
+        targetEmployee.manager_id === requester.id);
 
     if (!isOwner && !isHrOrAdmin && !isAtasan) {
-      throw new ForbiddenException('You do not have permission to view this overtime request');
+      throw new ForbiddenException(
+        "You do not have permission to view this overtime request",
+      );
     }
 
     const formula = {
-      hourly_rate_formula: '(gaji pokok + tunjangan tetap) / 173',
+      hourly_rate_formula: "(gaji pokok + tunjangan tetap) / 173",
       rounding_rules: {
-        '1_to_30_minutes': '0.5 jam',
-        '31_to_60_minutes': '1.0 jam',
-        '1_hour_15_minutes': '1.0 jam',
-        '1_hour_30_minutes': '1.5 jam',
-        '1_hour_45_minutes': '1.5 jam',
-        '1_hour_46_minutes_and_above': 'Pembulatan ke atas (2.0 jam)'
+        "1_to_30_minutes": "0.5 jam",
+        "31_to_60_minutes": "1.0 jam",
+        "1_hour_15_minutes": "1.0 jam",
+        "1_hour_30_minutes": "1.5 jam",
+        "1_hour_45_minutes": "1.5 jam",
+        "1_hour_46_minutes_and_above": "Pembulatan ke atas (2.0 jam)",
       },
       meal_allowance_rules: {
         workdays: {
-          before_office_hours: 'Rp 10.000',
-          '16:00_to_20:00': 'Rp 20.000',
-          '20:00_to_24:00': 'Rp 10.000',
-          '24:00_to_end': 'Rp 20.000'
+          before_office_hours: "Rp 10.000",
+          "16:00_to_20:00": "Rp 20.000",
+          "20:00_to_24:00": "Rp 10.000",
+          "24:00_to_end": "Rp 20.000",
         },
         saturdays: {
-          before_office_hours: 'Rp 10.000',
-          '14:00_to_22:00': 'Rp 6.000',
-          '18:00_to_22:00': 'Rp 20.000',
-          '22:00_to_end': 'Rp 10.000'
+          before_office_hours: "Rp 10.000",
+          "14:00_to_22:00": "Rp 6.000",
+          "18:00_to_22:00": "Rp 20.000",
+          "22:00_to_end": "Rp 10.000",
         },
         sundays_and_holidays: {
-          before_office_hours: 'Rp 10.000',
-          '08:00_to_12:00': 'Rp 10.000',
-          '13:00_to_17:00': 'Rp 15.000',
-          '17:00_to_21:00': 'Rp 20.000',
-          '24:00_to_end': 'Rp 20.000'
-        }
+          before_office_hours: "Rp 10.000",
+          "08:00_to_12:00": "Rp 10.000",
+          "13:00_to_17:00": "Rp 15.000",
+          "17:00_to_21:00": "Rp 20.000",
+          "24:00_to_end": "Rp 20.000",
+        },
       },
       multiplier_rules: {
-        '6_days_workweek': {
-          workday: '1st hour x 1.5, subsequent hours x 2',
-          holiday: 'first 7 hours x 2, 8th hour x 3, subsequent hours x 4'
+        "6_days_workweek": {
+          workday: "1st hour x 1.5, subsequent hours x 2",
+          holiday: "first 7 hours x 2, 8th hour x 3, subsequent hours x 4",
         },
-        '5_days_workweek': {
-          workday: '1st hour x 1.5, subsequent hours x 2',
-          holiday: 'first 8 hours x 2, 9th hour x 3, subsequent hours x 4'
-        }
+        "5_days_workweek": {
+          workday: "1st hour x 1.5, subsequent hours x 2",
+          holiday: "first 8 hours x 2, 9th hour x 3, subsequent hours x 4",
+        },
       },
-      workflow: 'Atasan/SPV/Manager melakukan pengajuan lembur -> Manager ACC -> HRD rekap'
+      workflow:
+        "Atasan/SPV/Manager melakukan pengajuan lembur -> Manager ACC -> HRD rekap",
     };
 
-    const { ms_employees_tr_overtime_requests_employee_idToms_employees, ...restOvertime } = overtime;
+    const {
+      ms_employees_tr_overtime_requests_employee_idToms_employees,
+      ...restOvertime
+    } = overtime;
 
     let cleanEmployee = null;
     if (ms_employees_tr_overtime_requests_employee_idToms_employees) {
-      const {
-        base_salary,
-        fixed_allowance,
-        phone_allowance,
-        dinas_allowance,
-        ...publicEmployeeInfo
-      } = ms_employees_tr_overtime_requests_employee_idToms_employees;
+      const { ...publicEmployeeInfo } =
+        ms_employees_tr_overtime_requests_employee_idToms_employees;
       cleanEmployee = publicEmployeeInfo;
     }
 
@@ -990,4 +1031,3 @@ export class OvertimeService {
     };
   }
 }
-

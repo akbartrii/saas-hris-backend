@@ -3,13 +3,13 @@ import {
   BadRequestException,
   NotFoundException,
   ForbiddenException,
-} from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { CreateJobDto } from './dto/create-job.dto';
-import { ApplyJobDto } from './dto/apply-job.dto';
-import { UpdateApplicationStatusDto } from './dto/update-application-status.dto';
-import { UpdateJobDto } from './dto/update-job.dto';
-import { ListJobDto } from './dto/list-job.dto';
+} from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { CreateJobDto } from "./dto/create-job.dto";
+import { ApplyJobDto } from "./dto/apply-job.dto";
+import { UpdateApplicationStatusDto } from "./dto/update-application-status.dto";
+import { UpdateJobDto } from "./dto/update-job.dto";
+import { ListJobDto } from "./dto/list-job.dto";
 
 @Injectable()
 export class RecruitmentService {
@@ -21,7 +21,7 @@ export class RecruitmentService {
       include: { ms_employees: true, ms_roles: true },
     });
     if (!user || !user.ms_employees) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
     return user;
   }
@@ -30,9 +30,9 @@ export class RecruitmentService {
     return (
       title
         .toLowerCase()
-        .replace(/[^a-z0-9]+/g, '-')
-        .replace(/(^-|-$)/g, '') +
-      '-' +
+        .replace(/[^a-z0-9]+/g, "-")
+        .replace(/(^-|-$)/g, "") +
+      "-" +
       Date.now()
     );
   }
@@ -40,9 +40,9 @@ export class RecruitmentService {
   async createJob(userId: string, companyId: string, dto: CreateJobDto) {
     const user = await this.getEmployeeFromUser(userId);
 
-    const roleName = user.ms_roles?.name || 'karyawan';
-    if (!['admin', 'hrd', 'manager_hrga', 'super_admin'].includes(roleName)) {
-      throw new ForbiddenException('Only HR/Admin can create job postings');
+    const roleName = user.ms_roles?.name || "karyawan";
+    if (!["admin", "hrd", "manager_hrga", "super_admin"].includes(roleName)) {
+      throw new ForbiddenException("Only HR/Admin can create job postings");
     }
 
     const slug = dto.public_slug || this.generateSlug(dto.title);
@@ -51,7 +51,7 @@ export class RecruitmentService {
       where: { public_slug: slug },
     });
     if (existing) {
-      throw new BadRequestException('Public slug already exists');
+      throw new BadRequestException("Public slug already exists");
     }
 
     const job = await this.prisma.ms_job_postings.create({
@@ -65,7 +65,7 @@ export class RecruitmentService {
         requirements: dto.requirements,
         employment_type: dto.employment_type,
         public_slug: slug,
-        status: 'active',
+        status: "active",
         opened_at: dto.opened_at ? new Date(dto.opened_at) : new Date(),
         closed_at: dto.closed_at ? new Date(dto.closed_at) : null,
         created_by: userId,
@@ -75,15 +75,20 @@ export class RecruitmentService {
     return job;
   }
 
-  async updateJob(userId: string, companyId: string, jobId: string, dto: UpdateJobDto) {
+  async updateJob(
+    userId: string,
+    companyId: string,
+    jobId: string,
+    dto: UpdateJobDto,
+  ) {
     const user = await this.prisma.ms_users.findUnique({
       where: { id: userId },
       include: { ms_roles: true },
     });
 
-    const roleName = user?.ms_roles?.name || 'karyawan';
-    if (!['admin', 'hrd', 'super_admin'].includes(roleName)) {
-      throw new ForbiddenException('Only HR/Admin can update job postings');
+    const roleName = user?.ms_roles?.name || "karyawan";
+    if (!["admin", "hrd", "super_admin"].includes(roleName)) {
+      throw new ForbiddenException("Only HR/Admin can update job postings");
     }
 
     const job = await this.prisma.ms_job_postings.findUnique({
@@ -91,7 +96,7 @@ export class RecruitmentService {
     });
 
     if (!job) {
-      throw new NotFoundException('Job posting not found');
+      throw new NotFoundException("Job posting not found");
     }
 
     const data: any = {};
@@ -118,9 +123,9 @@ export class RecruitmentService {
       include: { ms_roles: true },
     });
 
-    const roleName = user?.ms_roles?.name || 'karyawan';
-    if (!['admin', 'hrd', 'super_admin'].includes(roleName)) {
-      throw new ForbiddenException('Only HR/Admin can delete job postings');
+    const roleName = user?.ms_roles?.name || "karyawan";
+    if (!["admin", "hrd", "super_admin"].includes(roleName)) {
+      throw new ForbiddenException("Only HR/Admin can delete job postings");
     }
 
     const job = await this.prisma.ms_job_postings.findUnique({
@@ -128,15 +133,15 @@ export class RecruitmentService {
     });
 
     if (!job) {
-      throw new NotFoundException('Job posting not found');
+      throw new NotFoundException("Job posting not found");
     }
 
     await this.prisma.ms_job_postings.update({
       where: { id: jobId },
-      data: { status: 'closed' },
+      data: { status: "closed" },
     });
 
-    return { message: 'Job posting deleted successfully' };
+    return { message: "Job posting deleted successfully" };
   }
 
   async listJobs(companyId: string, query: ListJobDto) {
@@ -154,7 +159,7 @@ export class RecruitmentService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
         include: {
           ms_departments: { select: { id: true, name: true } },
           ms_positions: { select: { id: true, name: true } },
@@ -178,7 +183,7 @@ export class RecruitmentService {
     });
 
     if (!job) {
-      throw new NotFoundException('Job posting not found');
+      throw new NotFoundException("Job posting not found");
     }
 
     return job;
@@ -190,11 +195,11 @@ export class RecruitmentService {
     });
 
     if (!job) {
-      throw new NotFoundException('Job posting not found');
+      throw new NotFoundException("Job posting not found");
     }
 
-    if (job.status !== 'active') {
-      throw new BadRequestException('Job posting is not open for applications');
+    if (job.status !== "active") {
+      throw new BadRequestException("Job posting is not open for applications");
     }
 
     const application = await this.prisma.tr_job_applications.create({
@@ -205,7 +210,7 @@ export class RecruitmentService {
         phone: dto.phone,
         resume_url: dto.resume_url,
         cover_letter: dto.cover_letter,
-        status: 'new',
+        status: "new",
         company_id: job.company_id,
       },
     });
@@ -228,7 +233,7 @@ export class RecruitmentService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
         include: {
           ms_job_postings: {
             include: {
@@ -257,7 +262,7 @@ export class RecruitmentService {
     });
 
     if (!application) {
-      throw new NotFoundException('Application not found');
+      throw new NotFoundException("Application not found");
     }
 
     await this.prisma.tr_job_applications.update({
@@ -265,8 +270,8 @@ export class RecruitmentService {
       data: {
         status: dto.status,
         notes: dto.notes,
-        rejection_email_sent: dto.status === 'rejected',
-        rejection_email_sent_at: dto.status === 'rejected' ? new Date() : null,
+        rejection_email_sent: dto.status === "rejected",
+        rejection_email_sent_at: dto.status === "rejected" ? new Date() : null,
       },
     });
 

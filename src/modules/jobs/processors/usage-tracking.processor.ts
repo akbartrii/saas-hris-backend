@@ -1,9 +1,9 @@
-import { Processor, WorkerHost } from '@nestjs/bullmq';
-import { Job } from 'bullmq';
-import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { Processor, WorkerHost } from "@nestjs/bullmq";
+import { Job } from "bullmq";
+import { Injectable, Logger } from "@nestjs/common";
+import { PrismaService } from "../../../prisma/prisma.service";
 
-@Processor('usage-tracking')
+@Processor("usage-tracking")
 @Injectable()
 export class UsageTrackingProcessor extends WorkerHost {
   private readonly logger = new Logger(UsageTrackingProcessor.name);
@@ -12,8 +12,12 @@ export class UsageTrackingProcessor extends WorkerHost {
     super();
   }
 
-  async process(job: Job<{ companyId: string; month: number; year: number }>): Promise<any> {
-    this.logger.log(`Processing usage tracking for company ${job.data.companyId}, ${job.data.month}/${job.data.year}`);
+  async process(
+    job: Job<{ companyId: string; month: number; year: number }>,
+  ): Promise<any> {
+    this.logger.log(
+      `Processing usage tracking for company ${job.data.companyId}, ${job.data.month}/${job.data.year}`,
+    );
 
     const { companyId, month, year } = job.data;
 
@@ -47,7 +51,9 @@ export class UsageTrackingProcessor extends WorkerHost {
       },
     });
 
-    this.logger.log(`Usage tracking updated for company ${companyId}: ${employeeCount} employees, ${apiCalls} API calls`);
+    this.logger.log(
+      `Usage tracking updated for company ${companyId}: ${employeeCount} employees, ${apiCalls} API calls`,
+    );
     return { companyId, month, year, employeeCount, apiCalls };
   }
 }

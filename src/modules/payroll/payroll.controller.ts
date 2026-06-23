@@ -11,7 +11,12 @@ import {
   Headers,
   Res,
 } from "@nestjs/common";
-import { ApiBearerAuth, ApiTags, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+} from "@nestjs/swagger";
 import { PayrollService } from "./payroll.service";
 import {
   GeneratePayslipDto,
@@ -83,7 +88,9 @@ export class PayrollController {
 
   @Post("generate-batch")
   @Roles("hrd", "admin", "super_admin")
-  @ApiOperation({ summary: "Batch generate payslips for all employees in a period" })
+  @ApiOperation({
+    summary: "Batch generate payslips for all employees in a period",
+  })
   @ApiResponse({ status: 201, description: "Batch payslips generated" })
   async generateBatchPayslip(
     @CurrentUser("userId") userId: string,

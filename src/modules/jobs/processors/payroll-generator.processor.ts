@@ -1,9 +1,9 @@
-import { Processor, WorkerHost } from '@nestjs/bullmq';
-import { Job } from 'bullmq';
-import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
+import { Processor, WorkerHost } from "@nestjs/bullmq";
+import { Job } from "bullmq";
+import { Injectable, Logger } from "@nestjs/common";
+import { PrismaService } from "../../../prisma/prisma.service";
 
-@Processor('payroll-generation')
+@Processor("payroll-generation")
 @Injectable()
 export class PayrollGeneratorProcessor extends WorkerHost {
   private readonly logger = new Logger(PayrollGeneratorProcessor.name);
@@ -12,8 +12,12 @@ export class PayrollGeneratorProcessor extends WorkerHost {
     super();
   }
 
-  async process(job: Job<{ periodId: string; companyId: string }>): Promise<any> {
-    this.logger.log(`Processing payroll generation job ${job.id} for period ${job.data.periodId}`);
+  async process(
+    job: Job<{ periodId: string; companyId: string }>,
+  ): Promise<any> {
+    this.logger.log(
+      `Processing payroll generation job ${job.id} for period ${job.data.periodId}`,
+    );
 
     const { periodId, companyId } = job.data;
 
@@ -36,7 +40,9 @@ export class PayrollGeneratorProcessor extends WorkerHost {
       },
     });
 
-    this.logger.log(`Found ${activeEmployees.length} active employees for period ${period.period_name}`);
+    this.logger.log(
+      `Found ${activeEmployees.length} active employees for period ${period.period_name}`,
+    );
 
     let generated = 0;
     for (const employee of activeEmployees) {
@@ -47,7 +53,7 @@ export class PayrollGeneratorProcessor extends WorkerHost {
         },
       });
 
-      if (existingPayslip && existingPayslip.status !== 'draft') {
+      if (existingPayslip && existingPayslip.status !== "draft") {
         continue;
       }
 
@@ -73,7 +79,7 @@ export class PayrollGeneratorProcessor extends WorkerHost {
       const overtimeData = await this.prisma.tr_overtime_requests.findMany({
         where: {
           employee_id: employee.id,
-          status: 'approved',
+          status: "approved",
           date: {
             gte: period.attendance_cutoff_start,
             lte: period.attendance_cutoff_end,
@@ -92,14 +98,17 @@ export class PayrollGeneratorProcessor extends WorkerHost {
 
       const baseSalary = Number(employee.base_salary || 0);
       const fixedAllowance = Number(employee.fixed_allowance || 0);
-      const grossIncome = baseSalary + fixedAllowance + totalAttendanceAllowance + totalOvertimePay + totalOvertimeMeal;
+      const grossIncome =
+        baseSalary +
+        fixedAllowance +
+        totalAttendanceAllowance +
+        totalOvertimePay +
+        totalOvertimeMeal;
       const totalDeductions = totalLateDeduction;
       const netIncome = grossIncome - totalDeductions;
 
       await this.prisma.tr_payslips.upsert({
-        where: existingPayslip
-          ? { id: existingPayslip.id }
-          : { id: '' },
+        where: existingPayslip ? { id: existingPayslip.id } : { id: "" },
         create: {
           employee_id: employee.id,
           payroll_period_id: periodId,
@@ -113,7 +122,7 @@ export class PayrollGeneratorProcessor extends WorkerHost {
           gross_income: grossIncome,
           total_deductions: totalDeductions,
           net_income: netIncome,
-          status: 'draft',
+          status: "draft",
         },
         update: {
           base_salary: baseSalary,
@@ -133,10 +142,12 @@ export class PayrollGeneratorProcessor extends WorkerHost {
 
     await this.prisma.tr_payroll_periods.update({
       where: { id: periodId },
-      data: { status: 'generated' },
+      data: { status: "generated" },
     });
 
-    this.logger.log(`Generated ${generated} payslips for period ${period.period_name}`);
+    this.logger.log(
+      `Generated ${generated} payslips for period ${period.period_name}`,
+    );
     return { generated };
   }
 }

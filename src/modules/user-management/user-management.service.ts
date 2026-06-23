@@ -2,29 +2,29 @@ import {
   Injectable,
   NotFoundException,
   ConflictException,
-} from '@nestjs/common';
-import * as bcrypt from 'bcryptjs';
-import { PrismaService } from '../../prisma/prisma.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { UserQueryDto } from './dto/user-query.dto';
+} from "@nestjs/common";
+import * as bcrypt from "bcryptjs";
+import { PrismaService } from "../../prisma/prisma.service";
+import { CreateUserDto } from "./dto/create-user.dto";
+import { UpdateUserDto } from "./dto/update-user.dto";
+import { UserQueryDto } from "./dto/user-query.dto";
 
 @Injectable()
 export class UserManagementService {
   constructor(private prisma: PrismaService) {}
 
   async findAll(company_id: string, query: UserQueryDto) {
-    const page = parseInt(query.page || '1', 10);
-    const limit = parseInt(query.limit || '10', 10);
+    const page = parseInt(query.page || "1", 10);
+    const limit = parseInt(query.limit || "10", 10);
     const skip = (page - 1) * limit;
 
     const where: any = { company_id };
 
     if (query.search) {
       where.OR = [
-        { full_name: { contains: query.search, mode: 'insensitive' } },
-        { email: { contains: query.search, mode: 'insensitive' } },
-        { employee_id: { contains: query.search, mode: 'insensitive' } },
+        { full_name: { contains: query.search, mode: "insensitive" } },
+        { email: { contains: query.search, mode: "insensitive" } },
+        { employee_id: { contains: query.search, mode: "insensitive" } },
       ];
     }
 
@@ -33,7 +33,7 @@ export class UserManagementService {
     }
 
     if (query.is_active !== undefined) {
-      where.is_active = query.is_active === 'true';
+      where.is_active = query.is_active === "true";
     }
 
     const [data, total] = await Promise.all([
@@ -47,14 +47,14 @@ export class UserManagementService {
             select: { id: true, full_name: true },
           },
         },
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
       }),
       this.prisma.ms_users.count({ where }),
     ]);
 
     return {
       data: data.map((user) => {
-        const { password_hash, ms_employees, ms_roles, ...rest } = user;
+        const { ms_employees, ms_roles, ...rest } = user;
         return {
           ...rest,
           employee: ms_employees,
@@ -80,10 +80,10 @@ export class UserManagementService {
     });
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException("User not found");
     }
 
-    const { password_hash, ms_roles, ms_employees, ...rest } = user;
+    const { ms_roles, ms_employees, ...rest } = user;
     return { ...rest, role: ms_roles, employee: ms_employees };
   }
 
@@ -93,14 +93,14 @@ export class UserManagementService {
     });
 
     if (existing) {
-      throw new ConflictException('Email already registered');
+      throw new ConflictException("Email already registered");
     }
 
     const role = await this.prisma.ms_roles.findUnique({
       where: { id: dto.role_id },
     });
     if (!role) {
-      throw new NotFoundException('Role not found');
+      throw new NotFoundException("Role not found");
     }
 
     const password_hash = await bcrypt.hash(dto.password, 10);
@@ -123,7 +123,7 @@ export class UserManagementService {
   async update(id: string, dto: UpdateUserDto) {
     const user = await this.prisma.ms_users.findUnique({ where: { id } });
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException("User not found");
     }
 
     if (dto.email && dto.email !== user.email) {
@@ -131,7 +131,7 @@ export class UserManagementService {
         where: { email: dto.email },
       });
       if (existing) {
-        throw new ConflictException('Email already registered');
+        throw new ConflictException("Email already registered");
       }
     }
 
@@ -140,7 +140,7 @@ export class UserManagementService {
         where: { id: dto.role_id },
       });
       if (!role) {
-        throw new NotFoundException('Role not found');
+        throw new NotFoundException("Role not found");
       }
     }
 
@@ -161,7 +161,7 @@ export class UserManagementService {
   async remove(id: string) {
     const user = await this.prisma.ms_users.findUnique({ where: { id } });
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException("User not found");
     }
 
     await this.prisma.ms_users.update({
@@ -169,13 +169,13 @@ export class UserManagementService {
       data: { is_active: false },
     });
 
-    return { message: 'User deactivated successfully' };
+    return { message: "User deactivated successfully" };
   }
 
   async activate(id: string) {
     const user = await this.prisma.ms_users.findUnique({ where: { id } });
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new NotFoundException("User not found");
     }
 
     await this.prisma.ms_users.update({

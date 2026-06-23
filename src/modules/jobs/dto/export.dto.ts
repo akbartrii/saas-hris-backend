@@ -1,13 +1,13 @@
 export enum ExportType {
-  PAYROLL = 'payroll',
-  ATTENDANCE = 'attendance',
-  LEAVE = 'leave',
-  OVERTIME = 'overtime',
+  PAYROLL = "payroll",
+  ATTENDANCE = "attendance",
+  LEAVE = "leave",
+  OVERTIME = "overtime",
 }
 
 export enum ExportFormat {
-  EXCEL = 'excel',
-  PDF = 'pdf',
+  EXCEL = "excel",
+  PDF = "pdf",
 }
 
 export class ExportDto {

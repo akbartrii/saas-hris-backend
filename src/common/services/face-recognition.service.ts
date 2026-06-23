@@ -1,8 +1,8 @@
-import { Injectable, OnModuleInit, Logger } from '@nestjs/common';
-import * as faceapi from '@vladmandic/face-api/dist/face-api.node-wasm.js';
-import * as tf from '@tensorflow/tfjs';
-import { Canvas, Image, ImageData, loadImage } from 'canvas';
-import * as path from 'path';
+import { Injectable, OnModuleInit, Logger } from "@nestjs/common";
+import * as faceapi from "@vladmandic/face-api/dist/face-api.node-wasm.js";
+import * as tf from "@tensorflow/tfjs";
+import { Canvas, Image, ImageData, loadImage } from "canvas";
+import * as path from "path";
 
 @Injectable()
 export class FaceRecognitionService implements OnModuleInit {
@@ -15,17 +15,17 @@ export class FaceRecognitionService implements OnModuleInit {
 
   private async loadModels() {
     try {
-      this.logger.log('Loading face recognition models...');
+      this.logger.log("Loading face recognition models...");
 
       // Initialize WASM backend
-      await tf.setBackend('wasm');
+      await tf.setBackend("wasm");
       await tf.ready();
 
       // Patch environment for Node.js
-      // @ts-ignore
+      // @ts-expect-error monkeyPatch types not exposed
       faceapi.env.monkeyPatch({ Canvas, Image, ImageData });
 
-      const modelPath = path.join(process.cwd(), 'assets/models');
+      const modelPath = path.join(process.cwd(), "assets/models");
 
       await Promise.all([
         faceapi.nets.ssdMobilenetv1.loadFromDisk(modelPath),
@@ -34,7 +34,7 @@ export class FaceRecognitionService implements OnModuleInit {
       ]);
 
       this.isLoaded = true;
-      this.logger.log('Face recognition models loaded successfully');
+      this.logger.log("Face recognition models loaded successfully");
     } catch (error) {
       this.logger.error(`Failed to load face models: ${error.message}`);
     }

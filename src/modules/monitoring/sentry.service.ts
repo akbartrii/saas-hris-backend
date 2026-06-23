@@ -1,6 +1,6 @@
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { ConfigService } from '@nestjs/config';
-import * as Sentry from '@sentry/node';
+import { Injectable, Logger, OnModuleInit } from "@nestjs/common";
+import { ConfigService } from "@nestjs/config";
+import * as Sentry from "@sentry/node";
 
 @Injectable()
 export class SentryService implements OnModuleInit {
@@ -9,17 +9,18 @@ export class SentryService implements OnModuleInit {
   constructor(private readonly configService: ConfigService) {}
 
   onModuleInit() {
-    const dsn = this.configService.get('SENTRY_DSN');
+    const dsn = this.configService.get("SENTRY_DSN");
     if (dsn) {
       Sentry.init({
         dsn,
-        environment: this.configService.get('NODE_ENV', 'development'),
-        tracesSampleRate: this.configService.get('NODE_ENV') === 'production' ? 0.1 : 0.0,
+        environment: this.configService.get("NODE_ENV", "development"),
+        tracesSampleRate:
+          this.configService.get("NODE_ENV") === "production" ? 0.1 : 0.0,
         integrations: [],
       });
-      this.logger.log('Sentry initialized');
+      this.logger.log("Sentry initialized");
     } else {
-      this.logger.warn('SENTRY_DSN not configured — Sentry disabled');
+      this.logger.warn("SENTRY_DSN not configured — Sentry disabled");
     }
   }
 
@@ -32,7 +33,11 @@ export class SentryService implements OnModuleInit {
     });
   }
 
-  captureMessage(message: string, level: Sentry.SeverityLevel = 'info', context?: Record<string, any>) {
+  captureMessage(
+    message: string,
+    level: Sentry.SeverityLevel = "info",
+    context?: Record<string, any>,
+  ) {
     Sentry.withScope((scope) => {
       if (context) {
         scope.setExtras(context);

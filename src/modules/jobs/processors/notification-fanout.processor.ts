@@ -1,10 +1,10 @@
-import { Processor, WorkerHost } from '@nestjs/bullmq';
-import { Job } from 'bullmq';
-import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../../../prisma/prisma.service';
-import { FcmService } from '../../../common/services/fcm.service';
+import { Processor, WorkerHost } from "@nestjs/bullmq";
+import { Job } from "bullmq";
+import { Injectable, Logger } from "@nestjs/common";
+import { PrismaService } from "../../../prisma/prisma.service";
+import { FcmService } from "../../../common/services/fcm.service";
 
-@Processor('notification-fanout')
+@Processor("notification-fanout")
 @Injectable()
 export class NotificationFanoutProcessor extends WorkerHost {
   private readonly logger = new Logger(NotificationFanoutProcessor.name);
@@ -16,18 +16,30 @@ export class NotificationFanoutProcessor extends WorkerHost {
     super();
   }
 
-  async process(job: Job<{
-    companyId: string;
-    userIds: string[];
-    type: string;
-    title: string;
-    message: string;
-    referenceType?: string;
-    referenceId?: string;
-  }>): Promise<any> {
-    this.logger.log(`Processing notification fanout job ${job.id} to ${job.data.userIds.length} users`);
+  async process(
+    job: Job<{
+      companyId: string;
+      userIds: string[];
+      type: string;
+      title: string;
+      message: string;
+      referenceType?: string;
+      referenceId?: string;
+    }>,
+  ): Promise<any> {
+    this.logger.log(
+      `Processing notification fanout job ${job.id} to ${job.data.userIds.length} users`,
+    );
 
-    const { companyId, userIds, type, title, message, referenceType, referenceId } = job.data;
+    const {
+      companyId,
+      userIds,
+      type,
+      title,
+      message,
+      referenceType,
+      referenceId,
+    } = job.data;
 
     const notifications = userIds.map((userId) => ({
       user_id: userId,
@@ -45,7 +57,9 @@ export class NotificationFanoutProcessor extends WorkerHost {
       try {
         await this.fcmService.sendPushNotification(userId, title, message);
       } catch (error) {
-        this.logger.warn(`Failed to send push notification to user ${userId}: ${(error as Error).message}`);
+        this.logger.warn(
+          `Failed to send push notification to user ${userId}: ${(error as Error).message}`,
+        );
       }
     }
 

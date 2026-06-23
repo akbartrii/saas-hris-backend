@@ -2,11 +2,11 @@ import {
   Injectable,
   NotFoundException,
   ConflictException,
-} from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { CreateRoleDto } from './dto/create-role.dto';
-import { UpdateRoleDto } from './dto/update-role.dto';
-import { AssignPermissionsDto } from './dto/assign-permissions.dto';
+} from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { CreateRoleDto } from "./dto/create-role.dto";
+import { UpdateRoleDto } from "./dto/update-role.dto";
+import { AssignPermissionsDto } from "./dto/assign-permissions.dto";
 
 @Injectable()
 export class RoleService {
@@ -18,7 +18,7 @@ export class RoleService {
       include: {
         _count: { select: { ms_users: true, role_permissions: true } },
       },
-      orderBy: { created_at: 'asc' },
+      orderBy: { created_at: "asc" },
     });
   }
 
@@ -38,7 +38,7 @@ export class RoleService {
     });
 
     if (!role) {
-      throw new NotFoundException('Role not found');
+      throw new NotFoundException("Role not found");
     }
 
     return role;
@@ -50,7 +50,7 @@ export class RoleService {
     });
 
     if (existing) {
-      throw new ConflictException('Role name already exists in this company');
+      throw new ConflictException("Role name already exists in this company");
     }
 
     const role = await this.prisma.ms_roles.create({
@@ -76,7 +76,7 @@ export class RoleService {
   async update(id: string, dto: UpdateRoleDto) {
     const role = await this.prisma.ms_roles.findUnique({ where: { id } });
     if (!role) {
-      throw new NotFoundException('Role not found');
+      throw new NotFoundException("Role not found");
     }
 
     if (dto.name && dto.name !== role.name) {
@@ -84,7 +84,7 @@ export class RoleService {
         where: { name: dto.name, company_id: role.company_id },
       });
       if (existing) {
-        throw new ConflictException('Role name already exists in this company');
+        throw new ConflictException("Role name already exists in this company");
       }
     }
 
@@ -117,7 +117,7 @@ export class RoleService {
   async assignPermissions(id: string, dto: AssignPermissionsDto) {
     const role = await this.prisma.ms_roles.findUnique({ where: { id } });
     if (!role) {
-      throw new NotFoundException('Role not found');
+      throw new NotFoundException("Role not found");
     }
 
     await this.prisma.ms_role_permissions.deleteMany({
@@ -139,7 +139,7 @@ export class RoleService {
   async remove(id: string) {
     const role = await this.prisma.ms_roles.findUnique({ where: { id } });
     if (!role) {
-      throw new NotFoundException('Role not found');
+      throw new NotFoundException("Role not found");
     }
 
     await this.prisma.ms_roles.update({
@@ -147,6 +147,6 @@ export class RoleService {
       data: { is_active: false },
     });
 
-    return { message: 'Role deactivated successfully' };
+    return { message: "Role deactivated successfully" };
   }
 }

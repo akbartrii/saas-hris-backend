@@ -1,4 +1,4 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty, ApiPropertyOptional } from "@nestjs/swagger";
 import {
   IsUUID,
   IsNotEmpty,
@@ -8,36 +8,36 @@ import {
   IsInt,
   Min,
   IsOptional,
-} from 'class-validator';
-import { Type } from 'class-transformer';
+} from "class-validator";
+import { Type } from "class-transformer";
 
 export class CreateHolidayDto {
-  @ApiProperty({ description: 'Company UUID' })
+  @ApiProperty({ description: "Company UUID" })
   @IsUUID()
   @IsNotEmpty()
   company_id: string;
 
-  @ApiProperty({ description: 'Holiday date (ISO string)' })
+  @ApiProperty({ description: "Holiday date (ISO string)" })
   @IsDateString()
   @IsNotEmpty()
   holiday_date: string;
 
-  @ApiProperty({ description: 'Holiday name' })
+  @ApiProperty({ description: "Holiday name" })
   @IsString()
   @IsNotEmpty()
   name: string;
 
-  @ApiProperty({ description: 'Holiday type (e.g. national, company)' })
+  @ApiProperty({ description: "Holiday type (e.g. national, company)" })
   @IsString()
   @IsNotEmpty()
   type: string;
 
-  @ApiPropertyOptional({ description: 'Is recurring annually' })
+  @ApiPropertyOptional({ description: "Is recurring annually" })
   @IsBoolean()
   @IsOptional()
   is_recurring?: boolean;
 
-  @ApiProperty({ description: 'Year' })
+  @ApiProperty({ description: "Year" })
   @Type(() => Number)
   @IsInt()
   @Min(2000)

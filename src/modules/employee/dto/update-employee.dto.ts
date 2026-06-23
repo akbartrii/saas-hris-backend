@@ -1,4 +1,4 @@
-import { ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiPropertyOptional } from "@nestjs/swagger";
 import {
   IsString,
   IsOptional,
@@ -8,121 +8,121 @@ import {
   IsIn,
   IsNumber,
   MaxLength,
-} from 'class-validator';
-import { Type } from 'class-transformer';
+} from "class-validator";
+import { Type } from "class-transformer";
 
 export class UpdateEmployeeDto {
-  @ApiPropertyOptional({ description: 'Full name' })
+  @ApiPropertyOptional({ description: "Full name" })
   @IsString()
   @IsOptional()
   full_name?: string;
 
-  @ApiPropertyOptional({ description: 'Phone number' })
+  @ApiPropertyOptional({ description: "Phone number" })
   @IsString()
   @IsOptional()
   phone?: string;
 
-  @ApiPropertyOptional({ description: 'Address' })
+  @ApiPropertyOptional({ description: "Address" })
   @IsString()
   @IsOptional()
   address?: string;
 
-  @ApiPropertyOptional({ description: 'Gender', enum: ['male', 'female'] })
+  @ApiPropertyOptional({ description: "Gender", enum: ["male", "female"] })
   @IsOptional()
-  @IsIn(['male', 'female'])
+  @IsIn(["male", "female"])
   gender?: string;
 
-  @ApiPropertyOptional({ description: 'Birth date (YYYY-MM-DD)' })
+  @ApiPropertyOptional({ description: "Birth date (YYYY-MM-DD)" })
   @IsDateString()
   @IsOptional()
   birth_date?: string;
 
-  @ApiPropertyOptional({ description: 'Department ID' })
+  @ApiPropertyOptional({ description: "Department ID" })
   @IsUUID()
   @IsOptional()
   department_id?: string;
 
-  @ApiPropertyOptional({ description: 'Position ID' })
+  @ApiPropertyOptional({ description: "Position ID" })
   @IsUUID()
   @IsOptional()
   position_id?: string;
 
-  @ApiPropertyOptional({ description: 'Location ID' })
+  @ApiPropertyOptional({ description: "Location ID" })
   @IsUUID()
   @IsOptional()
   location_id?: string;
 
-  @ApiPropertyOptional({ description: 'Supervisor ID' })
+  @ApiPropertyOptional({ description: "Supervisor ID" })
   @IsUUID()
   @IsOptional()
   supervisor_id?: string;
 
-  @ApiPropertyOptional({ description: 'Manager ID' })
+  @ApiPropertyOptional({ description: "Manager ID" })
   @IsUUID()
   @IsOptional()
   manager_id?: string;
 
-  @ApiPropertyOptional({ description: 'Team ID' })
+  @ApiPropertyOptional({ description: "Team ID" })
   @IsUUID()
   @IsOptional()
   team_id?: string;
 
   @ApiPropertyOptional({
-    description: 'Employment status',
-    enum: ['permanent', 'contract', 'probation', 'internship'],
+    description: "Employment status",
+    enum: ["permanent", "contract", "probation", "internship"],
   })
   @IsString()
   @IsOptional()
   employment_status?: string;
 
-  @ApiPropertyOptional({ description: 'Join date (YYYY-MM-DD)' })
+  @ApiPropertyOptional({ description: "Join date (YYYY-MM-DD)" })
   @IsDateString()
   @IsOptional()
   join_date?: string;
 
-  @ApiPropertyOptional({ description: 'Contract end date (YYYY-MM-DD)' })
+  @ApiPropertyOptional({ description: "Contract end date (YYYY-MM-DD)" })
   @IsDateString()
   @IsOptional()
   contract_end_date?: string;
 
-  @ApiPropertyOptional({ description: 'Base salary' })
+  @ApiPropertyOptional({ description: "Base salary" })
   @IsNumber()
   @Type(() => Number)
   @IsOptional()
   base_salary?: number;
 
-  @ApiPropertyOptional({ description: 'Fixed allowance' })
+  @ApiPropertyOptional({ description: "Fixed allowance" })
   @IsNumber()
   @Type(() => Number)
   @IsOptional()
   fixed_allowance?: number;
 
-  @ApiPropertyOptional({ description: 'Phone allowance' })
+  @ApiPropertyOptional({ description: "Phone allowance" })
   @IsNumber()
   @Type(() => Number)
   @IsOptional()
   phone_allowance?: number;
 
-  @ApiPropertyOptional({ description: 'Dinas allowance' })
+  @ApiPropertyOptional({ description: "Dinas allowance" })
   @IsNumber()
   @Type(() => Number)
   @IsOptional()
   dinas_allowance?: number;
 
   @ApiPropertyOptional({
-    description: 'Shift type',
-    enum: ['normal', 'shift_1', 'shift_2', 'shift_3'],
+    description: "Shift type",
+    enum: ["normal", "shift_1", "shift_2", "shift_3"],
   })
   @IsString()
   @IsOptional()
   shift_type?: string;
 
-  @ApiPropertyOptional({ description: 'Is security' })
+  @ApiPropertyOptional({ description: "Is security" })
   @IsBoolean()
   @IsOptional()
   is_security?: boolean;
 
-  @ApiPropertyOptional({ description: 'Is active' })
+  @ApiPropertyOptional({ description: "Is active" })
   @IsBoolean()
   @IsOptional()
   is_active?: boolean;

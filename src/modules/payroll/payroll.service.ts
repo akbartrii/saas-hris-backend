@@ -1,18 +1,20 @@
-import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
+import {
+  Injectable,
+  NotFoundException,
+  BadRequestException,
+} from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
 import {
   GeneratePayslipDto,
   ListPayslipDto,
-  PublishPayslipDto,
   GenerateBatchPayslipDto,
   GenerateTHRDto,
   CreatePayrollPeriodDto,
   UpdatePayrollPeriodDto,
-  ExportPayrollDto,
-} from './dto/generate-payslip.dto';
-import { EncryptionService } from '../encryption/encryption.service';
-import { PdfService } from '../../common/services/pdf.service';
-import * as ExcelJS from 'exceljs';
+} from "./dto/generate-payslip.dto";
+import { EncryptionService } from "../encryption/encryption.service";
+import { PdfService } from "../../common/services/pdf.service";
+import * as ExcelJS from "exceljs";
 
 @Injectable()
 export class PayrollService {
@@ -26,7 +28,7 @@ export class PayrollService {
     userId: string,
     companyId: string,
     query: ListPayslipDto,
-    userRole: string,
+    _userRole: string,
   ) {
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 10;
@@ -48,7 +50,7 @@ export class PayrollService {
         where,
         skip,
         take: limit,
-        orderBy: { created_at: 'desc' },
+        orderBy: { created_at: "desc" },
         include: {
           tr_payroll_periods: true,
           ms_employees: {
@@ -70,7 +72,7 @@ export class PayrollService {
     userId: string,
     companyId: string,
     payslipId: string,
-    userRole: string,
+    _userRole: string,
   ) {
     const payslip = await this.prisma.tr_payslips.findUnique({
       where: { id: payslipId },
@@ -87,7 +89,7 @@ export class PayrollService {
     });
 
     if (!payslip || payslip.ms_employees?.company_id !== companyId) {
-      throw new NotFoundException('Payslip not found');
+      throw new NotFoundException("Payslip not found");
     }
 
     return payslip;
@@ -104,14 +106,14 @@ export class PayrollService {
       where: { id: dto.employee_id, company_id: companyId },
     });
     if (!employee) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     const period = await this.prisma.tr_payroll_periods.findUnique({
       where: { id: dto.payroll_period_id, company_id: companyId },
     });
     if (!period) {
-      throw new NotFoundException('Payroll period not found');
+      throw new NotFoundException("Payroll period not found");
     }
 
     const existing = await this.prisma.tr_payslips.findFirst({
@@ -121,7 +123,7 @@ export class PayrollService {
       },
     });
     if (existing) {
-      throw new BadRequestException('Payslip already exists for this period');
+      throw new BadRequestException("Payslip already exists for this period");
     }
 
     let baseSalary = 0;
@@ -130,8 +132,15 @@ export class PayrollService {
     if (keycode) {
       const isValid = await this.encryptionService.validateKeycode(keycode);
       if (isValid) {
-        baseSalary = Number(this.encryptionService.decrypt(employee.base_salary || '0', keycode));
-        fixedAllowance = Number(this.encryptionService.decrypt(employee.fixed_allowance || '0', keycode));
+        baseSalary = Number(
+          this.encryptionService.decrypt(employee.base_salary || "0", keycode),
+        );
+        fixedAllowance = Number(
+          this.encryptionService.decrypt(
+            employee.fixed_allowance || "0",
+            keycode,
+          ),
+        );
       }
     }
 
@@ -149,7 +158,7 @@ export class PayrollService {
         gross_income: grossIncome,
         total_deductions: totalDeductions,
         net_income: netIncome,
-        status: 'draft',
+        status: "draft",
       },
     });
   }
@@ -165,7 +174,7 @@ export class PayrollService {
       where: { id: dto.payroll_period_id, company_id: companyId },
     });
     if (!period) {
-      throw new NotFoundException('Payroll period not found');
+      throw new NotFoundException("Payroll period not found");
     }
 
     const employees = await this.prisma.ms_employees.findMany({
@@ -179,7 +188,9 @@ export class PayrollService {
       },
       select: { employee_id: true },
     });
-    const existingEmployeeIds = new Set(existingPayslips.map((p) => p.employee_id));
+    const existingEmployeeIds = new Set(
+      existingPayslips.map((p) => p.employee_id),
+    );
 
     const results = [];
     for (const employee of employees) {
@@ -191,8 +202,18 @@ export class PayrollService {
       if (keycode) {
         const isValid = await this.encryptionService.validateKeycode(keycode);
         if (isValid) {
-          baseSalary = Number(this.encryptionService.decrypt(employee.base_salary || '0', keycode));
-          fixedAllowance = Number(this.encryptionService.decrypt(employee.fixed_allowance || '0', keycode));
+          baseSalary = Number(
+            this.encryptionService.decrypt(
+              employee.base_salary || "0",
+              keycode,
+            ),
+          );
+          fixedAllowance = Number(
+            this.encryptionService.decrypt(
+              employee.fixed_allowance || "0",
+              keycode,
+            ),
+          );
         }
       }
 
@@ -206,7 +227,7 @@ export class PayrollService {
           gross_income: baseSalary + fixedAllowance,
           total_deductions: 0,
           net_income: baseSalary + fixedAllowance,
-          status: 'draft',
+          status: "draft",
         },
       });
       results.push(payslip);
@@ -219,7 +240,7 @@ export class PayrollService {
     userId: string,
     companyId: string,
     payslipId: string,
-    userRole: string,
+    _userRole: string,
   ) {
     const payslip = await this.prisma.tr_payslips.findUnique({
       where: { id: payslipId },
@@ -227,16 +248,16 @@ export class PayrollService {
     });
 
     if (!payslip || payslip.ms_employees?.company_id !== companyId) {
-      throw new NotFoundException('Payslip not found');
+      throw new NotFoundException("Payslip not found");
     }
 
-    if (payslip.status !== 'draft') {
-      throw new BadRequestException('Payslip is not in draft status');
+    if (payslip.status !== "draft") {
+      throw new BadRequestException("Payslip is not in draft status");
     }
 
     return this.prisma.tr_payslips.update({
       where: { id: payslipId },
-      data: { status: 'published' },
+      data: { status: "published" },
     });
   }
 
@@ -247,7 +268,7 @@ export class PayrollService {
     }
     return this.prisma.tr_payroll_periods.findMany({
       where,
-      orderBy: { created_at: 'desc' },
+      orderBy: { created_at: "desc" },
     });
   }
 
@@ -273,12 +294,12 @@ export class PayrollService {
     companyId: string,
     id: string,
     dto: UpdatePayrollPeriodDto,
-    userRole: string,
+    _userRole: string,
   ) {
     const exists = await this.prisma.tr_payroll_periods.findUnique({
       where: { id, company_id: companyId },
     });
-    if (!exists) throw new NotFoundException('Payroll period not found');
+    if (!exists) throw new NotFoundException("Payroll period not found");
 
     const data: any = {};
     if (dto.period_name) data.period_name = dto.period_name;
@@ -291,18 +312,14 @@ export class PayrollService {
     });
   }
 
-  async listTHR(
-    userId: string,
-    companyId: string,
-    userRole: string,
-  ) {
+  async listTHR(userId: string, companyId: string, _userRole: string) {
     const where: any = {
       ms_employees: { company_id: companyId },
     };
 
     return this.prisma.tr_thr_records.findMany({
       where,
-      orderBy: { created_at: 'desc' },
+      orderBy: { created_at: "desc" },
       include: {
         ms_employees: {
           select: {
@@ -326,14 +343,16 @@ export class PayrollService {
       where: { id: dto.employee_id, company_id: companyId },
     });
     if (!employee) {
-      throw new NotFoundException('Employee not found');
+      throw new NotFoundException("Employee not found");
     }
 
     let baseSalary = 0;
     if (keycode) {
       const isValid = await this.encryptionService.validateKeycode(keycode);
       if (isValid) {
-        baseSalary = Number(this.encryptionService.decrypt(employee.base_salary || '0', keycode));
+        baseSalary = Number(
+          this.encryptionService.decrypt(employee.base_salary || "0", keycode),
+        );
       }
     }
 
@@ -352,7 +371,7 @@ export class PayrollService {
   async exportPayroll(
     companyId: string,
     payrollPeriodId: string,
-    userRole: string,
+    _userRole: string,
   ): Promise<Buffer> {
     const data = await this.prisma.tr_payslips.findMany({
       where: {
@@ -365,7 +384,9 @@ export class PayrollService {
             id: true,
             full_name: true,
             nik: true,
-            ms_departments_ms_employees_department_idToms_departments: { select: { name: true } },
+            ms_departments_ms_employees_department_idToms_departments: {
+              select: { name: true },
+            },
           },
         },
         tr_payroll_periods: true,
@@ -373,23 +394,26 @@ export class PayrollService {
     });
 
     const workbook = new ExcelJS.Workbook();
-    const sheet = workbook.addWorksheet('Payroll');
+    const sheet = workbook.addWorksheet("Payroll");
 
     sheet.columns = [
-      { header: 'NIK', key: 'nik', width: 20 },
-      { header: 'Nama', key: 'name', width: 30 },
-      { header: 'Department', key: 'department', width: 25 },
-      { header: 'Gaji Pokok', key: 'baseSalary', width: 20 },
-      { header: 'Tunjangan', key: 'allowance', width: 20 },
-      { header: 'Potongan', key: 'deductions', width: 20 },
-      { header: 'Take Home Pay', key: 'netIncome', width: 20 },
+      { header: "NIK", key: "nik", width: 20 },
+      { header: "Nama", key: "name", width: 30 },
+      { header: "Department", key: "department", width: 25 },
+      { header: "Gaji Pokok", key: "baseSalary", width: 20 },
+      { header: "Tunjangan", key: "allowance", width: 20 },
+      { header: "Potongan", key: "deductions", width: 20 },
+      { header: "Take Home Pay", key: "netIncome", width: 20 },
     ];
 
     for (const row of data) {
       sheet.addRow({
-        nik: row.ms_employees?.nik || '',
-        name: row.ms_employees?.full_name || '',
-        department: row.ms_employees?.ms_departments_ms_employees_department_idToms_departments?.name || '',
+        nik: row.ms_employees?.nik || "",
+        name: row.ms_employees?.full_name || "",
+        department:
+          row.ms_employees
+            ?.ms_departments_ms_employees_department_idToms_departments?.name ||
+          "",
         baseSalary: Number(row.gross_income || 0),
         allowance: 0,
         deductions: Number(row.total_deductions || 0),

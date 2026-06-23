@@ -1,6 +1,6 @@
-import { Injectable, Logger } from '@nestjs/common';
-import { PrismaService } from '../../prisma/prisma.service';
-import { firebaseAdmin } from './firebase-admin.service';
+import { Injectable, Logger } from "@nestjs/common";
+import { PrismaService } from "../../prisma/prisma.service";
+import { firebaseAdmin } from "./firebase-admin.service";
 
 @Injectable()
 export class FcmService {
@@ -36,12 +36,12 @@ export class FcmService {
             data,
           });
           this.logger.log(
-            `[FCM] Sent to user ${userId} (device ${device.platform || 'unknown'}): ${title}`,
+            `[FCM] Sent to user ${userId} (device ${device.platform || "unknown"}): ${title}`,
           );
         } catch (error: any) {
           if (
-            error.code === 'messaging/registration-token-not-registered' ||
-            error.code === 'messaging/invalid-registration-token'
+            error.code === "messaging/registration-token-not-registered" ||
+            error.code === "messaging/invalid-registration-token"
           ) {
             this.logger.warn(
               `FCM token invalid for device ${device.id}, deactivating...`,
@@ -59,7 +59,7 @@ export class FcmService {
         }
       } else {
         this.logger.log(
-          `[FCM Stub] To user ${userId} (device ${device.platform || 'unknown'}): ${title} — ${body}${data ? ' | data: ' + JSON.stringify(data) : ''}`,
+          `[FCM Stub] To user ${userId} (device ${device.platform || "unknown"}): ${title} — ${body}${data ? " | data: " + JSON.stringify(data) : ""}`,
         );
       }
     }

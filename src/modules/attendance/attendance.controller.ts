@@ -13,7 +13,14 @@ import {
   BadRequestException,
 } from "@nestjs/common";
 import { FileInterceptor } from "@nestjs/platform-express";
-import { ApiBearerAuth, ApiTags, ApiConsumes, ApiBody, ApiOperation, ApiResponse } from "@nestjs/swagger";
+import {
+  ApiBearerAuth,
+  ApiTags,
+  ApiConsumes,
+  ApiBody,
+  ApiOperation,
+  ApiResponse,
+} from "@nestjs/swagger";
 import { AttendanceService } from "./attendance.service";
 import { ClockInDto } from "./dto/clock-in.dto";
 import { ClockOutDto } from "./dto/clock-out.dto";
@@ -100,7 +107,12 @@ export class AttendanceController {
     @CurrentUser("employeeId") employeeId: string,
     @Query() query: ListAttendanceDto,
   ) {
-    return this.attendanceService.listAttendance(userId, employeeId, companyId, query);
+    return this.attendanceService.listAttendance(
+      userId,
+      employeeId,
+      companyId,
+      query,
+    );
   }
 
   @Get("all")
@@ -125,7 +137,12 @@ export class AttendanceController {
     @CurrentUser("employeeId") employeeId: string,
     @Query() query: ListAttendanceDto,
   ) {
-    return this.attendanceService.listSubordinateAttendance(userId, employeeId, companyId, query);
+    return this.attendanceService.listSubordinateAttendance(
+      userId,
+      employeeId,
+      companyId,
+      query,
+    );
   }
 
   @Post("corrections")

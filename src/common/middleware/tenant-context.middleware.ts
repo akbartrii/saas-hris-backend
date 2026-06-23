@@ -1,6 +1,6 @@
-import { Injectable, NestMiddleware } from '@nestjs/common';
-import { Request, Response, NextFunction } from 'express';
-import { TenantContextService } from '../services/tenant-context.service';
+import { Injectable, NestMiddleware } from "@nestjs/common";
+import { Request, Response, NextFunction } from "express";
+import { TenantContextService } from "../services/tenant-context.service";
 
 @Injectable()
 export class TenantContextMiddleware implements NestMiddleware {
