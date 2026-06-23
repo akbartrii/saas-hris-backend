@@ -2,9 +2,9 @@ name: CI/CD
 
 on:
   push:
-    branches: [main, feat/saas-*]
+    branches: [master, feat/saas-*]
   pull_request:
-    branches: [main]
+    branches: [master]
 
 jobs:
   lint:
@@ -80,11 +80,9 @@ jobs:
       - run: npm run build
 
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
-    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+    runs-on: self-hosted
     needs: [build]
     steps:
       - uses: actions/checkout@v4
-      - name: Deploy to Render
-        run: |
-          curl -X POST "https://api.render.com/deploy/srv/${{ secrets.RENDER_SERVICE_ID }}?key=${{ secrets.RENDER_DEPLOY_KEY }}"
+      - run: bash /home/development/saas-hris-backend/deploy.sh
