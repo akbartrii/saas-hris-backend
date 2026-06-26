@@ -6,7 +6,7 @@ export class DashboardService {
   constructor(private prisma: PrismaService) {}
 
   async getOverview(companyId: string, userRole: string) {
-    if (!["manager_hrga", "hrd", "admin", "super_admin"].includes(userRole)) {
+    if (!["atasan", "manager_hrga", "hrd", "admin", "super_admin"].includes(userRole)) {
       throw new ForbiddenException("Only Admin/HRD can access dashboard");
     }
 

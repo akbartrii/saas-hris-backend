@@ -15,7 +15,7 @@ export class DashboardController {
   constructor(private readonly dashboardService: DashboardService) {}
 
   @Get("overview")
-  @Roles("hrd", "admin", "super_admin", "manager_hrga")
+  @Roles("atasan", "hrd", "admin", "super_admin", "manager_hrga")
   @ApiOperation({ summary: "Get dashboard overview analytics" })
   async getOverview(
     @CompanyContext("id") companyId: string,
