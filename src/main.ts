@@ -14,8 +14,6 @@ import { AppModule } from "./app.module";
 import { HttpExceptionFilter } from "./common/filters/http-exception.filter";
 import { TransformInterceptor } from "./common/interceptors/transform.interceptor";
 import { ValidationPipe } from "./common/pipes/validation.pipe";
-import * as express from "express";
-
 const REQUIRED_ENV_VARS = [
   "DATABASE_URL",
   "JWT_SECRET",
@@ -51,30 +49,12 @@ async function bootstrap() {
 
   const app = await NestFactory.create(AppModule);
 
-  app.use(
-    (
-      req: express.Request,
-      res: express.Response,
-      next: express.NextFunction,
-    ) => {
-      res.setHeader("Access-Control-Allow-Origin", req.headers.origin || "*");
-      res.setHeader(
-        "Access-Control-Allow-Methods",
-        "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
-      );
-      res.setHeader(
-        "Access-Control-Allow-Headers",
-        "Content-Type, Authorization, apikey, X-Requested-With, Accept",
-      );
-      res.setHeader("Access-Control-Allow-Credentials", "true");
-
-      if (req.method === "OPTIONS") {
-        return res.status(204).end();
-      }
-
-      next();
-    },
-  );
+  app.enableCors({
+    origin: true,
+    credentials: true,
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS",
+    allowedHeaders: "Content-Type, Authorization, apikey, X-Requested-With, Accept",
+  });
 
   // Global pipes, filters, interceptors
   app.useGlobalPipes(new ValidationPipe());
