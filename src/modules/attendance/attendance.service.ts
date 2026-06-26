@@ -15,6 +15,7 @@ import { CreateCorrectionDto } from "./dto/create-correction.dto";
 import { ApproveCorrectionDto } from "./dto/approve-correction.dto";
 import { ListAttendanceDto } from "./dto/list-attendance.dto";
 import { FaceRecognitionService } from "../../common/services/face-recognition.service";
+import { calculatePaginationMeta } from "../../common/utils/pagination.util";
 
 @Injectable()
 export class AttendanceService {
@@ -654,7 +655,7 @@ export class AttendanceService {
       this.prisma.tr_attendances.count({ where }),
     ]);
 
-    return { data, meta: { page, limit, total } };
+    return { data, meta: calculatePaginationMeta(page, limit, total) };
   }
 
   async listAllAttendance(userId: string, companyId: string, query: any) {
@@ -687,7 +688,7 @@ export class AttendanceService {
       this.prisma.tr_attendances.count({ where }),
     ]);
 
-    return { data, meta: { page, limit, total } };
+    return { data, meta: calculatePaginationMeta(page, limit, total) };
   }
 
   async listSubordinateAttendance(
@@ -710,7 +711,7 @@ export class AttendanceService {
 
     const subordinateIds = subordinates.map((e) => e.id);
     if (subordinateIds.length === 0) {
-      return { data: [], meta: { page, limit, total: 0 } };
+      return { data: [], meta: calculatePaginationMeta(page, limit, 0) };
     }
 
     const where: any = {
@@ -747,7 +748,7 @@ export class AttendanceService {
       this.prisma.tr_attendances.count({ where }),
     ]);
 
-    return { data, meta: { page, limit, total } };
+    return { data, meta: calculatePaginationMeta(page, limit, total) };
   }
 
   async createCorrection(
@@ -852,7 +853,7 @@ export class AttendanceService {
       this.prisma.tr_attendance_corrections.count({ where }),
     ]);
 
-    return { data, meta: { page, limit, total } };
+    return { data, meta: calculatePaginationMeta(page, limit, total) };
   }
 
   async approveCorrection(
