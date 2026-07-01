@@ -2,6 +2,7 @@ import {
   IsNumber,
   IsOptional,
   IsString,
+  IsIn,
   MaxLength,
   Min,
   Max,
@@ -29,4 +30,12 @@ export class ClockOutDto {
   @IsString()
   @MaxLength(500)
   notes?: string;
+
+  @ApiPropertyOptional({
+    description: "Source of clock-out: mobile or web",
+    enum: ["mobile", "web"],
+  })
+  @IsOptional()
+  @IsIn(["mobile", "web"])
+  source?: "mobile" | "web";
 }

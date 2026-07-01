@@ -53,7 +53,8 @@ export class AttendanceController {
     @UploadedFile() photo: Express.Multer.File,
     @CurrentUser() requestUser: any,
   ) {
-    if (!photo) {
+    const isWeb = dto.source === "web";
+    if (!photo && !isWeb) {
       throw new BadRequestException("Photo is required");
     }
     return this.attendanceService.clockIn(
@@ -77,7 +78,8 @@ export class AttendanceController {
     @UploadedFile() photo: Express.Multer.File,
     @CurrentUser() requestUser: any,
   ) {
-    if (!photo) {
+    const isWeb = dto.source === "web";
+    if (!photo && !isWeb) {
       throw new BadRequestException("Photo is required");
     }
     return this.attendanceService.clockOut(

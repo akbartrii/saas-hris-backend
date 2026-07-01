@@ -85,6 +85,7 @@ export class ReimbursementService {
           { supervisor_id: user.ms_employees.id },
           { manager_id: user.ms_employees.id },
         ],
+        company_id: companyId,
       },
       select: { id: true },
     });
@@ -184,7 +185,7 @@ export class ReimbursementService {
         data: {
           status: "approved",
           approved_at: new Date(),
-          hr_approved_by: approver.id,
+          hr_approved_by: approver.ms_employees.id,
         },
       });
     }

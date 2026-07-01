@@ -24,9 +24,8 @@ export class LeaveService {
     userRole: string,
     dto: CreateLeaveDto,
   ) {
-    const employee = await this.prisma.ms_employees.findUnique({
-      where: { id: userId, company_id: companyId },
-      include: { ms_users: true },
+    const employee = await this.prisma.ms_employees.findFirst({
+      where: { user_id: userId, company_id: companyId },
     });
     if (!employee) {
       throw new NotFoundException("Employee not found");
@@ -77,8 +76,8 @@ export class LeaveService {
   }
 
   async getLeaveBalance(userId: string, companyId: string) {
-    const employee = await this.prisma.ms_employees.findUnique({
-      where: { id: userId, company_id: companyId },
+    const employee = await this.prisma.ms_employees.findFirst({
+      where: { user_id: userId, company_id: companyId },
     });
     if (!employee) throw new NotFoundException("Employee not found");
 
@@ -117,13 +116,24 @@ export class LeaveService {
     companyId: string,
     query: ListLeaveDto,
   ) {
+    const user = await this.prisma.ms_users.findUnique({
+      where: { id: userId, company_id: companyId },
+      include: { ms_employees: true },
+    });
+    if (!user || !user.ms_employees) {
+      throw new NotFoundException("Employee not found");
+    }
+
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 10;
     const skip = (page - 1) * limit;
 
     const subordinates = await this.prisma.ms_employees.findMany({
       where: {
-        OR: [{ supervisor_id: userId }, { manager_id: userId }],
+        OR: [
+          { supervisor_id: user.ms_employees.id },
+          { manager_id: user.ms_employees.id },
+        ],
         company_id: companyId,
       },
       select: { id: true },
@@ -159,7 +169,15 @@ export class LeaveService {
       this.prisma.tr_leave_requests.count({ where }),
     ]);
 
-    return { data, meta: { page, limit, total } };
+    const mapped = data.map(
+      ({ ms_leave_types, ms_employees_tr_leave_requests_employee_idToms_employees, ...rest }) => ({
+        ...rest,
+        leave_type: ms_leave_types,
+        employee: ms_employees_tr_leave_requests_employee_idToms_employees,
+      }),
+    );
+
+    return { data: mapped, meta: { page, limit, total } };
   }
 
   async approveLeave(
@@ -169,6 +187,11 @@ export class LeaveService {
     dto: ApproveLeaveDto,
     _approverRole: string,
   ) {
+    const employee = await this.prisma.ms_employees.findFirst({
+      where: { user_id: userId, company_id: companyId },
+    });
+    if (!employee) throw new NotFoundException("Employee not found");
+
     const leave = await this.prisma.tr_leave_requests.findUnique({
       where: { id: leaveId, company_id: companyId },
     });
@@ -177,7 +200,7 @@ export class LeaveService {
     if (dto.action === "approve") {
       return this.prisma.tr_leave_requests.update({
         where: { id: leaveId },
-        data: { status: "approved", supervisor_id: userId },
+        data: { status: "approved", supervisor_id: employee.id },
       });
     }
 
@@ -206,12 +229,19 @@ export class LeaveService {
   }
 
   async listLeaves(userId: string, companyId: string, query: ListLeaveDto) {
+    const employee = await this.prisma.ms_employees.findFirst({
+      where: { user_id: userId, company_id: companyId },
+    });
+    if (!employee) {
+      throw new NotFoundException("Employee not found");
+    }
+
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 10;
     const skip = (page - 1) * limit;
 
     const where: any = {
-      employee_id: userId,
+      employee_id: employee.id,
       company_id: companyId,
     };
 
@@ -235,6 +265,40 @@ export class LeaveService {
       this.prisma.tr_leave_requests.count({ where }),
     ]);
 
-    return { data, meta: { page, limit, total } };
+    const mapped = data.map(
+      ({ ms_leave_types, ms_employees_tr_leave_requests_employee_idToms_employees, ...rest }) => ({
+        ...rest,
+        leave_type: ms_leave_types,
+        employee: ms_employees_tr_leave_requests_employee_idToms_employees,
+      }),
+    );
+
+    return { data: mapped, meta: { page, limit, total } };
+  }
+
+  async getLeaveById(userId: string, companyId: string, leaveId: string) {
+    const leave = await this.prisma.tr_leave_requests.findFirst({
+      where: { id: leaveId, company_id: companyId },
+      include: {
+        ms_leave_types: true,
+        ms_employees_tr_leave_requests_employee_idToms_employees: {
+          select: { id: true, full_name: true },
+        },
+      },
+    });
+
+    if (!leave) {
+      throw new NotFoundException("Leave request not found");
+    }
+
+    const { ms_leave_types, ms_employees_tr_leave_requests_employee_idToms_employees, ...rest } = leave;
+
+    return {
+      data: {
+        ...rest,
+        leave_type: ms_leave_types,
+        employee: ms_employees_tr_leave_requests_employee_idToms_employees,
+      },
+    };
   }
 }

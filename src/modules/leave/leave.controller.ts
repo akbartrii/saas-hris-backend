@@ -77,6 +77,17 @@ export class LeaveController {
     return this.leaveService.listSubordinateLeaves(userId, companyId, query);
   }
 
+  @Get(":id")
+  @ApiOperation({ summary: "Get leave request by ID" })
+  @ApiResponse({ status: 200, description: "Leave request retrieved" })
+  async getLeaveById(
+    @CurrentUser("userId") userId: string,
+    @CompanyContext("id") companyId: string,
+    @Param("id", ParseUUIDPipe) id: string,
+  ) {
+    return this.leaveService.getLeaveById(userId, companyId, id);
+  }
+
   @Patch(":id/approve")
   @Roles("atasan", "manager_hrga", "admin", "super_admin")
   @ApiOperation({ summary: "Approve or reject a leave request" })

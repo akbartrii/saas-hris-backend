@@ -20,6 +20,11 @@ import { EmployeeService } from "./employee.service";
 import { ListEmployeeDto } from "./dto/list-employee.dto";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
 import { UpdateEmployeeDto } from "./dto/update-employee.dto";
+import {
+  AssignScheduleDto,
+  UpdateEmployeeScheduleDto,
+} from "./dto/assign-schedule.dto";
+import { ToggleWebClockInDto } from "./dto/toggle-web-clock-in.dto";
 import { JwtAuthGuard } from "../../common/guards/jwt-auth.guard";
 import { RolesGuard } from "../../common/guards/roles.guard";
 import { Roles } from "../../common/decorators/roles.decorator";
@@ -64,20 +69,28 @@ export class EmployeeController {
   @ApiOperation({ summary: "Get team mates of current user" })
   @ApiResponse({ status: 200, description: "Team mates retrieved" })
   async getTeamMates(
-    @CurrentUser("userId") userId: string,
+    @CurrentUser("employeeId") employeeId: string,
     @CompanyContext("id") companyId: string,
   ) {
-    return this.employeeService.getTeamMates(userId, companyId);
+    return this.employeeService.getTeamMates(employeeId, companyId);
   }
 
   @Get("subordinates")
+  @Roles("atasan", "manager_hrga", "admin", "super_admin")
   @ApiOperation({ summary: "Get subordinates of current user" })
   @ApiResponse({ status: 200, description: "Subordinates retrieved" })
   async getSubordinates(
-    @CurrentUser("userId") userId: string,
+    @CurrentUser("employeeId") employeeId: string,
     @CompanyContext("id") companyId: string,
+    @Query("page") page?: number,
+    @Query("limit") limit?: number,
   ) {
-    return this.employeeService.getSubordinates(userId, companyId);
+    return this.employeeService.getSubordinates(
+      employeeId,
+      companyId,
+      page,
+      limit,
+    );
   }
 
   @Get(":id")
@@ -117,6 +130,38 @@ export class EmployeeController {
     return this.employeeService.getEmployeeSchedules(userId, companyId, id);
   }
 
+  @Post(":id/schedules")
+  @Roles("hrd", "admin", "super_admin")
+  @ApiOperation({ summary: "Assign work schedule to employee" })
+  @ApiResponse({ status: 201, description: "Schedule assigned successfully" })
+  async assignSchedule(
+    @CurrentUser("userId") userId: string,
+    @CompanyContext("id") companyId: string,
+    @Param("id", ParseUUIDPipe) id: string,
+    @Body() dto: AssignScheduleDto,
+  ) {
+    return this.employeeService.assignSchedule(companyId, id, dto);
+  }
+
+  @Patch(":id/schedules/:scheduleId")
+  @Roles("hrd", "admin", "super_admin")
+  @ApiOperation({ summary: "Update employee schedule assignment" })
+  @ApiResponse({ status: 200, description: "Schedule updated successfully" })
+  async updateEmployeeSchedule(
+    @CurrentUser("userId") userId: string,
+    @CompanyContext("id") companyId: string,
+    @Param("id", ParseUUIDPipe) id: string,
+    @Param("scheduleId", ParseUUIDPipe) scheduleId: string,
+    @Body() dto: UpdateEmployeeScheduleDto,
+  ) {
+    return this.employeeService.updateEmployeeSchedule(
+      companyId,
+      id,
+      scheduleId,
+      dto,
+    );
+  }
+
   @Patch(":id/location")
   @ApiOperation({ summary: "Assign location to employee" })
   @ApiResponse({ status: 200, description: "Location assigned successfully" })
@@ -131,6 +176,24 @@ export class EmployeeController {
       companyId,
       id,
       dto.location_id,
+    );
+  }
+
+  @Patch(":id/toggle-web-clock-in")
+  @Roles("atasan", "manager_hrga", "hrd", "admin", "super_admin")
+  @ApiOperation({ summary: "Toggle web clock-in allowance for an employee" })
+  @ApiResponse({ status: 200, description: "Web clock-in toggled successfully" })
+  async toggleWebClockIn(
+    @CurrentUser() user: any,
+    @CompanyContext("id") companyId: string,
+    @Param("id", ParseUUIDPipe) id: string,
+    @Body() dto: ToggleWebClockInDto,
+  ) {
+    return this.employeeService.toggleWebClockIn(
+      id,
+      dto.allow,
+      user,
+      companyId,
     );
   }
 }

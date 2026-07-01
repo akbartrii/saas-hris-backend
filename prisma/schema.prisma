@@ -475,6 +475,7 @@ model ms_employees {
   is_security                                                                       Boolean?                    @default(false)
   is_active                                                                         Boolean?                    @default(true)
   face_registration_status                                                          String?                     @default("not_registered") @db.VarChar(50)
+  allow_web_clock_in                                                                Boolean?                    @default(false)
   created_at                                                                        DateTime?                   @default(now()) @db.Timestamptz(6)
   updated_at                                                                        DateTime?                   @default(now()) @db.Timestamptz(6)
   ms_departments_ms_departments_head_employee_idToms_employees                      ms_departments[]            @relation("ms_departments_head_employee_idToms_employees")

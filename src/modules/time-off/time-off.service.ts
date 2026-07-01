@@ -12,14 +12,74 @@ import { ListTimeOffDto } from "./dto/list-time-off.dto";
 export class TimeOffService {
   constructor(private prisma: PrismaService) {}
 
+  async listSubordinateTimeOffs(
+    userId: string,
+    companyId: string,
+    query: ListTimeOffDto,
+  ) {
+    const user = await this.prisma.ms_users.findUnique({
+      where: { id: userId, company_id: companyId },
+      include: { ms_employees: true },
+    });
+    if (!user || !user.ms_employees) {
+      throw new NotFoundException("Employee not found");
+    }
+
+    const page = Number(query.page) || 1;
+    const limit = Number(query.limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const subordinates = await this.prisma.ms_employees.findMany({
+      where: {
+        OR: [
+          { supervisor_id: user.ms_employees.id },
+          { manager_id: user.ms_employees.id },
+        ],
+        company_id: companyId,
+      },
+      select: { id: true },
+    });
+
+    const subordinateIds = subordinates.map((e) => e.id);
+    if (subordinateIds.length === 0) {
+      return { data: [], meta: { page, limit, total: 0 } };
+    }
+
+    const where: any = {
+      employee_id: { in: subordinateIds },
+      company_id: companyId,
+    };
+    if (query.status) {
+      where.status = query.status;
+    }
+
+    const [data, total] = await Promise.all([
+      this.prisma.tr_time_off_requests.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { created_at: "desc" },
+        include: {
+          ms_time_off_types: true,
+          ms_employees_tr_time_off_requests_employee_idToms_employees: {
+            select: { id: true, full_name: true },
+          },
+        },
+      }),
+      this.prisma.tr_time_off_requests.count({ where }),
+    ]);
+
+    return { data, meta: { page, limit, total } };
+  }
+
   async createTimeOff(
     userId: string,
     companyId: string,
     userRole: string,
     dto: CreateTimeOffDto,
   ) {
-    const employee = await this.prisma.ms_employees.findUnique({
-      where: { id: userId, company_id: companyId },
+    const employee = await this.prisma.ms_employees.findFirst({
+      where: { user_id: userId, company_id: companyId },
     });
     if (!employee) {
       throw new NotFoundException("Employee not found");
@@ -106,12 +166,19 @@ export class TimeOffService {
   }
 
   async listTimeOffs(userId: string, companyId: string, query: ListTimeOffDto) {
+    const employee = await this.prisma.ms_employees.findFirst({
+      where: { user_id: userId, company_id: companyId },
+    });
+    if (!employee) {
+      throw new NotFoundException("Employee not found");
+    }
+
     const page = Number(query.page) || 1;
     const limit = Number(query.limit) || 10;
     const skip = (page - 1) * limit;
 
     const where: any = {
-      employee_id: userId,
+      employee_id: employee.id,
       company_id: companyId,
     };
 

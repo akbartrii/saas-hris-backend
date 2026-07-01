@@ -78,6 +78,13 @@ export const DEFAULT_ROLES: RolePermissionDef[] = [
       { menu: "overnight", actions: ["list", "approve"] },
       { menu: "reimbursement", actions: ["list", "approve"] },
       { menu: "resignation", actions: ["list", "approve"] },
+      { menu: "subordinate-attendance", actions: ["list", "approve"] },
+      { menu: "subordinate-leave", actions: ["list", "approve"] },
+      { menu: "subordinate-reimbursement", actions: ["list", "approve"] },
+      { menu: "subordinate-overtime", actions: ["list", "approve"] },
+      { menu: "subordinate-overnight", actions: ["list", "approve"] },
+      { menu: "subordinate-timeoff", actions: ["list", "approve"] },
+      { menu: "subordinate-remotework", actions: ["list", "approve"] },
     ],
   },
   {

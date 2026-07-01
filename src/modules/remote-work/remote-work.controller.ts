@@ -16,6 +16,7 @@ import { ListRemoteWorkDto } from "./dto/list-remote-work.dto";
 import { ApproveRemoteWorkDto } from "./dto/approve-remote-work.dto";
 import { JwtAuthGuard } from "../../common/guards/jwt-auth.guard";
 import { RolesGuard } from "../../common/guards/roles.guard";
+import { Roles } from "../../common/decorators/roles.decorator";
 import { CurrentUser } from "../../common/decorators/current-user.decorator";
 import { CompanyContext } from "../../common/decorators/company-context.decorator";
 
@@ -37,6 +38,7 @@ export class RemoteWorkController {
   }
 
   @Get("subordinates")
+  @Roles("atasan", "manager_hrga", "admin", "super_admin")
   async listSubordinates(
     @CurrentUser("userId") userId: string,
     @CompanyContext("id") companyId: string,

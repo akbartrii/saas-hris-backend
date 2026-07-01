@@ -187,25 +187,13 @@ export class AuthService {
 
   async getAllPermissions() {
     const permissions = await this.prisma.ms_permissions.findMany({
-      include: { menu: true },
+      include: {
+        menu: { include: { parent: true } },
+      },
       orderBy: [{ menu: { sort_order: "asc" } }, { action: "asc" }],
     });
 
-    const grouped = new Map<string, string[]>();
-    for (const perm of permissions) {
-      const menuCode = perm.menu.code;
-      if (!grouped.has(menuCode)) {
-        grouped.set(menuCode, []);
-      }
-      if (!grouped.get(menuCode).includes(perm.action)) {
-        grouped.get(menuCode).push(perm.action);
-      }
-    }
-
-    return Array.from(grouped.entries()).map(([menu, actions]) => ({
-      menu,
-      actions,
-    }));
+    return this.formatPermissions(permissions);
   }
 
   async getUserPermissions(roleId: string | null, roleName?: string | null) {
@@ -219,24 +207,87 @@ export class AuthService {
       where: { role_id: roleId },
       include: {
         permission: {
-          include: { menu: true },
+          include: { menu: { include: { parent: true } } },
         },
       },
     });
 
-    const grouped = new Map<string, string[]>();
-    for (const rp of rolePermissions) {
-      const menuCode = rp.permission.menu.code;
-      if (!grouped.has(menuCode)) {
-        grouped.set(menuCode, []);
+    const permissions = rolePermissions.map((rp) => ({
+      id: rp.permission.id,
+      menu_id: rp.permission.menu_id,
+      action: rp.permission.action,
+      menu: rp.permission.menu,
+    }));
+
+    return this.formatPermissions(permissions);
+  }
+
+  private formatPermissions(
+    permissions: Array<{
+      action: string;
+      menu: { code: string; parent: { code: string } | null };
+    }>,
+  ) {
+    const childrenByParent = new Map<string, Map<string, string[]>>();
+    const topLevel = new Map<string, string[]>();
+
+    for (const perm of permissions) {
+      const menuCode = perm.menu.code;
+      const parentCode = perm.menu.parent?.code || null;
+
+      if (parentCode) {
+        if (!childrenByParent.has(parentCode)) {
+          childrenByParent.set(parentCode, new Map());
+        }
+        const childGroup = childrenByParent.get(parentCode)!;
+        if (!childGroup.has(menuCode)) {
+          childGroup.set(menuCode, []);
+        }
+        if (!childGroup.get(menuCode).includes(perm.action)) {
+          childGroup.get(menuCode).push(perm.action);
+        }
+      } else {
+        if (!topLevel.has(menuCode)) {
+          topLevel.set(menuCode, []);
+        }
+        if (!topLevel.get(menuCode).includes(perm.action)) {
+          topLevel.get(menuCode).push(perm.action);
+        }
       }
-      grouped.get(menuCode).push(rp.permission.action);
     }
 
-    return Array.from(grouped.entries()).map(([menu, actions]) => ({
-      menu,
-      actions,
-    }));
+    const result: any[] = [];
+    const processedParents = new Set<string>();
+
+    for (const [menu, actions] of topLevel) {
+      const children = childrenByParent.get(menu);
+      if (children && children.size > 0) {
+        const submenus = Array.from(children.entries()).map(
+          ([code, acts]) => ({
+            name: code.replace(`${menu}-`, ""),
+            actions: acts,
+          }),
+        );
+        result.push({ menu, submenus });
+      } else {
+        result.push({ menu, actions });
+      }
+      processedParents.add(menu);
+    }
+
+    for (const [parentCode, children] of childrenByParent) {
+      if (!processedParents.has(parentCode)) {
+        result.push({
+          menu: parentCode,
+          submenus: Array.from(children.entries()).map(([code, acts]) => ({
+            name: code.replace(`${parentCode}-`, ""),
+            actions: acts,
+          })),
+        });
+      }
+    }
+
+    return result;
   }
 
   async getUserPermissionsByUserId(userId: string) {

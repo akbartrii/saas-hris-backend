@@ -9,6 +9,10 @@ import { PrismaService } from "../../prisma/prisma.service";
 import { ListEmployeeDto } from "./dto/list-employee.dto";
 import { UpdateEmployeeDto } from "./dto/update-employee.dto";
 import { CreateEmployeeDto } from "./dto/create-employee.dto";
+import {
+  AssignScheduleDto,
+  UpdateEmployeeScheduleDto,
+} from "./dto/assign-schedule.dto";
 
 @Injectable()
 export class EmployeeService {
@@ -139,7 +143,7 @@ export class EmployeeService {
     const where: any = { company_id: companyId };
 
     if (!["admin", "hrd", "manager_hrga", "super_admin"].includes(userRole)) {
-      where.id = userId;
+      where.user_id = userId;
     }
 
     if (query.search) {
@@ -307,6 +311,8 @@ export class EmployeeService {
     if (dto.bank_account_holder !== undefined)
       data.bank_account_holder = dto.bank_account_holder;
     if (dto.shift_type !== undefined) data.shift_type = dto.shift_type;
+    if (dto.allow_web_clock_in !== undefined)
+      data.allow_web_clock_in = dto.allow_web_clock_in;
 
     return this.prisma.ms_employees.update({
       where: { id: employeeId },
@@ -319,6 +325,13 @@ export class EmployeeService {
     companyId: string,
     employeeId: string,
   ) {
+    const employee = await this.prisma.ms_employees.findUnique({
+      where: { id: employeeId, company_id: companyId },
+    });
+    if (!employee) {
+      throw new NotFoundException("Employee not found");
+    }
+
     const schedules = await this.prisma.tr_employee_schedules.findMany({
       where: {
         employee_id: employeeId,
@@ -333,7 +346,7 @@ export class EmployeeService {
 
   async getTeamMates(employeeId: string, companyId: string) {
     const employee = await this.prisma.ms_employees.findUnique({
-      where: { id: employeeId },
+      where: { id: employeeId, company_id: companyId },
     });
     if (!employee) throw new NotFoundException("Employee not found");
     return this.prisma.ms_employees.findMany({
@@ -345,9 +358,123 @@ export class EmployeeService {
     });
   }
 
-  async getSubordinates(employeeId: string, companyId: string) {
-    return this.prisma.ms_employees.findMany({
-      where: { supervisor_id: employeeId, company_id: companyId },
+  async getSubordinates(
+    employeeId: string,
+    companyId: string,
+    page: number = 1,
+    limit: number = 10,
+  ) {
+    const employee = await this.prisma.ms_employees.findUnique({
+      where: { id: employeeId, company_id: companyId },
+    });
+    if (!employee) throw new NotFoundException("Employee not found");
+
+    page = Number(page) || 1;
+    limit = Number(limit) || 10;
+    const skip = (page - 1) * limit;
+
+    const where = {
+      OR: [
+        { supervisor_id: employeeId },
+        { manager_id: employeeId },
+      ],
+      company_id: companyId,
+    };
+
+    const [data, total] = await Promise.all([
+      this.prisma.ms_employees.findMany({
+        where,
+        skip,
+        take: limit,
+        orderBy: { full_name: "asc" },
+      }),
+      this.prisma.ms_employees.count({ where }),
+    ]);
+
+    const totalPages = Math.ceil(total / limit);
+    return { data, meta: { page, limit, total, totalPages } };
+  }
+
+  async assignSchedule(
+    companyId: string,
+    employeeId: string,
+    dto: AssignScheduleDto,
+  ) {
+    const employee = await this.prisma.ms_employees.findUnique({
+      where: { id: employeeId, company_id: companyId },
+    });
+    if (!employee) {
+      throw new NotFoundException("Employee not found");
+    }
+
+    const schedule = await this.prisma.ms_work_schedules.findUnique({
+      where: { id: dto.schedule_id, company_id: companyId },
+    });
+    if (!schedule) {
+      throw new NotFoundException("Work schedule not found");
+    }
+
+    const effectiveDate = new Date(dto.effective_date);
+    const existing = await this.prisma.tr_employee_schedules.findUnique({
+      where: {
+        employee_id_effective_date: {
+          employee_id: employeeId,
+          effective_date: effectiveDate,
+        },
+      },
+    });
+    if (existing) {
+      throw new BadRequestException(
+        "Schedule already assigned for this effective date",
+      );
+    }
+
+    return this.prisma.tr_employee_schedules.create({
+      data: {
+        employee_id: employeeId,
+        schedule_id: dto.schedule_id,
+        effective_date: effectiveDate,
+        end_date: dto.end_date ? new Date(dto.end_date) : null,
+        company_id: companyId,
+      },
+      include: { ms_work_schedules: true },
+    });
+  }
+
+  async updateEmployeeSchedule(
+    companyId: string,
+    employeeId: string,
+    scheduleId: string,
+    dto: UpdateEmployeeScheduleDto,
+  ) {
+    const existing = await this.prisma.tr_employee_schedules.findUnique({
+      where: { id: scheduleId, employee_id: employeeId, company_id: companyId },
+    });
+    if (!existing) {
+      throw new NotFoundException("Employee schedule not found");
+    }
+
+    const data: any = {};
+    if (dto.schedule_id) {
+      const schedule = await this.prisma.ms_work_schedules.findUnique({
+        where: { id: dto.schedule_id, company_id: companyId },
+      });
+      if (!schedule) {
+        throw new NotFoundException("Work schedule not found");
+      }
+      data.schedule_id = dto.schedule_id;
+    }
+    if (dto.effective_date) {
+      data.effective_date = new Date(dto.effective_date);
+    }
+    if (dto.end_date !== undefined) {
+      data.end_date = dto.end_date ? new Date(dto.end_date) : null;
+    }
+
+    return this.prisma.tr_employee_schedules.update({
+      where: { id: scheduleId },
+      data,
+      include: { ms_work_schedules: true },
     });
   }
 
@@ -367,6 +494,34 @@ export class EmployeeService {
     return this.prisma.ms_employees.update({
       where: { id: employeeId },
       data: { location_id: locationId },
+    });
+  }
+
+  async toggleWebClockIn(
+    employeeId: string,
+    allow: boolean,
+    user: any,
+    companyId: string,
+  ) {
+    const employee = await this.prisma.ms_employees.findUnique({
+      where: { id: employeeId, company_id: companyId },
+      select: { id: true, supervisor_id: true, company_id: true },
+    });
+
+    if (!employee) {
+      throw new NotFoundException("Employee not found");
+    }
+
+    if (user.role === "atasan" && employee.supervisor_id !== user.employeeId) {
+      throw new ForbiddenException(
+        "You are not the supervisor of this employee",
+      );
+    }
+
+    return this.prisma.ms_employees.update({
+      where: { id: employeeId },
+      data: { allow_web_clock_in: allow },
+      select: { id: true, full_name: true, allow_web_clock_in: true },
     });
   }
 }

@@ -373,8 +373,24 @@ export class AttendanceService {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    await this.checkFaceRegistration(employee.id);
-    await this.verifyFace(employee.id, photo.buffer);
+    const isWeb = dto.source === "web";
+
+    if (isWeb) {
+      const emp = await this.prisma.ms_employees.findUnique({
+        where: { id: employee.id },
+        select: { allow_web_clock_in: true },
+      });
+      if (!emp?.allow_web_clock_in) {
+        throw new BadRequestException(
+          "Web clock-in is not allowed. Please use the mobile app or contact your supervisor.",
+        );
+      }
+    }
+
+    if (!isWeb) {
+      await this.checkFaceRegistration(employee.id);
+      await this.verifyFace(employee.id, photo.buffer);
+    }
 
     const existing = await this.prisma.tr_attendances.findFirst({
       where: { employee_id: employee.id, attendance_date: today },
@@ -478,8 +494,24 @@ export class AttendanceService {
     const today = new Date();
     today.setHours(0, 0, 0, 0);
 
-    await this.checkFaceRegistration(employee.id);
-    await this.verifyFace(employee.id, photo.buffer);
+    const isWeb = dto.source === "web";
+
+    if (isWeb) {
+      const emp = await this.prisma.ms_employees.findUnique({
+        where: { id: employee.id },
+        select: { allow_web_clock_in: true },
+      });
+      if (!emp?.allow_web_clock_in) {
+        throw new BadRequestException(
+          "Web clock-out is not allowed. Please use the mobile app or contact your supervisor.",
+        );
+      }
+    }
+
+    if (!isWeb) {
+      await this.checkFaceRegistration(employee.id);
+      await this.verifyFace(employee.id, photo.buffer);
+    }
 
     const attendance = await this.prisma.tr_attendances.findFirst({
       where: { employee_id: employee.id, attendance_date: today },
@@ -582,6 +614,11 @@ export class AttendanceService {
         (schedule.start_time as any as Date).getMinutes()
       : 480; // default 08:00
 
+    const employee = await this.prisma.ms_employees.findUnique({
+      where: { id: employeeId },
+      select: { allow_web_clock_in: true },
+    });
+
     return {
       date: today,
       attendance: attendance
@@ -611,6 +648,7 @@ export class AttendanceService {
       can_clock_in:
         !attendance?.clock_in && currentMinutes >= scheduleStartMinutes - 60,
       can_clock_out: !!attendance?.clock_in && !attendance?.clock_out,
+      can_clock_in_from_web: employee?.allow_web_clock_in ?? false,
     };
   }
 

@@ -174,4 +174,9 @@ export class UpdateEmployeeDto {
   @IsString()
   @MaxLength(255)
   bank_account_holder?: string;
+
+  @ApiPropertyOptional({ description: "Allow web clock-in" })
+  @IsOptional()
+  @IsBoolean()
+  allow_web_clock_in?: boolean;
 }

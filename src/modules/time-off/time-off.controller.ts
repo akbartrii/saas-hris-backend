@@ -46,6 +46,20 @@ export class TimeOffController {
     return this.timeOffService.listTimeOffs(userId, companyId, query);
   }
 
+  @Get("subordinates")
+  @Roles("atasan", "manager_hrga", "admin", "super_admin")
+  async listSubordinateTimeOffs(
+    @CurrentUser("userId") userId: string,
+    @CompanyContext("id") companyId: string,
+    @Query() query: ListTimeOffDto,
+  ) {
+    return this.timeOffService.listSubordinateTimeOffs(
+      userId,
+      companyId,
+      query,
+    );
+  }
+
   @Patch(":id/approve")
   @Roles("atasan", "manager_hrga", "admin", "super_admin")
   async approveTimeOff(

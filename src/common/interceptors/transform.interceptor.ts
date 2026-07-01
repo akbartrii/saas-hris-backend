@@ -89,6 +89,11 @@ export class TransformInterceptor<T> implements NestInterceptor<
       }
     }
 
+    // Preserve Date objects as-is (Prisma DateTime fields)
+    if (obj instanceof Date) {
+      return obj;
+    }
+
     if (typeof obj !== "object") {
       return obj;
     }

@@ -79,6 +79,7 @@ export class RemoteWorkService {
           { supervisor_id: user.ms_employees.id },
           { manager_id: user.ms_employees.id },
         ],
+        company_id: companyId,
       },
       select: { id: true },
     });
