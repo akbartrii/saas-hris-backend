@@ -10,7 +10,8 @@ describe("LeaveService", () => {
   let _prisma: any;
 
   const mockPrisma = {
-    ms_employees: { findUnique: jest.fn(), findMany: jest.fn() },
+    ms_employees: { findUnique: jest.fn(), findMany: jest.fn(), findFirst: jest.fn() },
+    ms_users: { findUnique: jest.fn() },
     ms_leave_types: { findUnique: jest.fn(), findMany: jest.fn() },
     tr_leave_requests: {
       findUnique: jest.fn(),
@@ -53,14 +54,14 @@ describe("LeaveService", () => {
     };
 
     it("should throw NotFoundException when employee not found", async () => {
-      mockPrisma.ms_employees.findUnique.mockResolvedValue(null);
+      mockPrisma.ms_employees.findFirst.mockResolvedValue(null);
       await expect(
         service.createLeave("u1", "c1", "karyawan", dto as any),
       ).rejects.toThrow(NotFoundException);
     });
 
     it("should throw NotFoundException when leave type not found", async () => {
-      mockPrisma.ms_employees.findUnique.mockResolvedValue({ id: "e1" });
+      mockPrisma.ms_employees.findFirst.mockResolvedValue({ id: "e1" });
       mockPrisma.ms_leave_types.findUnique.mockResolvedValue(null);
       await expect(
         service.createLeave("u1", "c1", "karyawan", dto as any),
@@ -68,9 +69,8 @@ describe("LeaveService", () => {
     });
 
     it("should throw BadRequestException when start > end", async () => {
-      mockPrisma.ms_employees.findUnique.mockResolvedValue({
+      mockPrisma.ms_employees.findFirst.mockResolvedValue({
         id: "e1",
-        ms_users: {},
       });
       mockPrisma.ms_leave_types.findUnique.mockResolvedValue({ id: "lt1" });
       await expect(
@@ -83,9 +83,8 @@ describe("LeaveService", () => {
     });
 
     it("should create leave request", async () => {
-      mockPrisma.ms_employees.findUnique.mockResolvedValue({
+      mockPrisma.ms_employees.findFirst.mockResolvedValue({
         id: "e1",
-        ms_users: {},
       });
       mockPrisma.ms_leave_types.findUnique.mockResolvedValue({ id: "lt1" });
       mockPrisma.tr_leave_requests.create.mockResolvedValue({
@@ -105,7 +104,7 @@ describe("LeaveService", () => {
 
   describe("getLeaveBalance", () => {
     it("should return balances", async () => {
-      mockPrisma.ms_employees.findUnique.mockResolvedValue({ id: "e1" });
+      mockPrisma.ms_employees.findFirst.mockResolvedValue({ id: "e1" });
       mockPrisma.ms_leave_types.findMany.mockResolvedValue([
         { id: "lt1", name: "Annual", default_days: 12 },
       ]);
@@ -121,6 +120,7 @@ describe("LeaveService", () => {
 
   describe("approveLeave", () => {
     it("should throw when leave not found", async () => {
+      mockPrisma.ms_employees.findFirst.mockResolvedValue({ id: "e1" });
       mockPrisma.tr_leave_requests.findUnique.mockResolvedValue(null);
       await expect(
         service.approveLeave(
@@ -134,6 +134,7 @@ describe("LeaveService", () => {
     });
 
     it("should approve leave", async () => {
+      mockPrisma.ms_employees.findFirst.mockResolvedValue({ id: "e1" });
       mockPrisma.tr_leave_requests.findUnique.mockResolvedValue({
         id: "l1",
         company_id: "c1",
@@ -154,6 +155,7 @@ describe("LeaveService", () => {
     });
 
     it("should reject leave", async () => {
+      mockPrisma.ms_employees.findFirst.mockResolvedValue({ id: "e1" });
       mockPrisma.tr_leave_requests.findUnique.mockResolvedValue({
         id: "l1",
         company_id: "c1",
@@ -204,6 +206,7 @@ describe("LeaveService", () => {
 
   describe("listLeaves", () => {
     it("should return paginated leaves", async () => {
+      mockPrisma.ms_employees.findFirst.mockResolvedValue({ id: "e1" });
       mockPrisma.tr_leave_requests.findMany.mockResolvedValue([
         { id: "l1", status: "pending" },
       ]);
@@ -219,6 +222,10 @@ describe("LeaveService", () => {
 
   describe("listSubordinateLeaves", () => {
     it("should return empty when no subordinates", async () => {
+      mockPrisma.ms_users.findUnique.mockResolvedValue({
+        id: "u1",
+        ms_employees: { id: "e1" },
+      });
       mockPrisma.ms_employees.findMany.mockResolvedValue([]);
 
       const result = await service.listSubordinateLeaves("u1", "c1", {

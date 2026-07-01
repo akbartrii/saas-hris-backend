@@ -15,7 +15,7 @@ describe("TimeOffService", () => {
       update: jest.fn(),
       count: jest.fn(),
     },
-    ms_employees: { findUnique: jest.fn() },
+    ms_employees: { findUnique: jest.fn(), findFirst: jest.fn() },
     tr_approvals: { create: jest.fn() },
   };
 
@@ -46,7 +46,7 @@ describe("TimeOffService", () => {
         reason: "Personal",
       };
 
-      mockPrisma.ms_employees.findUnique.mockResolvedValue({
+      mockPrisma.ms_employees.findFirst.mockResolvedValue({
         id: "e1",
         company_id: companyId,
       });
@@ -72,7 +72,7 @@ describe("TimeOffService", () => {
     });
 
     it("should throw if employee not found", async () => {
-      mockPrisma.ms_employees.findUnique.mockResolvedValue(null);
+      mockPrisma.ms_employees.findFirst.mockResolvedValue(null);
 
       await expect(
         service.createTimeOff("u1", "c1", "karyawan", {} as any),
@@ -86,7 +86,7 @@ describe("TimeOffService", () => {
       mockPrisma.tr_time_off_requests.findMany.mockResolvedValue([
         { id: "to1" },
       ]);
-      mockPrisma.ms_employees.findUnique.mockResolvedValue({
+      mockPrisma.ms_employees.findFirst.mockResolvedValue({
         id: "e1",
         company_id: "c1",
       });
